@@ -5,7 +5,7 @@ const TAG = 30 * 24 * 3600 * 1000;
 const PREFIX = 'daten/inhalte-';
 
 function key() {
-  const pw = process.env.PFLEGE_PASSWORT;
+  const pw = String(process.env.PFLEGE_PASSWORT || '').trim();
   if (!pw) throw new Error('PFLEGE_PASSWORT fehlt');
   return pw;
 }
@@ -17,7 +17,7 @@ export function makeToken() {
   return exp + '.' + sign(exp);
 }
 export function checkPassword(input) {
-  const a = Buffer.from(String(input || ''));
+  const a = Buffer.from(String(input || '').trim());
   const b = Buffer.from(key());
   return a.length === b.length && timingSafeEqual(a, b);
 }

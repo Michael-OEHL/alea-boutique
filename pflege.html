@@ -76,7 +76,7 @@
     <h1 id="h-login">aLea Pflege</h1>
     <p class="muted">Hier stellt ihr Neuheiten und Events auf die Website.</p>
     <form id="f-login" class="card" novalidate>
-      <div class="field"><label for="pw">Passwort</label><input type="password" id="pw" autocomplete="current-password" required></div>
+      <div class="field"><label for="pw">Passwort</label><input type="password" id="pw" autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" required><label style="display:flex;gap:8px;align-items:center;font-weight:400;font-size:.9rem;margin-top:4px"><input type="checkbox" id="pw-show"> Passwort anzeigen</label></div>
       <button class="btn" type="submit">Anmelden</button>
       <p class="msg bad" id="login-msg" role="alert" hidden></p>
     </form>
@@ -196,6 +196,7 @@
       .catch(function (err) { meldung(m, err.message); });
   });
   $('logout').addEventListener('click', abmelden);
+  $('pw-show').addEventListener('change', function (e) { $('pw').type = e.target.checked ? 'text' : 'password'; });
   document.querySelectorAll('[data-go]').forEach(function (b) { b.addEventListener('click', function () { zeige(b.dataset.go); }); });
 
   function laden() {
