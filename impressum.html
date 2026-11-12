@@ -93,23 +93,21 @@
   .rail figure { scroll-snap-align: start; margin: 0; }
   .rail img { aspect-ratio: 2 / 3; object-fit: cover; width: 100%; }
   .mosaic { display: grid; gap: clamp(.5rem, 1.2vw, 1rem); grid-template-columns: 1fr 1fr; }
-  .mosaic figure { margin: 0; overflow: hidden; background: var(--beige); }
+  .mosaic figure { margin: 0; overflow: hidden; background: var(--beige); min-height: 0; }
   .mosaic img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .mosaic .m-a { grid-column: 1 / -1; aspect-ratio: 4 / 5; }
-  .mosaic .m-b { grid-column: 1 / -1; aspect-ratio: 3 / 2; }
-  .mosaic .m-b img { object-position: 50% 45%; }
   .mosaic .m-c, .mosaic .m-d { aspect-ratio: 4 / 5; }
+  .mosaic .m-b { display: none; }
+  .mosaic .m-b img { object-position: 40% 55%; }
+  .mosaic .m-d img { object-position: 50% 30%; }
   @media (min-width: 768px) {
-    .mosaic { grid-template-columns: 5fr 3fr 3fr; grid-template-rows: 1fr 1fr; aspect-ratio: 17 / 10; }
-    .mosaic .m-a { grid-column: 1; grid-row: 1 / 3; aspect-ratio: auto; }
-    .mosaic .m-b { grid-column: 2 / 4; grid-row: 1; aspect-ratio: auto; }
-    .mosaic .m-c { grid-column: 2; grid-row: 2; aspect-ratio: auto; }
-    .mosaic .m-d { grid-column: 3; grid-row: 2; aspect-ratio: auto; }
+    .mosaic { grid-template-columns: 5fr 3fr 3fr; grid-template-rows: 1fr 1fr; height: calc(21rem * 1.5); }
+    .mosaic figure { aspect-ratio: auto !important; }
+    .mosaic .m-a { grid-column: 1; grid-row: 1 / 3; }
+    .mosaic .m-b { display: block; grid-column: 2 / 4; grid-row: 1; }
+    .mosaic .m-c { grid-column: 2; grid-row: 2; }
+    .mosaic .m-d { grid-column: 3; grid-row: 2; }
   }
-  .alle-fotos summary { cursor: pointer; display: inline-flex; min-height: 44px; align-items: center; font-size: .9375rem; list-style: none; }
-  .alle-fotos summary::-webkit-details-marker { display: none; }
-  .alle-fotos summary::after { content: " →"; white-space: pre; }
-  .alle-fotos[open] summary::after { content: " ↑"; }
   .rail-btn { width: 50px; height: 50px; border: 1px solid var(--ink); display: inline-flex; align-items: center; justify-content: center; font-size: 1.1rem; }
   .rail-btn:hover { background: var(--ink); color: var(--paper); }
 
