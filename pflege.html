@@ -88,6 +88,7 @@
     <p class="muted">Was möchtet ihr heute auf die Website stellen?</p>
     <p class="msg ok" id="home-msg" role="status" hidden></p>
     <div class="tiles">
+      <button class="tile" type="button" data-go="s-saison"><span><strong>Überschrift „Neu &amp; Events“</strong><span class="muted small">passend zur Saison, z. B. „Der Winter ist da“</span></span><span aria-hidden="true">→</span></button>
       <button class="tile" type="button" data-go="s-neu"><span><strong>Neu eingetroffen</strong><span class="muted small">1 Foto, Titel, 1–2 Sätze</span></span><span aria-hidden="true">→</span></button>
       <button class="tile" type="button" data-go="s-event"><span><strong>Neues Event</strong><span class="muted small">Titel, Datum, Text, Fotos</span></span><span aria-hidden="true">→</span></button>
       <button class="tile" type="button" data-go="s-fotos"><span><strong>Fotos ergänzen</strong><span class="muted small">zu einem Event, z. B. Style &amp; Wine</span></span><span aria-hidden="true">→</span></button>
@@ -95,6 +96,18 @@
     <h2>Gerade online</h2>
     <ul class="list" id="online"><li><span class="muted">Wird geladen …</span></li></ul>
     <p><a href="/#neu" class="small" style="color:var(--ink)">Zur Website</a></p>
+  </section>
+
+  <section id="s-saison" aria-labelledby="h-saison" hidden>
+    <div class="top"><button class="back" type="button" data-go="s-home">← Zurück</button></div>
+    <h1 id="h-saison" tabindex="-1">Überschrift „Neu &amp; Events“</h1>
+    <p class="muted">Steht auf der Website über „Neu eingetroffen“ und den Events.</p>
+    <form id="f-saison" class="card" novalidate>
+      <div class="field"><label for="sa-titel">Überschrift</label><input type="text" id="sa-titel" maxlength="90" required></div>
+      <div class="field"><label for="sa-text">Text daneben</label><textarea id="sa-text" maxlength="400"></textarea><p class="hint">2–3 Sätze: was gerade neu ist und was ansteht.</p></div>
+      <button class="btn" type="submit" id="sa-save">Speichern</button>
+      <p class="msg bad" id="sa-msg" role="alert" hidden></p>
+    </form>
   </section>
 
   <section id="s-neu" aria-labelledby="h-neu" hidden>
@@ -146,6 +159,7 @@
 <script>
 (function () {
   var STATISCH = [{ id: 'wine', titel: 'Style & Wine (November 2026)' }, { id: 'lang', titel: 'Modenschau Autohaus Lang (September 2026)' }, { id: 'eroeffnung', titel: 'Eröffnung (März 2026)' }];
+  var SAISON = { titel: 'Der Herbst ist da', text: 'Strick, Satin, Leo und warme Brauntöne: Jede Woche kommen neue Lieblingsstücke dazu. Und mehrmals im Jahr feiern wir mit dir, bei Modenschauen, Saisonstarts und Abenden mit Partnern aus der Region.' };
   var MONATE = ['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
   var $ = function (id) { return document.getElementById(id); };
   var token = null, inhalt = null;
@@ -156,6 +170,7 @@
     var h = document.querySelector('#' + id + ' h1'); if (h) h.focus();
     window.scrollTo(0, 0);
     if (id === 's-fotos') fuelleEvents();
+    if (id === 's-saison') { var s = (inhalt && inhalt.saison) || SAISON; $('sa-titel').value = s.titel; $('sa-text').value = s.text; }
   }
   function meldung(el, text) { el.textContent = text; el.hidden = !text; }
 
@@ -206,6 +221,7 @@
   function zeigeOnline() {
     var ul = $('online'); ul.replaceChildren();
     var n = 0;
+    if (inhalt.saison) { n++; ul.appendChild(eintrag('Überschrift: ' + inhalt.saison.titel, 'Neu & Events', null)); }
     (inhalt.neu || []).forEach(function (x, i) {
       n++;
       ul.appendChild(eintrag('Neu eingetroffen: ' + x.titel, i === 0 ? 'wird gerade gezeigt' : 'älter, nicht mehr sichtbar', function () { speichern({ aktion: 'neu-loeschen', id: x.id }, 'Gelöscht.'); }));
@@ -271,6 +287,17 @@
       fig.append(im, b); container.appendChild(fig);
     });
   }
+
+  // Saison-Überschrift
+  $('f-saison').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var m = $('sa-msg'); meldung(m, '');
+    if (!$('sa-titel').value.trim()) { meldung(m, 'Bitte eine Überschrift eingeben.'); return; }
+    var btn = $('sa-save'); btn.disabled = true;
+    speichern({ aktion: 'saison-setzen', titel: $('sa-titel').value, text: $('sa-text').value }, 'Die Überschrift ist geändert.')
+      .catch(function (err) { meldung(m, err.message); })
+      .finally(function () { btn.disabled = false; });
+  });
 
   // Neu eingetroffen
   var neuFile = null;

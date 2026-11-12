@@ -773,6 +773,10 @@
   }
   fetch('/api/content').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
     if (!d) return;
+    if (d.saison && d.saison.titel) {
+      var h = document.getElementById('events-h'); if (h) h.textContent = d.saison.titel;
+      var intro = document.querySelector('#neu .md\\:col-span-5'); if (intro && d.saison.text) intro.textContent = d.saison.text;
+    }
     var n = (d.neu || [])[0], art = document.querySelector('article.new-in');
     if (n && art) {
       var box = art.querySelector('.new-in-img'); box.replaceChildren(bild(n.foto, '(min-width: 768px) 34vw, 100vw'));

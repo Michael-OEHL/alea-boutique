@@ -37,7 +37,7 @@ export function authorized(request) {
 export function json(data, status = 200, headers = {}) {
   return new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json; charset=utf-8', ...headers } });
 }
-export const LEER = { neu: [], events: [], eventFotos: {}, geaendert: null };
+export const LEER = { saison: null, neu: [], events: [], eventFotos: {}, geaendert: null };
 
 export async function lesen() {
   const { blobs } = await list({ prefix: PREFIX, limit: 100 });

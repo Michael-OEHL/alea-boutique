@@ -20,7 +20,10 @@ export async function POST(request) {
   const inh = await lesen();
   let weg = [];
 
-  if (b.aktion === 'neu-anlegen') {
+  if (b.aktion === 'saison-setzen') {
+    if (!txt(b.titel, 90)) return json({ fehler: 'Bitte eine Überschrift eingeben.' }, 400);
+    inh.saison = { titel: txt(b.titel, 90), text: txt(b.text, 400) };
+  } else if (b.aktion === 'neu-anlegen') {
     const f = foto(b.foto);
     if (!f || !txt(b.titel, 90)) return json({ fehler: 'Foto und Titel fehlen.' }, 400);
     inh.neu.unshift({ id: randomUUID(), titel: txt(b.titel, 90), text: txt(b.text, 300), foto: f, datum: new Date().toISOString().slice(0, 10) });
