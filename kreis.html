@@ -254,10 +254,11 @@
 
     <fieldset>
       <legend class="label mb-1">Dein Geburtstag <span style="text-transform:none;letter-spacing:0">(freiwillig)</span></legend>
-      <p class="text-[.875rem] text-muted mb-2">Nur Tag und Monat, damit wir an dich denken können.</p>
-      <div class="grid grid-cols-2 gap-6 max-w-[22rem]">
+      <p class="text-[.875rem] text-muted mb-2">Damit wir an deinem Geburtstag an dich denken können. Das Jahr hilft uns, unsere Auswahl auf dich abzustimmen.</p>
+      <div class="grid grid-cols-3 gap-4 sm:gap-6 max-w-[30rem]">
         <div class="field"><label for="k-tag">Tag</label><select id="k-tag" name="gebTag"><option value="">–</option></select></div>
         <div class="field"><label for="k-monat">Monat</label><select id="k-monat" name="gebMonat"><option value="">–</option></select></div>
+        <div class="field"><label for="k-jahr">Jahr</label><select id="k-jahr" name="gebJahr"><option value="">–</option></select></div>
       </div>
     </fieldset>
 
@@ -282,6 +283,8 @@
   var MON = ['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
   for (var d = 1; d <= 31; d++) $('k-tag').add(new Option(d + '.', d));
   MON.forEach(function (m, i) { $('k-monat').add(new Option(m, i + 1)); });
+  var J = new Date().getFullYear();
+  for (var y = J - 14; y >= J - 100; y--) $('k-jahr').add(new Option(y, y));
   function umschalten() { $('k-tel-feld').hidden = !$('k-wa').checked; $('k-email-feld').hidden = !$('k-mail').checked; }
   $('k-wa').addEventListener('change', umschalten); $('k-mail').addEventListener('change', umschalten);
   var q = new URLSearchParams(location.search);
@@ -333,7 +336,7 @@
     if (!wa && !ml) return fehler('weg');
     if (wa && $('k-tel').value.replace(/\D/g, '').length < 8) return fehler('tel');
     if (ml && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test($('k-email').value.trim())) return fehler('email');
-    var daten = { t: geoeffnet, name: $('k-name').value, plz: $('k-plz').value.trim(), wa: wa, mail: ml, tel: wa ? $('k-tel').value : '', email: ml ? $('k-email').value : '', gebTag: $('k-tag').value, gebMonat: $('k-monat').value, website: $('k-website').value, quelle: form.dataset.quelle || '' };
+    var daten = { t: geoeffnet, name: $('k-name').value, plz: $('k-plz').value.trim(), wa: wa, mail: ml, tel: wa ? $('k-tel').value : '', email: ml ? $('k-email').value : '', gebTag: $('k-tag').value, gebMonat: $('k-monat').value, gebJahr: $('k-jahr').value, website: $('k-website').value, quelle: form.dataset.quelle || '' };
     knopf.disabled = true; knopf.textContent = 'Einen Moment …'; msg.hidden = true;
     post(daten).then(function (j) {
       knopf.disabled = false; knopf.textContent = 'Dabei sein';

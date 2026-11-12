@@ -7,6 +7,7 @@ export const EINWILLIGUNG = {
   mail: 'Ja, schickt mir Neuheiten, Einladungen und persönliche Angebote per E-Mail. Abmelden geht jederzeit.',
 };
 const sauber = (v, n) => String(v == null ? '' : v).replace(/[\u0000-\u001F]/g, ' ').trim().slice(0, n);
+const gebText = (g) => (!g ? '–' : (g.tag ? g.tag + '.' + g.monat + '.' : '') + (g.jahr ? (g.tag ? '' : 'Jahrgang ') + g.jahr : ''));
 const vorname = (n) => String(n || '').trim().split(/\s+/)[0] || '';
 
 export async function POST(request) {
@@ -34,7 +35,10 @@ async function anmelden(b, request) {
   const tel = wa ? telefonNorm(b.tel) : '';
   const email = perMail ? sauber(b.email, 150).toLowerCase() : '';
   const tag = parseInt(b.gebTag, 10), monat = parseInt(b.gebMonat, 10);
-  const geburtstag = tag >= 1 && tag <= 31 && monat >= 1 && monat <= 12 ? { tag, monat } : null;
+  const jahrJetzt = new Date().getFullYear();
+  const jahrRoh = parseInt(b.gebJahr, 10);
+  const jahr = jahrRoh >= jahrJetzt - 100 && jahrRoh <= jahrJetzt - 14 ? jahrRoh : null;
+  const geburtstag = tag >= 1 && tag <= 31 && monat >= 1 && monat <= 12 ? { tag, monat, jahr } : jahr ? { tag: null, monat: null, jahr } : null;
 
   if (!name) return json({ ok: false, fehler: 'name' }, 400);
   if (!/^\d{4,5}$/.test(plz)) return json({ ok: false, fehler: 'plz' }, 400);
@@ -87,7 +91,7 @@ async function anmelden(b, request) {
         'PLZ: ' + plz,
         'WhatsApp: ' + (m.einwilligung.wa ? m.tel + '  → bitte in die WhatsApp-Liste aufnehmen' : 'nein'),
         'E-Mail: ' + (m.einwilligung.mail ? m.email + (m.einwilligung.mail.bestaetigt ? ' (bestätigt)' : ' (Bestätigung ausstehend)') : 'nein'),
-        'Geburtstag: ' + (m.geburtstag ? m.geburtstag.tag + '.' + m.geburtstag.monat + '.' : '–'),
+        'Geburtstag: ' + gebText(m.geburtstag),
         '',
         'Alle Mitglieder: ' + basis + '/pflege',
       ].join('\n'),

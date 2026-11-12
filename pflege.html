@@ -218,6 +218,8 @@
 
   // aLea-Kreis
   var kreis = [];
+  function alter(m) { var g = m.geburtstag; if (!g || !g.jahr) return null; var h = new Date(), a = h.getFullYear() - g.jahr; if (g.monat && (h.getMonth() + 1 < g.monat || (h.getMonth() + 1 === g.monat && h.getDate() < g.tag))) a--; return a; }
+  function gruppe(a) { return a < 30 ? 'unter 30' : a < 40 ? '30–39' : a < 50 ? '40–49' : a < 60 ? '50–59' : '60+'; }
   function kreisLaden() {
     meldung($('kr-msg'), '');
     api('/api/kreis-liste').then(function (d) { kreis = d.liste || []; kreisZeigen(); })
@@ -237,11 +239,13 @@
     zeile('WhatsApp: ' + wa + ' · E-Mail bestätigt: ' + ml + (offen ? ' · E-Mail noch offen: ' + offen : ''));
     if (laden) zeile('Davon im Laden angemeldet: ' + laden);
     if (top) zeile('Häufigste PLZ: ' + top);
+    var gr = {}; kreis.forEach(function (m) { var a = alter(m); if (a != null) { var k = gruppe(a); gr[k] = (gr[k] || 0) + 1; } });
+    var gk = Object.keys(gr).sort(); if (gk.length) zeile('Alter: ' + gk.map(function (k) { return k + ' (' + gr[k] + ')'; }).join(', '));
     var ul = $('kr-liste'); ul.replaceChildren();
     if (!kreis.length) ul.appendChild(eintrag('Noch keine Anmeldungen.', 'Sobald sich jemand anmeldet, steht sie hier.', null));
     kreis.forEach(function (m) {
       var wege = [m.tel ? 'WhatsApp ' + m.tel : '', m.email ? m.email + (m.mailBestaetigt ? '' : ' (nicht bestätigt)') : ''].filter(Boolean).join(' · ');
-      var geb = m.geburtstag ? ' · Geburtstag ' + m.geburtstag.tag + '. ' + MONATE[m.geburtstag.monat - 1] : '';
+      var g = m.geburtstag, geb = !g ? '' : g.tag ? ' · Geburtstag ' + g.tag + '. ' + MONATE[g.monat - 1] + (g.jahr ? ' ' + g.jahr : '') : g.jahr ? ' · Jahrgang ' + g.jahr : '';
       ul.appendChild(eintrag(m.name + ' · ' + m.plz, wege + geb + ' · seit ' + new Date(m.angemeldet).toLocaleDateString('de-AT'), function () {
         api('/api/kreis-liste', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ aktion: 'entfernen', id: m.id }) })
           .then(kreisLaden).catch(function (err) { meldung($('kr-msg'), err.message); });
@@ -258,8 +262,8 @@
   $('kr-mail').addEventListener('click', function () { kopieren(kreis.filter(function (m) { return m.email && m.mailBestaetigt; }).map(function (m) { return m.email; }).join(', '), 'E-Mail-Adressen'); });
   $('kr-csv').addEventListener('click', function () {
     var q = function (v) { return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; };
-    var rows = [['Name', 'PLZ', 'WhatsApp', 'E-Mail', 'E-Mail bestätigt', 'Geburtstag', 'Angemeldet', 'Quelle', 'Abmeldelink']].concat(kreis.map(function (m) {
-      return [m.name, m.plz, m.tel, m.email, m.email ? (m.mailBestaetigt ? 'ja' : 'nein') : '', m.geburtstag ? m.geburtstag.tag + '.' + m.geburtstag.monat + '.' : '', new Date(m.angemeldet).toLocaleDateString('de-AT'), m.quelle, m.abmelden];
+    var rows = [['Name', 'PLZ', 'WhatsApp', 'E-Mail', 'E-Mail bestätigt', 'Geburtstag', 'Altersgruppe', 'Angemeldet', 'Quelle', 'Abmeldelink']].concat(kreis.map(function (m) {
+      return [m.name, m.plz, m.tel, m.email, m.email ? (m.mailBestaetigt ? 'ja' : 'nein') : '', m.geburtstag && m.geburtstag.tag ? m.geburtstag.tag + '.' + m.geburtstag.monat + '.' + (m.geburtstag.jahr || '') : '', alter(m) == null ? '' : gruppe(alter(m)), new Date(m.angemeldet).toLocaleDateString('de-AT'), m.quelle, m.abmelden];
     }));
     var csv = '\ufeff' + rows.map(function (r) { return r.map(q).join(';'); }).join('\r\n');
     var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
