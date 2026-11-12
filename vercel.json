@@ -8,6 +8,11 @@
       "permanent": true
     },
     {
+      "source": "/qr",
+      "destination": "/kreis?quelle=laden",
+      "permanent": false
+    },
+    {
       "source": "/datenschutzerklaerung",
       "destination": "/datenschutz",
       "permanent": true
