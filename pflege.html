@@ -92,6 +92,7 @@
       <button class="tile" type="button" data-go="s-neu"><span><strong>Neu eingetroffen</strong><span class="muted small">1 Foto, Titel, 1–2 Sätze</span></span><span aria-hidden="true">→</span></button>
       <button class="tile" type="button" data-go="s-event"><span><strong>Neues Event</strong><span class="muted small">Titel, Datum, Text, Fotos</span></span><span aria-hidden="true">→</span></button>
       <button class="tile" type="button" data-go="s-fotos"><span><strong>Fotos ergänzen</strong><span class="muted small">zu einem Event, z. B. Style &amp; Wine</span></span><span aria-hidden="true">→</span></button>
+      <button class="tile" type="button" data-go="s-kreis"><span><strong>aLea-Kreis</strong><span class="muted small">Anmeldungen ansehen, Nummern und Adressen kopieren</span></span><span aria-hidden="true">→</span></button>
     </div>
     <h2>Gerade online</h2>
     <ul class="list" id="online"><li><span class="muted">Wird geladen …</span></li></ul>
@@ -154,12 +155,27 @@
       <p class="msg bad" id="fo-msg" role="alert" hidden></p>
     </form>
   </section>
+  <section id="s-kreis" aria-labelledby="h-kreis" hidden>
+    <div class="top"><button class="back" type="button" data-go="s-home">← Zurück</button></div>
+    <h1 id="h-kreis" tabindex="-1">aLea-Kreis</h1>
+    <p class="msg bad" id="kr-msg" role="alert" hidden></p>
+    <div class="card" id="kr-zahlen"><p class="muted">Wird geladen …</p></div>
+    <div class="card">
+      <button class="btn" type="button" id="kr-wa">WhatsApp-Nummern kopieren</button>
+      <button class="btn line" type="button" id="kr-mail">E-Mail-Adressen kopieren</button>
+      <button class="btn line" type="button" id="kr-csv">Liste herunterladen (Excel)</button>
+      <p class="hint" id="kr-kopiert" role="status"></p>
+      <p class="hint">Anmeldung für Kundinnen: alea-boutique.com/kreis. Für den QR-Code an der Kasse: alea-boutique.com/kreis?quelle=laden, dann seht ihr, wer sich im Laden angemeldet hat.</p>
+    </div>
+    <h2>Mitglieder</h2>
+    <ul class="list" id="kr-liste"></ul>
+  </section>
 </div>
 
 <script>
 (function () {
   var STATISCH = [{ id: 'wine', titel: 'Style & Wine (November 2026)' }, { id: 'lang', titel: 'Modenschau Autohaus Lang (September 2026)' }, { id: 'eroeffnung', titel: 'Eröffnung (März 2026)' }];
-  var SAISON = { titel: 'Der Herbst ist da', text: 'Strick, Satin, Leo und warme Brauntöne: Jede Woche kommen neue Lieblingsstücke dazu. Und mehrmals im Jahr feiern wir mit dir, bei Modenschauen, Saisonstarts und Abenden mit Partnern aus der Region.' };
+  var SAISON = { titel: 'Bereit für den Winter', text: 'Kuschelige Jacken, weicher Strick und Satin für die Feiertage: Jede Woche kommen neue Lieblingsstücke dazu. Im Advent haben wir für dich länger offen, am 12. und 19. Dezember bis 15 Uhr.' };
   var MONATE = ['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
   var $ = function (id) { return document.getElementById(id); };
   var token = null, inhalt = null;
@@ -170,6 +186,7 @@
     var h = document.querySelector('#' + id + ' h1'); if (h) h.focus();
     window.scrollTo(0, 0);
     if (id === 's-fotos') fuelleEvents();
+    if (id === 's-kreis') kreisLaden();
     if (id === 's-saison') { var s = (inhalt && inhalt.saison) || SAISON; $('sa-titel').value = s.titel; $('sa-text').value = s.text; }
   }
   function meldung(el, text) { el.textContent = text; el.hidden = !text; }
@@ -198,6 +215,56 @@
   $('logout').addEventListener('click', abmelden);
   $('pw-show').addEventListener('change', function (e) { $('pw').type = e.target.checked ? 'text' : 'password'; });
   document.querySelectorAll('[data-go]').forEach(function (b) { b.addEventListener('click', function () { zeige(b.dataset.go); }); });
+
+  // aLea-Kreis
+  var kreis = [];
+  function kreisLaden() {
+    meldung($('kr-msg'), '');
+    api('/api/kreis-liste').then(function (d) { kreis = d.liste || []; kreisZeigen(); })
+      .catch(function (err) { meldung($('kr-msg'), err.message === 'speicher' ? 'Der Speicher für den aLea-Kreis ist noch nicht verbunden.' : err.message); $('kr-zahlen').replaceChildren(); });
+  }
+  function kreisZeigen() {
+    var wa = kreis.filter(function (m) { return m.tel; }).length;
+    var ml = kreis.filter(function (m) { return m.email && m.mailBestaetigt; }).length;
+    var offen = kreis.filter(function (m) { return m.email && !m.mailBestaetigt; }).length;
+    var laden = kreis.filter(function (m) { return m.quelle === 'laden'; }).length;
+    var plz = {}; kreis.forEach(function (m) { plz[m.plz] = (plz[m.plz] || 0) + 1; });
+    var top = Object.keys(plz).sort(function (a, b) { return plz[b] - plz[a]; }).slice(0, 5).map(function (k) { return k + ' (' + plz[k] + ')'; }).join(', ');
+    var z = $('kr-zahlen'); z.replaceChildren();
+    function zeile(t) { var p = document.createElement('p'); p.style.margin = '0'; p.textContent = t; z.appendChild(p); }
+    var h = document.createElement('p'); h.className = 'serif'; h.style.cssText = 'margin:0;font-family:var(--serif);font-size:2.4rem;line-height:1'; h.textContent = kreis.length; z.appendChild(h);
+    zeile(kreis.length === 1 ? 'Mitglied' : 'Mitglieder');
+    zeile('WhatsApp: ' + wa + ' · E-Mail bestätigt: ' + ml + (offen ? ' · E-Mail noch offen: ' + offen : ''));
+    if (laden) zeile('Davon im Laden angemeldet: ' + laden);
+    if (top) zeile('Häufigste PLZ: ' + top);
+    var ul = $('kr-liste'); ul.replaceChildren();
+    if (!kreis.length) ul.appendChild(eintrag('Noch keine Anmeldungen.', 'Sobald sich jemand anmeldet, steht sie hier.', null));
+    kreis.forEach(function (m) {
+      var wege = [m.tel ? 'WhatsApp ' + m.tel : '', m.email ? m.email + (m.mailBestaetigt ? '' : ' (nicht bestätigt)') : ''].filter(Boolean).join(' · ');
+      var geb = m.geburtstag ? ' · Geburtstag ' + m.geburtstag.tag + '. ' + MONATE[m.geburtstag.monat - 1] : '';
+      ul.appendChild(eintrag(m.name + ' · ' + m.plz, wege + geb + ' · seit ' + new Date(m.angemeldet).toLocaleDateString('de-AT'), function () {
+        api('/api/kreis-liste', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ aktion: 'entfernen', id: m.id }) })
+          .then(kreisLaden).catch(function (err) { meldung($('kr-msg'), err.message); });
+      }));
+    });
+  }
+  function kopieren(text, was) {
+    var h = $('kr-kopiert');
+    if (!text) { h.textContent = 'Noch keine ' + was + ' vorhanden.'; return; }
+    (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () { h.textContent = was + ' kopiert.'; })
+      .catch(function () { window.prompt('Zum Kopieren markieren:', text); });
+  }
+  $('kr-wa').addEventListener('click', function () { kopieren(kreis.filter(function (m) { return m.tel; }).map(function (m) { return m.tel; }).join('\n'), 'WhatsApp-Nummern'); });
+  $('kr-mail').addEventListener('click', function () { kopieren(kreis.filter(function (m) { return m.email && m.mailBestaetigt; }).map(function (m) { return m.email; }).join(', '), 'E-Mail-Adressen'); });
+  $('kr-csv').addEventListener('click', function () {
+    var q = function (v) { return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; };
+    var rows = [['Name', 'PLZ', 'WhatsApp', 'E-Mail', 'E-Mail bestätigt', 'Geburtstag', 'Angemeldet', 'Quelle', 'Abmeldelink']].concat(kreis.map(function (m) {
+      return [m.name, m.plz, m.tel, m.email, m.email ? (m.mailBestaetigt ? 'ja' : 'nein') : '', m.geburtstag ? m.geburtstag.tag + '.' + m.geburtstag.monat + '.' : '', new Date(m.angemeldet).toLocaleDateString('de-AT'), m.quelle, m.abmelden];
+    }));
+    var csv = '\ufeff' + rows.map(function (r) { return r.map(q).join(';'); }).join('\r\n');
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+    a.download = 'alea-kreis-' + new Date().toISOString().slice(0, 10) + '.csv'; document.body.appendChild(a); a.click(); a.remove();
+  });
 
   function laden() {
     return fetch('/api/content', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) { inhalt = d; zeigeOnline(); return d; });
