@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://alea-boutique.com/sitemap.xml

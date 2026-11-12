@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/bodoni-moda-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/site.css">
+<title>aLea Boutique</title>
+<meta name="description" content="aLea in Haag am Hausruck: mehr als eine Boutique. Damenmode und Accessoires aus Italien, den Niederlanden, Dänemark und Deutschland, persönliche Beratung und Private Shopping am Marktplatz 18.">
+<meta property="og:title" content="aLea, mehr als eine Boutique">
+<meta property="og:description" content="Mode mit Persönlichkeit am Marktplatz in Haag am Hausruck. aLea. Wear your story.">
+<meta property="og:image" content="https://alea-boutique.com/img/og.jpg">
+<meta property="og:url" content="https://alea-boutique.com/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_AT">
+<link rel="canonical" href="https://alea-boutique.com/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ClothingStore",
+  "name": "aLea Boutique",
+  "legalName": "aLea Boutique OG",
+  "slogan": "aLea. Wear your story.",
+  "url": "https://alea-boutique.com/",
+  "email": "kontakt@alea-boutique.com",
+  "telephone": "+43 660 5527737",
+  "image": "https://alea-boutique.com/img/og.jpg",
+  "address": { "@type": "PostalAddress", "streetAddress": "Marktplatz 18", "postalCode": "4680", "addressLocality": "Haag am Hausruck", "addressRegion": "Oberösterreich", "addressCountry": "AT" },
+  "openingHoursSpecification": [
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Thursday","Friday"], "opens": "09:00", "closes": "12:00"},
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Thursday","Friday"], "opens": "15:00", "closes": "18:00"},
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "12:00"}
+  ],
+  "brand": ["YAYA","Rino & Pelle","Rinascimento","Imperial","monari","Même Road","JcSophie","CATNOIR","Americandreams","Philly Firenze","Sandro Ferrone","Bianco","IBU JEWELS","JOYEM"],
+  "sameAs": ["https://www.instagram.com/alea_boutique_/"]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Brauche ich einen Termin?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Komm einfach während der Öffnungszeiten vorbei. Nur für Private Shopping vereinbaren wir einen Termin."}},
+    {"@type": "Question", "name": "Gibt es Gutscheine?", "acceptedAnswer": {"@type": "Answer", "text": "Ja, aLea-Gutscheine gibt es in der Boutique. Außerdem nehmen wir Haager Geschenkgutscheine und Vitalwelt Gutscheine."}},
+    {"@type": "Question", "name": "Was kostet Private Shopping?", "acceptedAnswer": {"@type": "Answer", "text": "Nichts. Private Shopping sowie Sekt, Kaffee und kleine Snacks sind inklusive, für Gruppen ab etwa fünf Personen."}}
+  ]
+}
+</script>
+<style>
+  /* Layout: ruhig und klar wie eine gute Modestrecke. Großes Foto mit gerader Kante, darunter das Logo groß auf Beige, Bodoni nur für Überschriften, sonst Jost. Beige und Schwarz, keine Ornamente. */
+  :root {
+    --paper: #F7F3EE;   /* helles Beige, Grundfläche */
+    --beige: #E4DACD;   /* aLea-Beige, Flächen */
+    --ink: #141210;     /* Schwarz */
+    --muted: #5A534B;   /* Nebentext */
+    --on-ink: #F7F3EE;  /* Text auf Schwarz */
+    --line: rgba(20, 18, 16, .18);
+    --logo-filter: none;
+    --f-sans: 'Jost', 'Futura', 'Century Gothic', system-ui, sans-serif;
+    --f-serif: 'Bodoni Moda', Didot, 'Bodoni 72', Georgia, serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #151311; --beige: #221E1A; --ink: #EEE8E0; --muted: #B8AEA2; --on-ink: #151311;
+      --line: rgba(238, 232, 224, .18); --logo-filter: invert(1); color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #151311; --beige: #221E1A; --ink: #EEE8E0; --muted: #B8AEA2; --on-ink: #151311;
+    --line: rgba(238, 232, 224, .18); --logo-filter: invert(1); color-scheme: dark;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--f-sans); font-weight: 300; font-size: 1.0625rem; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  img { max-width: 100%; height: auto; display: block; }
+  .logo { filter: var(--logo-filter); }
+  .wrap { width: 100%; max-width: 76rem; margin-inline: auto; padding-inline: clamp(1rem, 5vw, 3rem); }
+
+  .serif { font-family: var(--f-serif); font-weight: 400; }
+  .label { font-size: .8125rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  .h-sec { font-family: var(--f-serif); font-weight: 400; font-size: clamp(2.1rem, 4.6vw, 3.5rem); line-height: 1.08; letter-spacing: -.01em; }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+  /* Kopf */
+  .site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: color-mix(in srgb, var(--paper) 94%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .site-header nav a { min-height: 44px; display: inline-flex; align-items: center; font-size: .8125rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; border-bottom: 1px solid transparent; }
+  .site-header nav a:hover { border-bottom-color: var(--ink); }
+
+  /* Hero: links Text auf Beige, rechts Steffi und Kathi in Farbe im Laden. Am Handy Fotos oben */
+  .hero { overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .hero-img { order: -1; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; overflow: hidden; }
+  .hero-img img { width: 100%; height: clamp(17rem, 52vh, 26rem); object-fit: cover; object-position: 50% 18%; }
+  .hero-text { padding: 2.5rem clamp(1rem, 5vw, 3rem) 3.5rem; min-width: 0; }
+  .hero-text .h-sec { font-size: clamp(2.4rem, 4.8vw, 4.6rem); }
+  @media (min-width: 768px) {
+    .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: min(calc(100vh - 5.5rem), 50rem); }
+    .hero-img { order: 0; }
+    .hero-img img { height: 100%; min-height: 30rem; object-position: 50% 22%; }
+    .hero-text { display: flex; flex-direction: column; justify-content: center; padding: 3rem clamp(2rem, 5vw, 5rem); max-width: 40rem; margin-left: auto; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-img img { animation: settle 1.8s cubic-bezier(.2,.7,.2,1) both; }
+    .hero-img img + img { animation-delay: .15s; }
+    @keyframes settle { from { opacity: .4; transform: scale(1.03); } to { opacity: 1; transform: none; } }
+  }
+
+  /* Knöpfe */
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: .8rem 1.9rem; font-size: .8125rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; transition: background-color .25s, color .25s; cursor: pointer; }
+  .btn-fill { background: var(--ink); color: var(--paper); border: 1px solid var(--ink); }
+  .btn-fill:hover { background: transparent; color: var(--ink); }
+  .btn-line { border: 1px solid var(--ink); color: var(--ink); background: transparent; }
+  .btn-line:hover { background: var(--ink); color: var(--paper); }
+
+  /* Gründerinnen */
+  .portraits { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(.75rem, 2vw, 1.5rem); }
+  .portraits figure:nth-child(2) { margin-top: clamp(2.5rem, 8vw, 6rem); }
+  .portraits img { aspect-ratio: 2 / 3; object-fit: cover; width: 100%; }
+  .portraits figcaption { font-size: .8125rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; margin-top: .75rem; }
+
+  /* Looks */
+  .rail { display: grid; grid-auto-flow: column; grid-auto-columns: min(72vw, 21rem); gap: clamp(.75rem, 1.5vw, 1.25rem); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 1rem; scrollbar-width: thin; }
+  .rail figure { scroll-snap-align: start; margin: 0; }
+  .rail img { aspect-ratio: 2 / 3; object-fit: cover; width: 100%; }
+  .rail-btn { width: 50px; height: 50px; border: 1px solid var(--ink); display: inline-flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+  .rail-btn:hover { background: var(--ink); color: var(--paper); }
+
+  /* Neu eingetroffen */
+  .new-in { display: grid; gap: 2rem; grid-template-columns: minmax(0, 1fr); align-items: center; }
+  .new-in-img img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; }
+  @media (min-width: 768px) {
+    .new-in { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2.5rem, 6vw, 6rem); }
+  }
+
+  /* Events: Umschalter */
+  .ev-tabs { display: flex; gap: clamp(1.5rem, 4vw, 3rem); border-bottom: 1px solid var(--line); margin-bottom: 2.5rem; }
+  .ev-tabs button { display: grid; gap: .1rem; text-align: left; padding: .5rem 0 .9rem; min-height: 44px; border-bottom: 2px solid transparent; margin-bottom: -1px; color: var(--muted); }
+  .ev-tabs button .ev-tab-title { font-family: var(--f-serif); font-size: 1.4rem; line-height: 1.2; }
+  .ev-tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+  .ev-tabs { overflow-x: auto; scrollbar-width: none; }
+  .ev-tabs button { flex: none; }
+  @media (max-width: 479px) { .ev-tabs { gap: 1.1rem; } .ev-tabs button .ev-tab-title { font-size: 1.12rem; } .ev-tabs .label { font-size: .6875rem; letter-spacing: .12em; } }
+  .ev-tabs button[aria-selected="true"] .label { color: var(--ink); }
+  .ev-tabs button:hover { color: var(--ink); }
+
+  /* Private Shopping: Anlässe */
+  .occasions { display: grid; gap: 0 clamp(1.5rem, 3vw, 2.5rem); grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 640px) { .occasions { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .occasions { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .occasions li { border-top: 1px solid var(--ink); padding-block: 1.1rem 1.4rem; }
+  .occasions h4 { font-family: var(--f-serif); font-size: 1.35rem; line-height: 1.25; margin-bottom: .4rem; }
+  .occasions p { font-size: .9375rem; color: var(--muted); line-height: 1.6; }
+
+  /* Marken */
+  .brands { display: grid; gap: 0 clamp(1rem, 4vw, 3.5rem); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (max-width: 639px) { .brands h3 { font-size: 1.25rem !important; } .brands p { font-size: .8125rem !important; } .brands li { padding-block: .85rem !important; } }
+  @media (min-width: 1024px) { .brands { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .brands li { padding-block: 1.1rem; border-top: 1px solid var(--line); }
+  .brands h3 { font-family: var(--f-serif); font-size: 1.6rem; line-height: 1.2; font-weight: 400; }
+  .brands p { font-size: .9375rem; color: var(--muted); margin-top: .2rem; line-height: 1.55; }
+
+  /* Stimmen */
+  .quote { font-family: var(--f-serif); font-size: clamp(1.25rem, 2.4vw, 1.6rem); line-height: 1.45; }
+  .stars { letter-spacing: .2em; font-size: .9rem; }
+
+  /* Private Shopping */
+  .included li { display: flex; gap: .9rem; align-items: baseline; }
+  .included li::before { content: ""; flex: none; width: 1.25rem; height: 1px; background: var(--ink); transform: translateY(-.3em); }
+  details.ps summary { list-style: none; }
+  details.ps summary::-webkit-details-marker { display: none; }
+  .field label { display: block; font-size: .8125rem; font-weight: 500; letter-spacing: .08em; margin-bottom: .3rem; }
+  .field input, .field textarea { width: 100%; min-height: 50px; padding: .75rem 0; background: transparent; color: var(--ink); border: 0; border-bottom: 1px solid var(--muted); border-radius: 0; font: inherit; }
+  .field input:focus, .field textarea:focus { outline: none; border-bottom: 2px solid var(--ink); }
+  .field input[aria-invalid="true"] { border-bottom: 2px solid #9A3B2E; }
+  .form-note { border-left: 2px solid var(--ink); padding-left: 1rem; }
+
+  /* Gut zu wissen */
+  .faq details { border-top: 1px solid var(--line); }
+  .faq details:last-child { border-bottom: 1px solid var(--line); }
+  .faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 56px; padding-block: .9rem; font-family: var(--f-serif); font-size: 1.3rem; line-height: 1.3; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; font-family: var(--f-sans); font-weight: 300; font-size: 1.5rem; flex: none; }
+  .faq details[open] summary::after { content: "–"; }
+  .faq details p { padding-bottom: 1.25rem; max-width: 36rem; color: var(--muted); }
+
+  /* Besuch */
+  .visit > div { display: grid; gap: .35rem 2rem; padding-block: 1.25rem; border-top: 1px solid var(--line); }
+  .visit > div:last-child { border-bottom: 1px solid var(--line); }
+  @media (min-width: 640px) { .visit > div { grid-template-columns: 8rem minmax(0, 1fr); } .visit dt { padding-top: .25rem; } }
+  .visit dd { line-height: 1.7; }
+  .hours { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .hours th, .hours td { text-align: left; padding: .55rem 0; border-bottom: 1px solid var(--line); font-weight: 300; vertical-align: top; }
+  .hours th { font-weight: 400; padding-right: 1.5rem; white-space: nowrap; }
+  .hours tr.is-today th, .hours tr.is-today td { font-weight: 500; }
+  .lnk { text-decoration: underline; text-underline-offset: .22em; text-decoration-thickness: 1px; }
+  .lnk:hover { text-decoration-thickness: 2px; }
+  .copy-btn { font-size: .75rem; letter-spacing: .08em; border: 1px solid var(--line); padding: .25rem .7rem; min-height: 32px; margin-left: .6rem; }
+  .copy-btn:hover { border-color: var(--ink); }
+  .open-dot { display: inline-block; width: .5rem; height: .5rem; border-radius: 50%; background: var(--muted); margin-right: .6rem; transform: translateY(-.1em); }
+  .open-dot.is-open { background: #3F7A50; }
+
+  footer.site-footer { background: var(--ink); color: var(--on-ink); }
+  footer.site-footer .logo { filter: invert(1); }
+  :root[data-theme="dark"] footer.site-footer .logo { filter: none; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) footer.site-footer .logo { filter: none; } }
+
+  section, #advent { scroll-margin-top: 5.5rem; }
+
+  /* Platzhalter-Fotos */
+  .rail figure.ph { position: relative; }
+  .ph-tag { position: absolute; left: .6rem; top: .6rem; background: var(--paper); color: var(--ink); font-size: .6875rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; padding: .2rem .55rem; }
+
+  /* Advent: Band oben, Block in Neu & Events, verstecktes Geschenk, Karte */
+  .advent-band { background: var(--ink); color: var(--on-ink); font-size: .875rem; }
+  .advent-band a { color: var(--on-ink); min-height: 44px; display: inline-flex; align-items: center; }
+  .advent { background: var(--ink); color: var(--on-ink); padding: clamp(2rem, 5vw, 4rem); }
+  .advent .label { color: color-mix(in srgb, var(--on-ink) 72%, transparent); }
+  .advent-steps { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 768px) { .advent-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem; } }
+  .advent-steps li { border-top: 1px solid color-mix(in srgb, var(--on-ink) 40%, transparent); padding-top: 1.1rem; }
+  .advent-steps h4 { font-family: var(--f-serif); font-size: 1.4rem; margin-bottom: .35rem; }
+  .advent-steps p { font-size: .9375rem; line-height: 1.65; color: color-mix(in srgb, var(--on-ink) 82%, transparent); }
+  .advent .icon-inline { display: inline-block; width: 1.15em; height: 1.15em; vertical-align: -.2em; }
+  .gift { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; color: var(--muted); flex: none; }
+  .gift svg { width: 22px; height: 22px; }
+  .gift:hover { color: var(--ink); }
+  .gift-spot { position: relative; }
+  .gift-spot > .gift { position: absolute; right: -.5rem; top: .35rem; }
+  dialog.gift-card { width: min(28rem, calc(100vw - 2rem)); padding: 0; border: 0; background: var(--paper); color: var(--ink); }
+  dialog.gift-card::backdrop { background: rgba(20, 18, 16, .6); }
+  .gift-card .inner { padding: 2rem 1.75rem; display: grid; gap: 1rem; }
+  .code { font-family: var(--f-serif); font-size: clamp(1.8rem, 7vw, 2.4rem); letter-spacing: .06em; border-block: 1px solid var(--ink); padding-block: .7rem; text-align: center; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<a href="#inhalt" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-paper focus:p-3">Zum Inhalt springen</a>
+
+<div class="advent-band" data-advent hidden>
+  <div class="wrap flex flex-wrap items-center justify-center gap-x-3 text-center">
+    <span><span class="hidden sm:inline">Advent bei aLea: </span>Finde das versteckte Geschenk.</span>
+    <a class="lnk" href="#advent">So geht’s</a>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="wrap flex items-center justify-between gap-4 py-2">
+    <a href="#top" aria-label="aLea Boutique, zum Seitenanfang" class="flex items-center">
+      <img src="img/logo-180.webp" width="180" height="179" alt="" class="logo h-14 w-14 md:h-[4.5rem] md:w-[4.5rem]">
+    </a>
+    <nav aria-label="Hauptnavigation">
+      <ul class="flex items-center gap-5 md:gap-9">
+        <li class="hidden md:block"><a href="#neu">Neu &amp; Events</a></li>
+        <li><a href="#private-shopping">Private Shopping</a></li>
+        <li class="hidden md:block"><a href="#wir">Über uns</a></li>
+        <li class="hidden md:block"><a href="#marken">Marken</a></li>
+        <li><a href="#besuch">Besuch</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="inhalt">
+
+  <!-- HERO -->
+  <section class="hero bg-beige" id="top" aria-labelledby="h1">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <p class="label mb-6">Boutique am Marktplatz in Haag am Hausruck</p>
+        <h1 id="h1" class="h-sec mb-6">Mehr als eine Boutique.</h1>
+        <p class="max-w-[30rem] text-[1.125rem] mb-10">Ausgewählte Damenmode, Schuhe und Schmuck für jeden Tag und besondere Anlässe. Komm vorbei, stöbere in Ruhe und lass dich persönlich beraten.</p>
+        <p class="label" style="color: var(--ink)">aLea. Wear your story.</p>
+      </div>
+      <div class="hero-img">
+        <img src="img/steffi-1100.webp" srcset="img/steffi-600.webp 600w, img/steffi-1100.webp 1100w" sizes="(min-width: 768px) 25vw, 50vw" width="1100" height="1650" alt="Steffi lächelt in der Boutique, hinter ihr Regale mit Strick und Blusen" fetchpriority="high">
+        <img src="img/kathi-1100.webp" srcset="img/kathi-600.webp 600w, img/kathi-1100.webp 1100w" sizes="(min-width: 768px) 25vw, 50vw" width="1100" height="1731" alt="Kathi unter dem weißen Gewölbe der Boutique, sie zeigt eine rosa Satinjacke" fetchpriority="high">
+      </div>
+    </div>
+  </section>
+
+  <!-- NEU & EVENTS -->
+  <section id="neu" class="py-20 md:py-28" aria-labelledby="events-h">
+    <div class="wrap">
+      <div class="grid gap-8 md:grid-cols-12 mb-12">
+        <div class="md:col-span-6 min-w-0">
+          <p class="label mb-4">Neu &amp; Events</p>
+          <h2 id="events-h" class="h-sec">Der Herbst ist da</h2>
+        </div>
+        <p class="md:col-span-5 md:col-start-8 min-w-0 self-end">Strick, Satin, Leo und warme Brauntöne: Jede Woche kommen neue Lieblingsstücke dazu. Und mehrmals im Jahr feiern wir mit dir, bei Modenschauen, Saisonstarts und Abenden mit Partnern aus der Region.</p>
+      </div>
+
+      <!-- Neu eingetroffen: monatlich austauschen (1 Bild, Titel, 1 bis 2 Sätze) -->
+      <article class="new-in mb-20 md:mb-24" aria-labelledby="neu-h">
+        <div class="new-in-img">
+          <img src="img/neu-strick-1000.webp" srcset="img/neu-strick-600.webp 600w, img/neu-strick-1000.webp 1000w" sizes="(min-width: 768px) 34vw, 100vw" width="1000" height="1250" alt="Steffi in einer rosa und Kathi in einer blauen Strickjacke in der Boutique" loading="lazy">
+        </div>
+        <div class="new-in-text">
+          <p class="label mb-4">Neu eingetroffen · Oktober</p>
+          <h3 id="neu-h" class="serif text-[2rem] md:text-[2.75rem] leading-[1.1] mb-5">Weicher Strick für den Herbst</h3>
+          <p class="mb-8 max-w-[28rem]">Warm, kuschelig und in schönen Farben für kühle Herbsttage. Komm vorbei und probier ihn an.</p>
+          <p class="text-[.9375rem] text-muted">Mehr Neuheiten jede Woche auf <a class="lnk" style="color: var(--ink)" href="https://www.instagram.com/alea_boutique_/" target="_blank" rel="noopener">Instagram</a></p>
+        </div>
+      </article>
+
+      <h3 class="label mb-4">Unsere Events</h3>
+      <div class="ev-tabs" role="tablist" aria-label="Unsere Events">
+        <button type="button" role="tab" id="tab-wine" aria-controls="panel-wine" aria-selected="true"><span class="label">November 2026</span><span class="ev-tab-title">Style &amp; Wine</span></button>
+        <button type="button" role="tab" id="tab-lang" aria-controls="panel-lang" aria-selected="false" tabindex="-1"><span class="label">September 2026</span><span class="ev-tab-title">Modenschau</span></button>
+        <button type="button" role="tab" id="tab-eroeffnung" aria-controls="panel-eroeffnung" aria-selected="false" tabindex="-1"><span class="label">März 2026</span><span class="ev-tab-title">Eröffnung</span></button>
+      </div>
+
+      <div class="ev-panel" role="tabpanel" id="panel-wine" aria-labelledby="tab-wine">
+        <div class="flex flex-wrap items-end justify-between gap-8 mb-10">
+          <div class="max-w-[40rem] min-w-0">
+            <h3 class="serif text-[1.75rem] md:text-[2.1rem] leading-tight mb-4">Style &amp; Wine mit Somni</h3>
+            <p class="text-muted">Ein Abend für alle, die Mode und guten Wein lieben: Am 6. November haben wir gemeinsam mit <a class="lnk" href="https://www.instagram.com/somni.at/" target="_blank" rel="noopener">Somni</a> zur Shopping Night eingeladen. Mit Rot- und Weißwein, alkoholfreien Alternativen und unseren neuesten Lieblingsstücken.</p>
+          </div>
+          <div class="flex gap-2">
+            <button type="button" class="rail-btn" data-rail="-1" data-target="rail-wine" aria-label="Vorherige Fotos">&#8592;</button>
+            <button type="button" class="rail-btn" data-rail="1" data-target="rail-wine" aria-label="Nächste Fotos">&#8594;</button>
+          </div>
+        </div>
+        <div class="rail" id="rail-wine" tabindex="0" aria-label="Fotos von Style und Wine, seitlich scrollen">
+        <figure class="ph"><img src="img/stange-600.webp" srcset="img/stange-600.webp 600w, img/stange-1000.webp 1000w" sizes="21rem" width="1000" height="1500" alt="Platzhalter: Kleiderstange mit Mänteln, Strick und Blusen in der Boutique" loading="lazy"><span class="ph-tag" aria-hidden="true">Platzhalter</span></figure>
+        <figure class="ph"><img src="img/gruenderinnen-rollup-600.webp" srcset="img/gruenderinnen-rollup-600.webp 600w, img/gruenderinnen-rollup-1000.webp 1000w" sizes="21rem" width="1000" height="1500" alt="Platzhalter: Steffi und Kathi vor zwei Aufstellern mit dem aLea-Logo" loading="lazy"><span class="ph-tag" aria-hidden="true">Platzhalter</span></figure>
+        <figure class="ph"><img src="img/detail-satin.webp" sizes="21rem" width="800" height="800" alt="Platzhalter: Detail einer rosa Satinjacke" loading="lazy"><span class="ph-tag" aria-hidden="true">Platzhalter</span></figure>
+        <figure class="ph"><img src="img/laden-innen-3-357.webp" sizes="21rem" width="357" height="510" alt="Platzhalter: Blick in die Boutique unter dem weißen Gewölbe" loading="lazy"><span class="ph-tag" aria-hidden="true">Platzhalter</span></figure>
+        <figure class="ph"><img src="img/detail-fell.webp" sizes="21rem" width="800" height="800" alt="Platzhalter: Detail eines Kragens in Fell-Optik" loading="lazy"><span class="ph-tag" aria-hidden="true">Platzhalter</span></figure>
+        <figure class="ph"><img src="img/detail-stiefel.webp" sizes="21rem" width="524" height="524" alt="Platzhalter: Schwarzer Stiefel zu einem Rock mit Leomuster" loading="lazy"><span class="ph-tag" aria-hidden="true">Platzhalter</span></figure>
+        </div>
+        <p class="text-sm text-muted mt-3">Die Fotos vom Abend folgen.</p>
+      </div>
+
+      <div class="ev-panel" role="tabpanel" id="panel-lang" aria-labelledby="tab-lang" hidden>
+        <div class="flex flex-wrap items-end justify-between gap-8 mb-10">
+          <div class="max-w-[40rem] min-w-0">
+            <h3 class="serif text-[1.75rem] md:text-[2.1rem] leading-tight mb-4">Modenschau zum 100-Jahr-Jubiläum des Autohauses Lang</h3>
+            <p class="text-muted">Das Autohaus Lang in Haag am Hausruck hat 100 Jahre gefeiert, und wir durften dabei sein: mit einer Modenschau und einer Auswahl unserer Herbstlooks 2026.</p>
+          </div>
+          <div class="flex gap-2">
+            <button type="button" class="rail-btn" data-rail="-1" data-target="rail-lang" aria-label="Vorherige Fotos">&#8592;</button>
+            <button type="button" class="rail-btn" data-rail="1" data-target="rail-lang" aria-label="Nächste Fotos">&#8594;</button>
+          </div>
+        </div>
+        <div class="rail" id="rail-lang" tabindex="0" aria-label="Fotos von der Modenschau, seitlich scrollen">
+        <figure><img src="img/look-50-500.webp" srcset="img/look-50-500.webp 500w, img/look-50-900.webp 900w" sizes="21rem" width="900" height="1350" alt="Lachende Frau im Strickpulli in Fell-Optik in Oliv und Braun" loading="lazy"></figure>
+        <figure><img src="img/look-147-500.webp" srcset="img/look-147-500.webp 500w, img/look-147-900.webp 900w" sizes="21rem" width="900" height="1350" alt="Model auf dem Laufsteg in Lederrock, brauner Weste und Sonnenbrille" loading="lazy"></figure>
+        <figure><img src="img/look-80-500.webp" srcset="img/look-80-500.webp 500w, img/look-80-900.webp 900w" sizes="21rem" width="900" height="1350" alt="Frau in rosé Satinkleid mit Blumenmuster und breitem Ledergürtel" loading="lazy"></figure>
+        <figure><img src="img/look-122-500.webp" srcset="img/look-122-500.webp 500w, img/look-122-900.webp 900w" sizes="21rem" width="900" height="1350" alt="Lachende Frau mit schwarzer Kappe und schwarzem Strickpulli mit Schriftzug" loading="lazy"></figure>
+        <figure><img src="img/look-158-500.webp" srcset="img/look-158-500.webp 500w, img/look-158-900.webp 900w" sizes="21rem" width="900" height="1350" alt="Frau in schokobrauner Satinbluse und weiter Hose" loading="lazy"></figure>
+        <figure><img src="img/look-118-500.webp" srcset="img/look-118-500.webp 500w, img/look-118-900.webp 900w" sizes="21rem" width="900" height="1350" alt="Model mit schwarzer Steppjacke über kariertem Hemd" loading="lazy"></figure>
+        <figure><img src="img/look-129-500.webp" srcset="img/look-129-500.webp 500w, img/look-129-900.webp 900w" sizes="21rem" width="900" height="1350" alt="Frau in petrolfarbener Strickjacke und Jeans auf dem Laufsteg" loading="lazy"></figure>
+        <figure><img src="img/look-77-500.webp" srcset="img/look-77-500.webp 500w, img/look-77-900.webp 900w" sizes="21rem" width="900" height="1350" alt="Frau mit Fellweste über hellem Shirt" loading="lazy"></figure>
+        </div>
+      </div>
+
+      <div class="ev-panel" role="tabpanel" id="panel-eroeffnung" aria-labelledby="tab-eroeffnung" hidden>
+        <div class="flex flex-wrap items-end justify-between gap-8 mb-10">
+          <div class="max-w-[40rem] min-w-0">
+            <h3 class="serif text-[1.75rem] md:text-[2.1rem] leading-tight mb-4">Ein Traum ist wahr geworden</h3>
+            <p class="text-muted mb-3">Am 7. März 2026 haben wir unsere Türen am Marktplatz geöffnet, mit Sonnenschein, einem Glas zum Anstoßen und so vielen lieben Menschen. Danke, dass ihr diesen Tag so besonders gemacht habt.</p>
+            <p class="text-[.9375rem]"><a class="lnk" href="https://youtu.be/pzb_LO_tTp4" target="_blank" rel="noopener">Den HT1-Bericht zur Eröffnung ansehen</a></p>
+          </div>
+          <div class="flex gap-2">
+            <button type="button" class="rail-btn" data-rail="-1" data-target="rail-eroeffnung" aria-label="Vorherige Fotos">&#8592;</button>
+            <button type="button" class="rail-btn" data-rail="1" data-target="rail-eroeffnung" aria-label="Nächste Fotos">&#8594;</button>
+          </div>
+        </div>
+        <div class="rail" id="rail-eroeffnung" tabindex="0" aria-label="Fotos von der Eröffnung, seitlich scrollen">
+        <figure><img src="img/ero-01-500.webp" srcset="img/ero-01-500.webp 500w, img/ero-01-800.webp 800w" sizes="21rem" width="800" height="1067" alt="Steffi und Kathi stoßen am Marktplatz auf die Eröffnung an" loading="lazy"></figure>
+        <figure><img src="img/ero-02-500.webp" srcset="img/ero-02-500.webp 500w, img/ero-02-800.webp 800w" sizes="21rem" width="800" height="1067" alt="Kathi spricht am Marktplatz zu den Gästen" loading="lazy"></figure>
+        <figure><img src="img/ero-03-500.webp" srcset="img/ero-03-500.webp 500w, img/ero-03-800.webp 800w" sizes="21rem" width="800" height="1067" alt="Steffi und Kathi in der Boutique vor den Kleiderstangen" loading="lazy"></figure>
+        <figure><img src="img/ero-04-500.webp" srcset="img/ero-04-500.webp 500w, img/ero-04-800.webp 800w" sizes="21rem" width="800" height="1067" alt="Kekse mit aLea-Logo auf einer Etagere" loading="lazy"></figure>
+        <figure><img src="img/ero-05-500.webp" srcset="img/ero-05-500.webp 500w, img/ero-05-800.webp 800w" sizes="21rem" width="800" height="1067" alt="Steffi an der Eingangstür mit dem aLea-Logo" loading="lazy"></figure>
+        <figure><img src="img/ero-06-500.webp" srcset="img/ero-06-500.webp 500w, img/ero-06-800.webp 800w" sizes="21rem" width="800" height="1067" alt="Kundin mit aLea-Einkaufstaschen in der Boutique" loading="lazy"></figure>
+        <figure><img src="img/ero-07-500.webp" srcset="img/ero-07-500.webp 500w, img/ero-07-800.webp 800w" sizes="21rem" width="800" height="1067" alt="Viele Gäste stöbern in der vollen Boutique" loading="lazy"></figure>
+        <figure><img src="img/ero-08-500.webp" srcset="img/ero-08-500.webp 500w, img/ero-08-800.webp 800w" sizes="21rem" width="800" height="1067" alt="Steffi gibt in der Boutique ein Interview für HT1" loading="lazy"></figure>
+        <figure><img src="img/ero-09-500.webp" srcset="img/ero-09-500.webp 500w, img/ero-09-800.webp 800w" sizes="21rem" width="800" height="1067" alt="Häppchen auf einem weißen Stehtisch" loading="lazy"></figure>
+        </div>
+        <p class="text-sm text-muted mt-3">Fotos: Timeless Lens Studio</p>
+      </div>
+
+      <!-- ADVENT: Weihnachtsaktion 28.11. bis 24.12. (Werte sind Beispiele) -->
+      <article id="advent" class="advent mt-16 md:mt-20" aria-labelledby="advent-h" data-advent hidden>
+        <p class="label mb-4">Advent bei aLea · 28. November bis 24. Dezember</p>
+        <h3 id="advent-h" class="serif text-[2rem] md:text-[2.75rem] leading-[1.1] mb-5">Finde das versteckte Geschenk</h3>
+        <p class="max-w-[38rem] mb-10" style="color: color-mix(in srgb, var(--on-ink) 88%, transparent)">Jede Adventwoche verstecken wir ein kleines Geschenk auf unserer Website. Wer es findet, bekommt bei uns im Laden eine Überraschung.</p>
+        <ol class="advent-steps mb-10" role="list">
+          <li><h4>01 Suchen</h4><p>Halte Ausschau nach diesem Symbol <span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3.5" y="9" width="17" height="11.5"/><path d="M2.5 9h19M12 9v11.5M12 9c-1.5-3.5-5.5-4.5-6-2s4 2 6 2zm0 0c1.5-3.5 5.5-4.5 6-2s-4 2-6 2z"/></svg></span>. Es versteckt sich jede Woche an einer anderen Stelle.</p></li>
+          <li><h4>02 Finden</h4><p>Tipp es an, und du bekommst das Codewort der Woche.</p></li>
+          <li><h4>03 Einlösen</h4><p>Zeig das Codewort bei uns im Laden. Du bekommst einen hausgemachten aLea-Keks und einen 10-€-Gutschein für deinen Einkauf im Jänner (ab 100&nbsp;€ Einkaufswert).</p></li>
+        </ol>
+        <p class="serif text-[1.25rem] mb-6"><span class="label" style="margin-right:.6rem">Tipp der Woche</span><span data-advent-hint></span></p>
+        <p class="text-sm" style="color: color-mix(in srgb, var(--on-ink) 70%, transparent)">Gültig bis 24. Dezember 2026, einmal pro Person und solange der Vorrat reicht. Keine Barablöse.</p>
+      </article>
+
+      <div class="mt-14 pt-10 border-t grid gap-6 md:grid-cols-12 items-center" style="border-color: var(--line)">
+        <div class="md:col-span-6 min-w-0">
+          <p class="label mb-2">Nichts mehr verpassen</p>
+          <p class="serif text-[1.4rem] md:text-[1.6rem] leading-snug">Neue Lieblingsstücke und Einladungen zu unseren Events erfährst du zuerst.</p>
+        </div>
+        <div class="md:col-span-6 flex flex-wrap gap-3 md:justify-end">
+          <a class="btn btn-fill" href="https://whatsapp.com/channel/0029VbEVxlg4yltQ7n8coh0t" target="_blank" rel="noopener">WhatsApp-Kanal folgen</a>
+          <a class="btn btn-line" href="https://www.instagram.com/alea_boutique_/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVATE SHOPPING -->
+  <section id="private-shopping" class="bg-beige py-20 md:py-32" aria-labelledby="ps-h">
+    <div class="wrap">
+      <div class="grid gap-12 md:grid-cols-12 items-center mb-16 md:mb-20">
+        <div class="md:col-span-6 min-w-0">
+          <img src="img/ps-boutique-1600.webp" srcset="img/ps-boutique-900.webp 900w, img/ps-boutique-1600.webp 1600w" sizes="(min-width: 768px) 48vw, 100vw" width="1600" height="1067" alt="Frauen stöbern gemeinsam in der Boutique unter dem weißen Gewölbe" loading="lazy" class="w-full">
+        </div>
+        <div class="md:col-span-5 md:col-start-8 min-w-0">
+          <p class="label mb-4">Private Shopping</p>
+          <h2 id="ps-h" class="h-sec mb-6">Eure Boutique für einen Abend</h2>
+          <p class="mb-8">Wir öffnen die Boutique außerhalb der Öffnungszeiten nur für dich und deine Lieblingsmenschen. In Ruhe probieren, einander beraten, anstoßen. Ohne Trubel, mit unserer ganzen Aufmerksamkeit.</p>
+          <ul class="included grid gap-3" role="list">
+            <li>Für Gruppen ab etwa fünf Personen</li>
+            <li>Sekt, Kaffee und kleine Snacks</li>
+            <li>Private Shopping und Verpflegung sind inklusive</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="label mb-6">Ideal für</h3>
+      <ul class="occasions mb-14" role="list">
+        <li><h4>Den Mädelsabend</h4><p>Probieren, lachen und anstoßen mit deinen Freundinnen.</p></li>
+        <li><h4>Deinen Geburtstag</h4><p>Feier mit deinen Lieblingsmenschen einmal ganz anders.</p></li>
+        <li><h4>Team und Kolleginnen</h4><p>Ein gemeinsamer Abend, der verbindet und in Erinnerung bleibt.</p></li>
+        <li><h4>Ein besonderes Geschenk</h4><p>Verschenke einen Abend bei uns, gern mit einem aLea-Gutschein dazu.</p></li>
+      </ul>
+
+      <div class="max-w-[40rem]">
+        <div>
+        <details class="ps" id="ps-details">
+          <summary class="btn btn-fill">Wunschtermin anfragen</summary>
+          <form id="ps-form" class="grid gap-6 mt-10" novalidate>
+            <div class="field"><label for="ps-name">Dein Name</label><input id="ps-name" name="name" type="text" autocomplete="name" required></div>
+            <div class="field"><label for="ps-kontakt">E-Mail oder Telefon</label><input id="ps-kontakt" name="kontakt" type="text" autocomplete="email" required></div>
+            <div class="grid gap-6 sm:grid-cols-2">
+              <div class="field"><label for="ps-datum">Wunschtag</label><input id="ps-datum" name="datum" type="date"></div>
+              <div class="field"><label for="ps-personen">Personen</label><input id="ps-personen" name="personen" type="number" min="1" inputmode="numeric" placeholder="ab ca. 5"></div>
+            </div>
+            <div class="field"><label for="ps-nachricht">Anlass oder Wunsch</label><textarea id="ps-nachricht" name="nachricht" rows="2"></textarea></div>
+            <div><button type="submit" class="btn btn-line">Anfrage senden</button></div>
+            <p id="ps-msg" class="form-note" role="status" hidden></p>
+          </form>
+        </details>
+        </div>
+        <p class="mt-6 text-[.9375rem] text-muted">Lieber direkt? Ruf an unter <a class="lnk" style="color: var(--ink)" href="tel:+436605527737">+43 660 552 77 37</a> oder <a class="lnk" style="color: var(--ink)" href="https://wa.me/436605527737?text=Hallo%20Steffi%20und%20Kathi%2C%20ich%20interessiere%20mich%20f%C3%BCr%20ein%20Private%20Shopping." target="_blank" rel="noopener">schreib uns auf WhatsApp</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÜBER UNS -->
+  <section id="wir" class="py-20 md:py-32" aria-labelledby="wir-h">
+    <div class="wrap grid gap-14 md:grid-cols-12 md:gap-12 items-center">
+      <div class="md:col-span-6 min-w-0">
+        <img src="img/gruenderinnen-fenster-1400.webp" srcset="img/gruenderinnen-fenster-800.webp 800w, img/gruenderinnen-fenster-1400.webp 1400w" sizes="(min-width: 768px) 50vw, 100vw" width="1400" height="933" alt="Steffi und Kathi sitzen in Schwarz gekleidet auf dem Fenstersims ihrer Boutique am Marktplatz" loading="lazy" class="w-full">
+      </div>
+      <div class="md:col-span-5 md:col-start-8 min-w-0">
+        <p class="label mb-4">Über uns</p>
+        <h2 id="wir-h" class="h-sec mb-8">Wir sind Steffi &amp; Kathi</h2>
+        <p class="mb-5">Mode ist unsere gemeinsame Leidenschaft. Aus vielen Gesprächen wurde ein Plan und aus dem Plan ein Ort: Am 7. März 2026 haben wir aLea am Marktplatz in Haag am Hausruck eröffnet.</p>
+        <p class="mb-10">Jede Kollektion wählen wir persönlich auf Messen und in Showrooms aus. Und wir nehmen uns Zeit für dich, damit du mit etwas nach Hause gehst, das wirklich zu dir passt.</p>
+        <blockquote class="border-l-2 pl-6" style="border-color: var(--ink)">
+          <p class="serif italic text-[1.3rem] md:text-[1.5rem] leading-snug">„Wir wünschen uns, dass die Kundinnen mit einem Lächeln heimgehen und immer wieder gern zu uns zurückkommen.“</p>
+          <footer class="label mt-4">Kathi</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKEN -->
+  <section id="marken" class="bg-beige py-20 md:py-32" aria-labelledby="marken-h">
+    <div class="wrap">
+      <div class="grid gap-8 md:grid-cols-12 mb-14">
+        <div class="md:col-span-5 min-w-0">
+          <p class="label mb-4">Aus Italien, den Niederlanden, Dänemark und Deutschland</p>
+          <h2 id="marken-h" class="h-sec">Unsere Marken</h2>
+        </div>
+        <div class="md:col-span-6 md:col-start-7 min-w-0 self-end">
+          <p class="mb-4">Kleider, Blusen, Strick, Mäntel, Schuhe und Schmuck für jeden Tag und für besondere Anlässe. Von Labels, die wir sorgfältig für dich auswählen.</p>
+          <p class="text-muted">Du findest uns am Marktplatz in Haag am Hausruck, im Hausruckviertel zwischen Ried im Innkreis und Grieskirchen.</p>
+        </div>
+      </div>
+      <ul class="brands" role="list">
+        <li><h3>Rinascimento</h3><p>Schicke, feminine Mode im italienischen Stil, aus Rimini</p></li>
+        <li><h3>Imperial</h3><p>Modisch und großstädtisch, aus Bologna</p></li>
+        <li><h3>Sandro Ferrone</h3><p>Italienische Damenmode aus Rom</p></li>
+        <li><h3>Même Road</h3><p>Feminine Schnitte, Muster und eine Vintage-Note, aus Florenz</p></li>
+        <li><h3>YAYA</h3><p>Lässig-elegant und romantisch in natürlichen Farben, aus den Niederlanden</p></li>
+        <li><h3>Rino &amp; Pelle</h3><p>Bekannt für Mäntel und Jacken, dazu Strick und Mode, aus Amsterdam</p></li>
+        <li><h3>JcSophie</h3><p>Zeitlos feminine Schnitte aus Naturfasern, aus den Niederlanden</p></li>
+        <li><h3>Americandreams</h3><p>Farbenfroher Mohair-Strick, aus Kopenhagen</p></li>
+        <li><h3>CATNOIR</h3><p>Kleider, Blazer, Blusen und Strick mit eigenen Drucken, aus Düsseldorf</p></li>
+        <li><h3>monari</h3><p>Komplette Outfits, lässig bis elegant</p></li>
+        <li><h3>Philly Firenze</h3><p>Italienische Damenmode, besonders Mäntel, Jacken und Hosen</p></li>
+        <li><h3>Bianco</h3><p>Handgefertigte Schuhe im zeitlosen Stil, aus Dänemark</p></li>
+        <li><h3>IBU JEWELS</h3><p>Handgemachter Schmuck mit Perlen und Halbedelsteinen</p></li>
+        <li><h3>JOYEM</h3><p>Feiner, handgefertigter Schmuck aus einem Atelier hier in Haag am Hausruck</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- KUNDENSTIMMEN -->
+  <section id="stimmen" class="py-20 md:py-28" aria-labelledby="stimmen-h">
+    <div class="wrap">
+      <div class="flex flex-wrap items-end justify-between gap-6 mb-12">
+        <div>
+          <p class="label mb-4">Kundenstimmen</p>
+          <h2 id="stimmen-h" class="h-sec">Was unsere Kundinnen sagen</h2>
+        </div>
+        <p class="text-right"><span class="stars" aria-hidden="true">★★★★★</span><br><span class="text-sm text-muted">5,0 von 5 auf Google, Stand Oktober 2026</span></p>
+      </div>
+      <div class="grid gap-12 md:grid-cols-3">
+        <figure class="min-w-0">
+          <blockquote><p class="quote">„Wunderschöne neu eröffnete Boutique mit hochwertiger, trendiger Mode. Die stimmungsvolle Atmosphäre und die tolle Auswahl machen das Einkaufen zu einem echten Erlebnis.“</p></blockquote>
+          <figcaption class="label mt-5">Barbara L., Google</figcaption>
+        </figure>
+        <figure class="min-w-0">
+          <blockquote><p class="quote">„Das Geschäft ist wunderschön eingerichtet, modern und mit viel Liebe zum Detail gestaltet. Die Auswahl an Kleidung ist wirklich besonders: stilvoll und hochwertig.“</p></blockquote>
+          <figcaption class="label mt-5">Carina H., Google</figcaption>
+        </figure>
+        <figure class="min-w-0">
+          <blockquote><p class="quote">„Die Auswahl ist stilvoll, modern und qualitativ hochwertig. Es ist von jung bis alt &amp; für jeden Anlass was zu finden.“</p></blockquote>
+          <figcaption class="label mt-5">Julia R., Google</figcaption>
+        </figure>
+      </div>
+      <p class="mt-12 text-muted">Und eine Kundin im HT1-Bericht zur Eröffnung: „Ein toller Gewinn für Haag am Hausruck und die gesamte Region.“ <a class="lnk" href="https://youtu.be/pzb_LO_tTp4" target="_blank" rel="noopener" style="color: var(--ink)">Bericht ansehen</a></p>
+    </div>
+  </section>
+
+  <!-- GUT ZU WISSEN -->
+  <section id="gut-zu-wissen" class="bg-beige py-20 md:py-28" aria-labelledby="faq-h">
+    <div class="wrap grid gap-10 md:grid-cols-12">
+      <div class="md:col-span-4 min-w-0">
+        <p class="label mb-4">Gut zu wissen</p>
+        <h2 id="faq-h" class="h-sec">Bevor du vorbeikommst</h2>
+      </div>
+      <div class="md:col-span-7 md:col-start-6 min-w-0 faq">
+        <details>
+          <summary>Brauche ich einen Termin?</summary>
+          <p>Nein. Komm einfach während der Öffnungszeiten vorbei, wir beraten dich gerne. Nur für Private Shopping vereinbaren wir einen Termin.</p>
+        </details>
+        <details>
+          <summary>Welche Größen gibt es bei euch?</summary>
+          <p>Unsere Kollektionen gibt es in den gängigen Größen von XS bis XL. Frag uns gern, wenn du ein Teil in einer bestimmten Größe suchst.</p>
+        </details>
+        <details>
+          <summary>Für welche Anlässe finde ich etwas?</summary>
+          <p>Für jeden Tag und für besondere Anlässe, für Jung und Alt. Von Strick und Jeans über Blusen und Kleider bis zu Mänteln, Schuhen und Schmuck.</p>
+        </details>
+        <details>
+          <summary>Könnt ihr etwas für mich zurücklegen oder nachbestellen?</summary>
+          <p>Gerne legen wir dir ein Teil zurück. Ist deine Größe gerade nicht da, bestellen wir sie nach, wenn möglich. Und wenn du nicht sicher bist, was dir steht, beraten wir dich persönlich.</p>
+        </details>
+        <details>
+          <summary>Gibt es Gutscheine?</summary>
+          <p>Ja, aLea-Gutscheine bekommst du bei uns in der Boutique. Außerdem nehmen wir Haager Geschenkgutscheine und Vitalwelt Gutscheine.</p>
+        </details>
+        <details>
+          <summary>Was kostet Private Shopping?</summary>
+          <p>Nichts. Private Shopping sowie Sekt, Kaffee und kleine Snacks sind inklusive. Es eignet sich für Gruppen ab etwa fünf Personen.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- BESUCH -->
+  <section id="besuch" aria-labelledby="besuch-h">
+    <div class="wrap py-20 md:py-28 grid gap-12 md:grid-cols-12 items-center">
+      <div class="md:col-span-5 min-w-0">
+        <img src="img/besuch-eingang-1000.webp" srcset="img/besuch-eingang-600.webp 600w, img/besuch-eingang-1000.webp 1000w" sizes="(min-width: 768px) 40vw, 100vw" width="1000" height="1250" alt="Eingang der Boutique am Marktplatz mit dem aLea-Schild an der Hauswand" loading="lazy" class="w-full aspect-[4/5] object-cover">
+      </div>
+      <div class="md:col-span-6 md:col-start-7 min-w-0">
+        <p class="label mb-4">Besuch</p>
+        <h2 id="besuch-h" class="h-sec mb-10">Wir freuen uns auf dich</h2>
+        <dl class="visit">
+          <div>
+            <dt class="label">Adresse</dt>
+            <dd>Marktplatz 18, 4680 Haag am Hausruck<br><a class="lnk" href="https://www.google.com/maps/search/?api=1&query=aLea+Boutique+Marktplatz+18+4680+Haag+am+Hausruck" target="_blank" rel="noopener">Route planen</a><br><span class="text-muted text-[.9375rem]">Parkplätze direkt am Marktplatz</span></dd>
+          </div>
+          <div>
+            <dt class="label">Geöffnet</dt>
+            <dd>Mo, Di, Do, Fr 9–12 und 15–18 Uhr<br>Sa 9–12 Uhr, Mi geschlossen<br><span class="text-muted text-[.9375rem]"><span class="open-dot" data-status-dot aria-hidden="true"></span><span data-status-text aria-live="polite"></span></span></dd>
+          </div>
+          <div>
+            <dt class="label">Kontakt</dt>
+            <dd><a class="lnk" href="tel:+436605527737">+43 660 552 77 37</a><br>kontakt@alea-boutique.com</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<dialog class="gift-card" id="gift-card" aria-labelledby="gift-h">
+  <div class="inner">
+    <p class="label">Advent bei aLea</p>
+    <h2 id="gift-h" class="serif text-[2rem] leading-tight">Gefunden!</h2>
+    <p>Dein Codewort für diese Woche:</p>
+    <p class="code" data-advent-code></p>
+    <p class="text-[.9375rem]">Zeig diese Karte oder nenn das Codewort bei uns im Laden. Du bekommst einen hausgemachten aLea-Keks und einen 10-€-Gutschein für deinen Einkauf im Jänner (ab 100&nbsp;€ Einkaufswert).</p>
+    <p class="text-sm text-muted">Gültig bis <span data-advent-until></span>, einmal pro Person, solange der Vorrat reicht.</p>
+    <div class="flex flex-wrap gap-3 pt-2">
+      <a class="btn btn-fill" id="gift-share" href="#" target="_blank" rel="noopener">Freundin einladen</a>
+      <button type="button" class="btn btn-line" id="gift-close">Schließen</button>
+    </div>
+  </div>
+</dialog>
+
+<footer class="site-footer">
+  <div class="wrap py-14 grid gap-8 md:grid-cols-3 items-center text-center md:text-left">
+    <img src="img/logo-180.webp" width="180" height="179" alt="aLea Boutique" class="logo h-20 w-20 mx-auto md:mx-0" loading="lazy">
+    <div class="md:text-center">
+      <p class="label mb-3" style="color: var(--on-ink)">aLea. Wear your story.</p>
+      <p class="text-sm opacity-80">Marktplatz 18, 4680 Haag am Hausruck<br>Mo, Di, Do, Fr 9–12 und 15–18 Uhr · Sa 9–12 Uhr</p>
+    </div>
+    <ul class="flex flex-wrap justify-center md:justify-end gap-6 text-sm" role="list">
+      <li><a class="lnk" href="https://www.instagram.com/alea_boutique_/" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a class="lnk" href="https://whatsapp.com/channel/0029VbEVxlg4yltQ7n8coh0t" target="_blank" rel="noopener">WhatsApp</a></li>
+      <li><a class="lnk" href="/impressum">Impressum</a></li>
+      <li><a class="lnk" href="/datenschutz">Datenschutz</a></li>
+      
+    </ul>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var plan = { 0: [], 1: [[540, 720], [900, 1080]], 2: [[540, 720], [900, 1080]], 3: [], 4: [[540, 720], [900, 1080]], 5: [[540, 720], [900, 1080]], 6: [[540, 720]] };
+  var tage = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+  var map = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+  function jetzt() {
+    var o = {};
+    new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Vienna', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date()).forEach(function (p) { o[p.type] = p.value; });
+    return { tag: map[o.weekday], min: parseInt(o.hour, 10) * 60 + parseInt(o.minute, 10) };
+  }
+  function uhr(m) { var mm = m % 60; return Math.floor(m / 60) + (mm ? ':' + String(mm).padStart(2, '0') : '') + ' Uhr'; }
+  function status(n) {
+    var heute = plan[n.tag];
+    for (var i = 0; i < heute.length; i++) if (n.min >= heute[i][0] && n.min < heute[i][1]) return { offen: true, text: 'Jetzt geöffnet, bis ' + uhr(heute[i][1]) };
+    for (var d = 0; d < 7; d++) {
+      var tag = (n.tag + d) % 7, s = plan[tag];
+      for (var j = 0; j < s.length; j++) if (d > 0 || s[j][0] > n.min) return { offen: false, text: 'Gerade geschlossen. Wir öffnen ' + (d === 0 ? 'heute' : d === 1 ? 'morgen' : 'am ' + tage[tag]) + ' um ' + uhr(s[j][0]) + '.' };
+    }
+    return { offen: false, text: 'Unsere Öffnungszeiten' };
+  }
+  function update() {
+    var n = jetzt(), s = status(n);
+    document.querySelectorAll('[data-status-text]').forEach(function (el) { el.textContent = s.text; });
+    document.querySelectorAll('[data-status-dot]').forEach(function (el) { el.classList.toggle('is-open', s.offen); });
+    document.querySelectorAll('#hours tr').forEach(function (tr) { tr.classList.toggle('is-today', tr.dataset.days.split(',').map(Number).indexOf(n.tag) > -1); });
+  }
+  update(); setInterval(update, 60000);
+
+  document.querySelectorAll('[data-rail]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var rail = document.getElementById(b.dataset.target), fig = rail.querySelector('figure');
+      var step = fig ? fig.getBoundingClientRect().width + 16 : 320;
+      rail.scrollBy({ left: step * Number(b.dataset.rail), behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    });
+  });
+
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.ev-tabs [role="tab"]'));
+  function waehle(t) {
+    tabs.forEach(function (x) {
+      var on = x === t;
+      x.setAttribute('aria-selected', on ? 'true' : 'false');
+      x.tabIndex = on ? 0 : -1;
+      document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+    });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { waehle(t); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      var n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      waehle(n); n.focus(); e.preventDefault();
+    });
+  });
+
+  // ADVENT: eine Woche = ein Versteck, ein Codewort (Beispiele). Vor dem Start wird Woche 1 als Vorschau gezeigt.
+  var wochen = [
+    { bis: '2026-12-06', ort: '#marken .brands li:nth-child(12)', code: 'LIEBLINGSSTÜCK', bisText: 'Sonntag, 6. Dezember', tipp: 'Schau dir unsere Marken genau an.' },
+    { bis: '2026-12-13', ort: '#stimmen .wrap > div:first-child > div:first-child', code: 'STERNSTUNDE', bisText: 'Sonntag, 13. Dezember', tipp: 'Lies, was unsere Kundinnen sagen.' },
+    { bis: '2026-12-20', ort: '#gut-zu-wissen .wrap > div:first-child', code: 'GLANZSTÜCK', bisText: 'Sonntag, 20. Dezember', tipp: 'Bevor du vorbeikommst, lohnt sich ein Blick.' },
+    { bis: '2026-12-24', ort: '#besuch dl.visit > div:first-child', code: 'CHRISTKIND', bisText: 'Donnerstag, 24. Dezember', tipp: 'Wo du uns findest, findest du auch das Geschenk.' }
+  ];
+  var heuteISO = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Vienna' }).format(new Date());
+  var woche = null;
+  for (var w = 0; w < wochen.length; w++) if (heuteISO <= wochen[w].bis) { woche = wochen[w]; break; }
+  if (woche) {
+    document.querySelectorAll('[data-advent]').forEach(function (el) { el.hidden = false; });
+    document.querySelector('[data-advent-hint]').textContent = woche.tipp;
+    var ziel = document.querySelector(woche.ort), karte = document.getElementById('gift-card');
+    if (ziel) {
+      ziel.classList.add('gift-spot');
+      var g = document.createElement('button');
+      g.type = 'button'; g.className = 'gift'; g.setAttribute('aria-label', 'Verstecktes Geschenk öffnen');
+      g.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3.5" y="9" width="17" height="11.5"/><path d="M2.5 9h19M12 9v11.5M12 9c-1.5-3.5-5.5-4.5-6-2s4 2 6 2zm0 0c1.5-3.5 5.5-4.5 6-2s-4 2-6 2z"/></svg>';
+      ziel.appendChild(g);
+      g.addEventListener('click', function () {
+        document.querySelector('[data-advent-code]').textContent = woche.code;
+        document.querySelector('[data-advent-until]').textContent = woche.bisText;
+        if (karte.showModal) karte.showModal(); else karte.setAttribute('open', '');
+      });
+    }
+    var einladung = 'Auf der Website von aLea ist ein Geschenk versteckt. Findest du es? https://alea-boutique.com/#advent';
+    var teilen = document.getElementById('gift-share');
+    teilen.href = 'https://wa.me/?text=' + encodeURIComponent(einladung);
+    teilen.addEventListener('click', function (e) {
+      if (navigator.share) { e.preventDefault(); navigator.share({ text: einladung }).catch(function () {}); }
+    });
+    document.getElementById('gift-close').addEventListener('click', function () { karte.close ? karte.close() : karte.removeAttribute('open'); });
+  }
+
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.dataset.copy), txt = el.textContent.trim();
+      function ok() { b.textContent = 'Kopiert'; setTimeout(function () { b.textContent = 'Kopieren'; }, 1800); }
+      function sel() { var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Markiert'; }
+      try { navigator.clipboard.writeText(txt).then(ok, sel); } catch (e) { sel(); }
+    });
+  });
+
+  var form = document.getElementById('ps-form'), msg = document.getElementById('ps-msg');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var fehlt = [];
+    ['ps-name', 'ps-kontakt'].forEach(function (id) { var f = document.getElementById(id), leer = !f.value.trim(); f.setAttribute('aria-invalid', leer ? 'true' : 'false'); if (leer) fehlt.push(f); });
+    msg.hidden = false;
+    if (fehlt.length) { msg.textContent = 'Bitte gib deinen Namen und eine E-Mail-Adresse oder Telefonnummer an, damit wir dich erreichen.'; fehlt[0].focus(); return; }
+    msg.textContent = 'Vorschau: Diese Anfrage wurde nicht verschickt. Das Formular wird beim Livegang angebunden. Bis dahin erreichst du uns unter kontakt@alea-boutique.com.';
+  });
+})();
+</script>
+</body>
+</html>
