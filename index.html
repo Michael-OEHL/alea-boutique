@@ -179,6 +179,7 @@
   .field input, .field textarea { width: 100%; min-height: 50px; padding: .75rem 0; background: transparent; color: var(--ink); border: 0; border-bottom: 1px solid var(--muted); border-radius: 0; font: inherit; }
   .field input:focus, .field textarea:focus { outline: none; border-bottom: 2px solid var(--ink); }
   .field input[aria-invalid="true"] { border-bottom: 2px solid #9A3B2E; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
   .form-note { border-left: 2px solid var(--ink); padding-left: 1rem; }
 
   /* Gut zu wissen */
@@ -453,7 +454,9 @@
               <div class="field"><label for="ps-personen">Personen</label><input id="ps-personen" name="personen" type="number" min="1" inputmode="numeric" placeholder="ab ca. 5"></div>
             </div>
             <div class="field"><label for="ps-nachricht">Anlass oder Wunsch</label><textarea id="ps-nachricht" name="nachricht" rows="2"></textarea></div>
-            <div><button type="submit" class="btn btn-line">Anfrage senden</button></div>
+            <div class="hp" aria-hidden="true"><label for="ps-website">Bitte leer lassen</label><input id="ps-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+            <p class="text-[.875rem] text-muted">Wir verwenden deine Angaben nur, um dir zu antworten. Mehr dazu im <a class="lnk" style="color: var(--ink)" href="/datenschutz">Datenschutz</a>.</p>
+            <div><button type="submit" class="btn btn-line" id="ps-senden">Anfrage senden</button></div>
             <p id="ps-msg" class="form-note" role="status" hidden></p>
           </form>
         </details>
@@ -740,14 +743,34 @@
     });
   });
 
-  var form = document.getElementById('ps-form'), msg = document.getElementById('ps-msg');
+  var form = document.getElementById('ps-form'), msg = document.getElementById('ps-msg'), knopf = document.getElementById('ps-senden');
+  var geoeffnet = Date.now();
+  var dIn = document.getElementById('ps-datum'); if (dIn) dIn.min = heuteISO;
+  var DIREKT = ' Ruf uns gern an unter +43 660 552 77 37 oder schreib uns auf WhatsApp.';
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var fehlt = [];
     ['ps-name', 'ps-kontakt'].forEach(function (id) { var f = document.getElementById(id), leer = !f.value.trim(); f.setAttribute('aria-invalid', leer ? 'true' : 'false'); if (leer) fehlt.push(f); });
     msg.hidden = false;
     if (fehlt.length) { msg.textContent = 'Bitte gib deinen Namen und eine E-Mail-Adresse oder Telefonnummer an, damit wir dich erreichen.'; fehlt[0].focus(); return; }
-    msg.textContent = 'Vorschau: Diese Anfrage wurde nicht verschickt. Das Formular wird beim Livegang angebunden. Bis dahin erreichst du uns unter kontakt@alea-boutique.com.';
+    var daten = { t: geoeffnet };
+    new FormData(form).forEach(function (v, k) { daten[k] = v; });
+    knopf.disabled = true; knopf.textContent = 'Wird gesendet …';
+    msg.textContent = 'Deine Anfrage wird gesendet.';
+    fetch('/api/anfrage', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(daten) })
+      .then(function (r) { return r.json().catch(function () { return { ok: false }; }).then(function (j) { return { status: r.status, j: j }; }); })
+      .then(function (x) {
+        if (x.j && x.j.ok) {
+          form.reset();
+          msg.textContent = 'Danke, ' + (daten.name || '').trim().split(' ')[0] + '! Deine Anfrage ist bei uns angekommen. Wir melden uns so bald wie möglich bei dir. Steffi & Kathi';
+          knopf.textContent = 'Gesendet';
+          return;
+        }
+        knopf.disabled = false; knopf.textContent = 'Anfrage senden';
+        if (x.j && x.j.fehler === 'kontakt') { document.getElementById('ps-kontakt').setAttribute('aria-invalid', 'true'); document.getElementById('ps-kontakt').focus(); msg.textContent = 'Bitte prüf deine E-Mail-Adresse oder Telefonnummer.'; return; }
+        msg.textContent = 'Das hat leider nicht geklappt.' + DIREKT;
+      })
+      .catch(function () { knopf.disabled = false; knopf.textContent = 'Anfrage senden'; msg.textContent = 'Keine Verbindung.' + DIREKT; });
   });
 })();
 </script>
