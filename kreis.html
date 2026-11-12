@@ -240,7 +240,10 @@
   <div id="k-status" class="form-note mb-10" role="status" hidden></div>
 
   <form id="k-form" class="grid gap-6" novalidate>
-    <div class="field"><label for="k-name">Dein Name</label><input id="k-name" name="name" type="text" autocomplete="name" required></div>
+    <div class="grid gap-6 sm:grid-cols-2">
+      <div class="field"><label for="k-vorname">Vorname</label><input id="k-vorname" name="vorname" type="text" autocomplete="given-name" required></div>
+      <div class="field"><label for="k-nachname">Nachname</label><input id="k-nachname" name="nachname" type="text" autocomplete="family-name" required></div>
+    </div>
     <div class="field max-w-[12rem]"><label for="k-plz">Postleitzahl</label><input id="k-plz" name="plz" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="5" required></div>
 
     <fieldset>
@@ -316,7 +319,9 @@
   }
 
   var FEHLER = {
-    name: ['k-name', 'Bitte gib deinen Namen an.'],
+    vorname: ['k-vorname', 'Bitte gib deinen Vornamen an.'],
+    nachname: ['k-nachname', 'Bitte gib deinen Nachnamen an.'],
+    name: ['k-vorname', 'Bitte gib deinen Namen an.'],
     plz: ['k-plz', 'Bitte gib deine Postleitzahl an (4 Ziffern).'],
     weg: ['k-wa', 'Bitte wähle WhatsApp, E-Mail oder beides.'],
     tel: ['k-tel', 'Bitte prüf deine Handynummer.'],
@@ -331,18 +336,19 @@
     e.preventDefault();
     form.querySelectorAll('[aria-invalid]').forEach(function (el) { el.removeAttribute('aria-invalid'); });
     var wa = $('k-wa').checked, ml = $('k-mail').checked;
-    if (!$('k-name').value.trim()) return fehler('name');
+    if (!$('k-vorname').value.trim()) return fehler('vorname');
+    if (!$('k-nachname').value.trim()) return fehler('nachname');
     if (!/^\d{4,5}$/.test($('k-plz').value.trim())) return fehler('plz');
     if (!wa && !ml) return fehler('weg');
     if (wa && $('k-tel').value.replace(/\D/g, '').length < 8) return fehler('tel');
     if (ml && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test($('k-email').value.trim())) return fehler('email');
-    var daten = { t: geoeffnet, name: $('k-name').value, plz: $('k-plz').value.trim(), wa: wa, mail: ml, tel: wa ? $('k-tel').value : '', email: ml ? $('k-email').value : '', gebTag: $('k-tag').value, gebMonat: $('k-monat').value, gebJahr: $('k-jahr').value, website: $('k-website').value, quelle: form.dataset.quelle || '' };
+    var daten = { t: geoeffnet, vorname: $('k-vorname').value, nachname: $('k-nachname').value, plz: $('k-plz').value.trim(), wa: wa, mail: ml, tel: wa ? $('k-tel').value : '', email: ml ? $('k-email').value : '', gebTag: $('k-tag').value, gebMonat: $('k-monat').value, gebJahr: $('k-jahr').value, website: $('k-website').value, quelle: form.dataset.quelle || '' };
     knopf.disabled = true; knopf.textContent = 'Einen Moment …'; msg.hidden = true;
     post(daten).then(function (j) {
       knopf.disabled = false; knopf.textContent = 'Dabei sein';
       if (!j.ok) return fehler(j.fehler);
       form.hidden = true;
-      var vn = daten.name.trim().split(/\s+/)[0];
+      var vn = daten.vorname.trim();
       var t = 'Schön, dass du dabei bist, ' + vn + '!';
       if (j.mail) t += j.mailGesendet ? ' Wir haben dir eine E-Mail geschickt. Bitte bestätige darin noch kurz deine Adresse.' : ' Die Bestätigungs-E-Mail konnten wir gerade nicht senden. Wir melden uns bei dir.';
       if (j.wa) t += ' Speicher dir unsere Nummer +43 660 552 77 37 im Handy, damit unsere WhatsApp-Nachrichten bei dir ankommen.';

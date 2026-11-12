@@ -28,7 +28,8 @@ async function anmelden(b, request) {
   if (sauber(b.website, 100)) return json({ ok: true, mail: false });
   if (!Number(b.t) || Date.now() - Number(b.t) < 3000) return json({ ok: true, mail: false });
 
-  const name = sauber(b.name, 80);
+  const vorn = sauber(b.vorname, 50), nachn = sauber(b.nachname, 50);
+  const name = (vorn && nachn) ? vorn + ' ' + nachn : sauber(b.name, 80);
   const plz = sauber(b.plz, 5);
   const wa = b.wa === true || b.wa === 'on';
   const perMail = b.mail === true || b.mail === 'on';
@@ -40,7 +41,8 @@ async function anmelden(b, request) {
   const jahr = jahrRoh >= jahrJetzt - 100 && jahrRoh <= jahrJetzt - 14 ? jahrRoh : null;
   const geburtstag = tag >= 1 && tag <= 31 && monat >= 1 && monat <= 12 ? { tag, monat, jahr } : jahr ? { tag: null, monat: null, jahr } : null;
 
-  if (!name) return json({ ok: false, fehler: 'name' }, 400);
+  if (!vorn) return json({ ok: false, fehler: 'vorname' }, 400);
+  if (!nachn) return json({ ok: false, fehler: 'nachname' }, 400);
   if (!/^\d{4,5}$/.test(plz)) return json({ ok: false, fehler: 'plz' }, 400);
   if (!wa && !perMail) return json({ ok: false, fehler: 'weg' }, 400);
   if (wa && !tel) return json({ ok: false, fehler: 'tel' }, 400);
@@ -51,7 +53,7 @@ async function anmelden(b, request) {
   const alt = (await laden(id)) || {};
   const m = {
     ...alt,
-    id, name, plz,
+    id, name, vorname: vorn, nachname: nachn, plz,
     tel: tel || alt.tel || '',
     email: email || alt.email || '',
     geburtstag: geburtstag || alt.geburtstag || null,
@@ -74,7 +76,7 @@ async function anmelden(b, request) {
       await mail({
         an: email,
         betreff: 'Bitte bestätige deine Anmeldung zum aLea-Kreis',
-        text: 'Hallo ' + vorname(name) + ',\n\nschön, dass du im aLea-Kreis dabei sein möchtest! Bitte bestätige noch kurz deine E-Mail-Adresse:\n\n' + link +
+        text: 'Hallo ' + vorn + ',\n\nschön, dass du im aLea-Kreis dabei sein möchtest! Bitte bestätige noch kurz deine E-Mail-Adresse:\n\n' + link +
           '\n\nWenn du dich nicht angemeldet hast, ignoriere diese E-Mail einfach. Dann schicken wir dir nichts.\n\nHerzliche Grüße\nSteffi & Kathi\n\naLea Boutique OG · Marktplatz 18 · 4680 Haag am Hausruck\nAbmelden: ' + ab + '\n',
       });
       mailGesendet = true;
@@ -110,7 +112,7 @@ async function bestaetigen(b) {
     m.einwilligung.mail.bestaetigt = new Date().toISOString();
     await speichern(m);
   }
-  return json({ ok: true, name: vorname(m.name) });
+  return json({ ok: true, name: m.vorname || vorname(m.name) });
 }
 
 async function abmelden(b) {

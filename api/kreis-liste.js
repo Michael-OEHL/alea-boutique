@@ -7,7 +7,7 @@ export async function GET(request) {
   try {
     const basis = basisUrl(request);
     const liste = (await alle()).sort((a, b) => (a.angemeldet < b.angemeldet ? 1 : -1)).map((m) => ({
-      id: m.id, name: m.name, plz: m.plz, angemeldet: m.angemeldet, quelle: m.quelle || 'website',
+      id: m.id, name: m.name, vorname: m.vorname || '', nachname: m.nachname || '', plz: m.plz, angemeldet: m.angemeldet, quelle: m.quelle || 'website',
       tel: m.einwilligung && m.einwilligung.wa ? m.tel : '',
       email: m.einwilligung && m.einwilligung.mail ? m.email : '',
       mailBestaetigt: !!(m.einwilligung && m.einwilligung.mail && m.einwilligung.mail.bestaetigt),
