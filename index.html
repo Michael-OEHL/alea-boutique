@@ -667,31 +667,34 @@
   }
   update(); setInterval(update, 60000);
 
-  document.querySelectorAll('[data-rail]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var rail = document.getElementById(b.dataset.target), fig = rail.querySelector('figure');
-      var step = fig ? fig.getBoundingClientRect().width + 16 : 320;
-      rail.scrollBy({ left: step * Number(b.dataset.rail), behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-    });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-rail]'); if (!b) return;
+    var rail = document.getElementById(b.dataset.target); if (!rail) return;
+    var fig = rail.querySelector('figure');
+    var step = fig ? fig.getBoundingClientRect().width + 16 : 320;
+    rail.scrollBy({ left: step * Number(b.dataset.rail), behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   });
 
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('.ev-tabs [role="tab"]'));
+  function evTabs() { return Array.prototype.slice.call(document.querySelectorAll('.ev-tabs [role="tab"]')); }
   function waehle(t) {
-    tabs.forEach(function (x) {
+    evTabs().forEach(function (x) {
       var on = x === t;
       x.setAttribute('aria-selected', on ? 'true' : 'false');
       x.tabIndex = on ? 0 : -1;
       document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
     });
   }
-  tabs.forEach(function (t, i) {
-    t.addEventListener('click', function () { waehle(t); });
-    t.addEventListener('keydown', function (e) {
+  window.alWaehle = waehle;
+  var tabList = document.querySelector('.ev-tabs');
+  if (tabList) {
+    tabList.addEventListener('click', function (e) { var t = e.target.closest('[role="tab"]'); if (t) waehle(t); });
+    tabList.addEventListener('keydown', function (e) {
       if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      var tabs = evTabs(), i = tabs.indexOf(document.activeElement); if (i < 0) return;
       var n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
       waehle(n); n.focus(); e.preventDefault();
     });
-  });
+  }
 
   // ADVENT: eine Woche = ein Versteck, ein Codewort (Beispiele). Vor dem Start wird Woche 1 als Vorschau gezeigt.
   var wochen = [
@@ -746,6 +749,76 @@
     if (fehlt.length) { msg.textContent = 'Bitte gib deinen Namen und eine E-Mail-Adresse oder Telefonnummer an, damit wir dich erreichen.'; fehlt[0].focus(); return; }
     msg.textContent = 'Vorschau: Diese Anfrage wurde nicht verschickt. Das Formular wird beim Livegang angebunden. Bis dahin erreichst du uns unter kontakt@alea-boutique.com.';
   });
+})();
+</script>
+
+<script>
+// Inhalte aus der aLea Pflege: Neu eingetroffen, neue Events, ergänzte Fotos
+(function () {
+  var MONATE = ['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function bild(f, sizes) {
+    var img = el('img');
+    img.src = f.urlKlein; img.srcset = f.urlKlein + ' 600w, ' + f.url + ' 1600w'; img.sizes = sizes;
+    img.width = f.w; img.height = f.h; img.alt = f.alt || ''; img.loading = 'lazy'; img.decoding = 'async';
+    return img;
+  }
+  function figuren(rail, fotos) { fotos.forEach(function (f) { var fig = el('figure'); fig.appendChild(bild(f, '21rem')); rail.appendChild(fig); }); }
+  function railBtns(id) {
+    var d = el('div', 'flex gap-2');
+    [['-1', '←', 'Vorherige Fotos'], ['1', '→', 'Nächste Fotos']].forEach(function (x) {
+      var b = el('button', 'rail-btn', x[1]); b.type = 'button'; b.dataset.rail = x[0]; b.dataset.target = id; b.setAttribute('aria-label', x[2]); d.appendChild(b);
+    });
+    return d;
+  }
+  fetch('/api/content').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+    if (!d) return;
+    var n = (d.neu || [])[0], art = document.querySelector('article.new-in');
+    if (n && art) {
+      var box = art.querySelector('.new-in-img'); box.replaceChildren(bild(n.foto, '(min-width: 768px) 34vw, 100vw'));
+      var m = Number(n.datum.slice(5, 7)) - 1;
+      art.querySelector('.new-in-text .label').textContent = 'Neu eingetroffen · ' + MONATE[m];
+      art.querySelector('#neu-h').textContent = n.titel;
+      var p = art.querySelector('#neu-h').nextElementSibling; if (p) p.textContent = n.text;
+    }
+    Object.keys(d.eventFotos || {}).forEach(function (k) {
+      var fotos = d.eventFotos[k]; if (!fotos.length) return;
+      var panel = document.getElementById('panel-' + k); if (!panel) return;
+      var rail = document.getElementById('rail-' + k);
+      if (!rail) {
+        rail = el('div', 'rail'); rail.id = 'rail-' + k; rail.tabIndex = 0; rail.setAttribute('aria-label', 'Fotos, seitlich scrollen');
+        panel.appendChild(rail);
+        var head = panel.querySelector('.flex.flex-wrap'); if (head) head.appendChild(railBtns(rail.id));
+      }
+      if (rail.querySelector('figure.ph')) {
+        rail.querySelectorAll('figure.ph').forEach(function (f) { f.remove(); });
+        var hint = panel.querySelector('p.text-sm.text-muted.mt-3'); if (hint && /folgen/.test(hint.textContent)) hint.remove();
+      }
+      figuren(rail, fotos);
+    });
+    var tabs = document.querySelector('.ev-tabs'), events = (d.events || []).slice().sort(function (a, b) { return a.datum < b.datum ? 1 : -1; });
+    if (!tabs || !events.length) return;
+    var firstPanel = document.querySelector('.ev-panel'), firstTab = tabs.firstElementChild, neuster = null;
+    events.forEach(function (e) {
+      var id = 'ev-' + e.id.slice(0, 8), m = Number(e.datum.slice(5, 7)) - 1, jahr = e.datum.slice(0, 4);
+      var tab = el('button'); tab.type = 'button'; tab.setAttribute('role', 'tab'); tab.id = 'tab-' + id; tab.setAttribute('aria-controls', 'panel-' + id); tab.setAttribute('aria-selected', 'false'); tab.tabIndex = -1;
+      tab.append(el('span', 'label', MONATE[m] + ' ' + jahr), el('span', 'ev-tab-title', e.titel));
+      tabs.insertBefore(tab, firstTab);
+      var panel = el('div', 'ev-panel'); panel.id = 'panel-' + id; panel.setAttribute('role', 'tabpanel'); panel.setAttribute('aria-labelledby', tab.id); panel.hidden = true;
+      var head = el('div', 'flex flex-wrap items-end justify-between gap-8 mb-10'), txt = el('div', 'max-w-[40rem] min-w-0');
+      txt.append(el('h3', 'serif text-[1.75rem] md:text-[2.1rem] leading-tight mb-4', e.titel), el('p', 'text-muted', e.text));
+      head.appendChild(txt);
+      panel.appendChild(head);
+      if (e.fotos.length) {
+        head.appendChild(railBtns('rail-' + id));
+        var rail = el('div', 'rail'); rail.id = 'rail-' + id; rail.tabIndex = 0; rail.setAttribute('aria-label', 'Fotos von ' + e.titel + ', seitlich scrollen');
+        figuren(rail, e.fotos); panel.appendChild(rail);
+      }
+      firstPanel.parentNode.insertBefore(panel, firstPanel);
+      if (!neuster) neuster = tab;
+    });
+    if (neuster && window.alWaehle) window.alWaehle(neuster);
+  }).catch(function () {});
 })();
 </script>
 </body>

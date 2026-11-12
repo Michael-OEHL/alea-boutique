@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>aLea Pflege</title>
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="aLea Pflege">
+<meta name="theme-color" content="#F7F3EE">
+<style>
+  @font-face{font-family:'Bodoni Moda';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/bodoni-moda-latin-400-normal.woff2) format('woff2')}
+  @font-face{font-family:'Jost';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jost-latin-400-normal.woff2) format('woff2')}
+  @font-face{font-family:'Jost';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jost-latin-500-normal.woff2) format('woff2')}
+  /* Layout: eine schmale Spalte wie eine App am Handy. Beige Grund, weiße Karten, Schwarz für Aktionen. */
+  :root { --paper:#F7F3EE; --beige:#E4DACD; --card:#FFFFFF; --ink:#141210; --muted:#5A534B; --line:#DCD2C5; --ok:#2F6B47; --bad:#9A3B1E;
+    --serif:'Bodoni Moda', Didot, Georgia, serif; --sans:'Jost', 'Futura', system-ui, sans-serif; color-scheme: light; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .app { max-width: 34rem; margin: 0 auto; padding: max(20px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 64px max(16px, env(safe-area-inset-left)); display: grid; gap: 18px; }
+  section { display: grid; gap: 18px; }
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; }
+  .top img { width: 52px; height: 52px; }
+  h1 { font-family: var(--serif); font-weight: 400; font-size: 2.1rem; line-height: 1.1; margin: 0; }
+  h2 { font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin: 8px 0 0; }
+  p { margin: 0; }
+  .muted { color: var(--muted); }
+  .small { font-size: .88rem; }
+  button, input, textarea, select { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+  .btn { min-height: 52px; padding: 0 22px; border-radius: 999px; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); font-weight: 500; cursor: pointer; width: 100%; }
+  .btn.line { background: transparent; color: var(--ink); }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .back { background: none; border: 0; padding: 10px 0; cursor: pointer; font-weight: 500; min-height: 44px; }
+  .linkbtn { background: none; border: 0; padding: 8px 0; cursor: pointer; text-decoration: underline; text-underline-offset: .2em; min-height: 44px; }
+  .tiles { display: grid; gap: 10px; }
+  .tile { display: flex; justify-content: space-between; align-items: center; gap: 12px; text-align: left; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; cursor: pointer; min-height: 72px; }
+  .tile strong { display: block; font-weight: 500; font-size: 1.05rem; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: grid; gap: 16px; }
+  .field { display: grid; gap: 6px; }
+  label { font-weight: 500; }
+  input[type=text], input[type=date], input[type=password], textarea, select { width: 100%; min-height: 50px; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--paper); }
+  textarea { min-height: 96px; resize: vertical; }
+  .hint { font-size: .85rem; color: var(--muted); }
+  .pick { display: grid; place-items: center; gap: 6px; border: 1.5px dashed var(--line); border-radius: 14px; padding: 22px; text-align: center; cursor: pointer; background: var(--paper); min-height: 120px; }
+  .pick input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .thumbs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .thumbs figure { margin: 0; position: relative; aspect-ratio: 4/5; border-radius: 10px; overflow: hidden; background: var(--beige); }
+  .thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .thumbs button { position: absolute; top: 6px; right: 6px; width: 34px; height: 34px; border-radius: 50%; border: 0; background: rgba(20,18,16,.75); color: #fff; cursor: pointer; }
+  .preview { border-radius: 14px; overflow: hidden; background: var(--paper); border: 1px solid var(--line); }
+  .preview img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; }
+  .preview div { padding: 16px; display: grid; gap: 6px; }
+  .preview .lbl { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  .preview .t { font-family: var(--serif); font-size: 1.6rem; line-height: 1.15; }
+  .list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .list li { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; }
+  .list .what { min-width: 0; }
+  .list .what span { display: block; font-size: .82rem; color: var(--muted); }
+  .del { background: none; border: 1px solid var(--line); border-radius: 999px; min-height: 40px; padding: 0 14px; cursor: pointer; color: var(--bad); flex: none; }
+  .msg { padding: 12px 14px; border-radius: 12px; font-size: .95rem; }
+  .msg.ok { background: #DCE8DF; color: var(--ok); }
+  .msg.bad { background: #F6E3D8; color: var(--bad); }
+  .bar { height: 6px; background: var(--beige); border-radius: 999px; overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--ink); transition: width .2s; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <section id="s-login" aria-labelledby="h-login">
+    <div class="top"><img src="/img/logo-180.webp" width="180" height="179" alt="aLea Boutique"></div>
+    <p class="muted small">Nur für Steffi &amp; Kathi</p>
+    <h1 id="h-login">aLea Pflege</h1>
+    <p class="muted">Hier stellt ihr Neuheiten und Events auf die Website.</p>
+    <form id="f-login" class="card" novalidate>
+      <div class="field"><label for="pw">Passwort</label><input type="password" id="pw" autocomplete="current-password" required></div>
+      <button class="btn" type="submit">Anmelden</button>
+      <p class="msg bad" id="login-msg" role="alert" hidden></p>
+    </form>
+  </section>
+
+  <section id="s-home" aria-labelledby="h-home" hidden>
+    <div class="top"><img src="/img/logo-180.webp" width="180" height="179" alt="aLea Boutique"><button class="linkbtn small" type="button" id="logout">Abmelden</button></div>
+    <h1 id="h-home" tabindex="-1">Hallo Steffi &amp; Kathi</h1>
+    <p class="muted">Was möchtet ihr heute auf die Website stellen?</p>
+    <p class="msg ok" id="home-msg" role="status" hidden></p>
+    <div class="tiles">
+      <button class="tile" type="button" data-go="s-neu"><span><strong>Neu eingetroffen</strong><span class="muted small">1 Foto, Titel, 1–2 Sätze</span></span><span aria-hidden="true">→</span></button>
+      <button class="tile" type="button" data-go="s-event"><span><strong>Neues Event</strong><span class="muted small">Titel, Datum, Text, Fotos</span></span><span aria-hidden="true">→</span></button>
+      <button class="tile" type="button" data-go="s-fotos"><span><strong>Fotos ergänzen</strong><span class="muted small">zu einem Event, z. B. Style &amp; Wine</span></span><span aria-hidden="true">→</span></button>
+    </div>
+    <h2>Gerade online</h2>
+    <ul class="list" id="online"><li><span class="muted">Wird geladen …</span></li></ul>
+    <p><a href="/#neu" class="small" style="color:var(--ink)">Zur Website</a></p>
+  </section>
+
+  <section id="s-neu" aria-labelledby="h-neu" hidden>
+    <div class="top"><button class="back" type="button" data-go="s-home">← Zurück</button></div>
+    <h1 id="h-neu" tabindex="-1">Neu eingetroffen</h1>
+    <form id="f-neu" class="card" novalidate>
+      <label class="pick" id="neu-pick"><span><strong>Foto wählen</strong><br><span class="muted small">hochkant sieht am schönsten aus</span></span><input type="file" id="neu-file" accept="image/*"></label>
+      <div class="field"><label for="neu-titel">Titel</label><input type="text" id="neu-titel" maxlength="90" placeholder="z. B. Weicher Strick für den Herbst" required></div>
+      <div class="field"><label for="neu-text">1–2 Sätze</label><textarea id="neu-text" maxlength="300" placeholder="Was ist besonders? Was soll die Kundin tun?"></textarea></div>
+      <div class="field"><label for="neu-alt">Was ist auf dem Foto?</label><input type="text" id="neu-alt" maxlength="160" placeholder="z. B. Steffi in einer rosa Strickjacke"><p class="hint">Für Menschen, die nicht sehen können, und für Google.</p></div>
+      <h2>Vorschau</h2>
+      <div class="preview"><img id="neu-prev-img" alt="" hidden><div><span class="lbl" id="neu-prev-lbl">Neu eingetroffen</span><span class="t" id="neu-prev-t">Titel</span><span class="muted" id="neu-prev-p"></span></div></div>
+      <div class="bar" hidden id="neu-bar"><i></i></div>
+      <button class="btn" type="submit" id="neu-save">Auf die Website stellen</button>
+      <p class="msg bad" id="neu-msg" role="alert" hidden></p>
+    </form>
+  </section>
+
+  <section id="s-event" aria-labelledby="h-event" hidden>
+    <div class="top"><button class="back" type="button" data-go="s-home">← Zurück</button></div>
+    <h1 id="h-event" tabindex="-1">Neues Event</h1>
+    <form id="f-event" class="card" novalidate>
+      <div class="field"><label for="ev-titel">Titel</label><input type="text" id="ev-titel" maxlength="90" placeholder="z. B. Style &amp; Wine mit Somni" required></div>
+      <div class="field"><label for="ev-datum">Datum</label><input type="date" id="ev-datum" required></div>
+      <div class="field"><label for="ev-text">Text</label><textarea id="ev-text" maxlength="600" placeholder="Was war oder ist geplant? Mit wem?"></textarea></div>
+      <label class="pick"><span><strong>Fotos wählen</strong><br><span class="muted small">mehrere auf einmal möglich, auch später ergänzbar</span></span><input type="file" id="ev-files" accept="image/*" multiple></label>
+      <div class="thumbs" id="ev-thumbs"></div>
+      <div class="bar" hidden id="ev-bar"><i></i></div>
+      <button class="btn" type="submit" id="ev-save">Event auf die Website stellen</button>
+      <p class="msg bad" id="ev-msg" role="alert" hidden></p>
+    </form>
+  </section>
+
+  <section id="s-fotos" aria-labelledby="h-fotos" hidden>
+    <div class="top"><button class="back" type="button" data-go="s-home">← Zurück</button></div>
+    <h1 id="h-fotos" tabindex="-1">Fotos ergänzen</h1>
+    <form id="f-fotos" class="card" novalidate>
+      <div class="field"><label for="fo-event">Zu welchem Event?</label><select id="fo-event"></select></div>
+      <ul class="list" id="fo-vorhanden"></ul>
+      <label class="pick"><span><strong>Fotos wählen</strong><br><span class="muted small">mehrere auf einmal möglich</span></span><input type="file" id="fo-files" accept="image/*" multiple></label>
+      <div class="thumbs" id="fo-thumbs"></div>
+      <div class="bar" hidden id="fo-bar"><i></i></div>
+      <button class="btn" type="submit" id="fo-save">Fotos hinzufügen</button>
+      <p class="msg bad" id="fo-msg" role="alert" hidden></p>
+    </form>
+  </section>
+</div>
+
+<script>
+(function () {
+  var STATISCH = [{ id: 'wine', titel: 'Style & Wine (November 2026)' }, { id: 'lang', titel: 'Modenschau Autohaus Lang (September 2026)' }, { id: 'eroeffnung', titel: 'Eröffnung (März 2026)' }];
+  var MONATE = ['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+  var $ = function (id) { return document.getElementById(id); };
+  var token = null, inhalt = null;
+  try { token = localStorage.getItem('alea-pflege'); } catch (e) {}
+
+  function zeige(id) {
+    document.querySelectorAll('.app > section').forEach(function (s) { s.hidden = s.id !== id; });
+    var h = document.querySelector('#' + id + ' h1'); if (h) h.focus();
+    window.scrollTo(0, 0);
+    if (id === 's-fotos') fuelleEvents();
+  }
+  function meldung(el, text) { el.textContent = text; el.hidden = !text; }
+
+  function api(pfad, opt) {
+    opt = opt || {};
+    opt.headers = opt.headers || {};
+    if (token) opt.headers.authorization = 'Bearer ' + token;
+    return fetch(pfad, opt).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (d) {
+        if (r.status === 401 && pfad !== '/api/login') { abmelden(); throw new Error('Bitte neu anmelden.'); }
+        if (!r.ok) throw new Error(d.fehler || 'Das hat nicht geklappt. Bitte nochmal versuchen.');
+        return d;
+      });
+    });
+  }
+  function abmelden() { token = null; try { localStorage.removeItem('alea-pflege'); } catch (e) {} zeige('s-login'); }
+
+  $('f-login').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var m = $('login-msg'); meldung(m, '');
+    api('/api/login', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ passwort: $('pw').value }) })
+      .then(function (d) { token = d.token; try { localStorage.setItem('alea-pflege', token); } catch (e) {} $('pw').value = ''; start(); })
+      .catch(function (err) { meldung(m, err.message); });
+  });
+  $('logout').addEventListener('click', abmelden);
+  document.querySelectorAll('[data-go]').forEach(function (b) { b.addEventListener('click', function () { zeige(b.dataset.go); }); });
+
+  function laden() {
+    return fetch('/api/content', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) { inhalt = d; zeigeOnline(); return d; });
+  }
+  function eintrag(text, unter, onDel) {
+    var li = document.createElement('li');
+    var w = document.createElement('span'); w.className = 'what'; w.textContent = text;
+    var s = document.createElement('span'); s.textContent = unter; w.appendChild(s);
+    li.appendChild(w);
+    if (onDel) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'del'; b.textContent = 'Löschen';
+      var scharf = false;
+      b.addEventListener('click', function () {
+        if (!scharf) { scharf = true; b.textContent = 'Wirklich löschen?'; setTimeout(function () { scharf = false; b.textContent = 'Löschen'; }, 4000); return; }
+        b.disabled = true; onDel();
+      });
+      li.appendChild(b);
+    }
+    return li;
+  }
+  function datumText(iso) { var p = iso.split('-'); return Number(p[2]) + '. ' + MONATE[Number(p[1]) - 1] + ' ' + p[0]; }
+  function zeigeOnline() {
+    var ul = $('online'); ul.replaceChildren();
+    var n = 0;
+    (inhalt.neu || []).forEach(function (x, i) {
+      n++;
+      ul.appendChild(eintrag('Neu eingetroffen: ' + x.titel, i === 0 ? 'wird gerade gezeigt' : 'älter, nicht mehr sichtbar', function () { speichern({ aktion: 'neu-loeschen', id: x.id }, 'Gelöscht.'); }));
+    });
+    (inhalt.events || []).forEach(function (x) {
+      n++;
+      ul.appendChild(eintrag('Event: ' + x.titel, datumText(x.datum) + ' · ' + x.fotos.length + ' Fotos', function () { speichern({ aktion: 'event-loeschen', id: x.id }, 'Event gelöscht.'); }));
+    });
+    Object.keys(inhalt.eventFotos || {}).forEach(function (k) {
+      var f = inhalt.eventFotos[k]; if (!f.length) return;
+      var s = STATISCH.find(function (x) { return x.id === k; });
+      n++; ul.appendChild(eintrag('Fotos: ' + (s ? s.titel : k), f.length + ' ergänzte Fotos', null));
+    });
+    if (!n) ul.appendChild(eintrag('Noch nichts über die Pflege eingestellt.', 'Die bisherigen Inhalte der Website bleiben sichtbar.', null));
+  }
+  function speichern(daten, text) {
+    return api('/api/save', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(daten) })
+      .then(function (d) { inhalt = d; zeigeOnline(); meldung($('home-msg'), text + ' Auf der Website in etwa einer Minute sichtbar.'); zeige('s-home'); return d; });
+  }
+
+  // Fotos verkleinern: groß 1600 px, klein 600 px, WebP
+  function verkleinern(file, max) {
+    return new Promise(function (ok, no) {
+      var img = new Image(), u = URL.createObjectURL(file);
+      img.onload = function () {
+        var s = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+        var w = Math.round(img.naturalWidth * s), h = Math.round(img.naturalHeight * s);
+        var c = document.createElement('canvas'); c.width = w; c.height = h;
+        c.getContext('2d').drawImage(img, 0, 0, w, h);
+        URL.revokeObjectURL(u);
+        c.toBlob(function (b) {
+          if (b && b.type === 'image/webp') return ok({ blob: b, w: w, h: h });
+          c.toBlob(function (j) { j ? ok({ blob: j, w: w, h: h }) : no(new Error('Foto konnte nicht gelesen werden.')); }, 'image/jpeg', 0.85);
+        }, 'image/webp', 0.82);
+      };
+      img.onerror = function () { URL.revokeObjectURL(u); no(new Error('Dieses Foto kann der Browser nicht öffnen. Bitte als JPG versuchen.')); };
+      img.src = u;
+    });
+  }
+  function hochladen(file, alt) {
+    var id = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2));
+    return Promise.all([verkleinern(file, 1600), verkleinern(file, 600)]).then(function (v) {
+      var put = function (x, g) { return api('/api/upload', { method: 'POST', headers: { 'content-type': x.blob.type, 'x-groesse': g, 'x-id': id }, body: x.blob }); };
+      return Promise.all([put(v[0], 'gross'), put(v[1], 'klein')]).then(function (r) {
+        return { url: r[0].url, urlKlein: r[1].url, w: v[0].w, h: v[0].h, alt: alt || '' };
+      });
+    });
+  }
+  function alleHochladen(files, alt, bar) {
+    var out = [], i = 0;
+    bar.hidden = false; bar.firstElementChild.style.width = '4%';
+    return files.reduce(function (p, f) {
+      return p.then(function () { return hochladen(f, alt).then(function (x) { out.push(x); i++; bar.firstElementChild.style.width = Math.round(i / files.length * 100) + '%'; }); });
+    }, Promise.resolve()).then(function () { return out; });
+  }
+  function vorschau(container, files, onRemove) {
+    container.replaceChildren();
+    files.forEach(function (f, i) {
+      var fig = document.createElement('figure'), im = document.createElement('img');
+      im.src = URL.createObjectURL(f); im.alt = '';
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = '×'; b.setAttribute('aria-label', 'Foto entfernen');
+      b.addEventListener('click', function () { onRemove(i); });
+      fig.append(im, b); container.appendChild(fig);
+    });
+  }
+
+  // Neu eingetroffen
+  var neuFile = null;
+  function neuVorschau() {
+    var jetzt = new Date();
+    $('neu-prev-lbl').textContent = 'Neu eingetroffen · ' + MONATE[jetzt.getMonth()];
+    $('neu-prev-t').textContent = $('neu-titel').value || 'Titel';
+    $('neu-prev-p').textContent = $('neu-text').value;
+  }
+  ['neu-titel', 'neu-text'].forEach(function (id) { $(id).addEventListener('input', neuVorschau); });
+  $('neu-file').addEventListener('change', function (e) {
+    neuFile = e.target.files[0] || null;
+    var im = $('neu-prev-img');
+    if (neuFile) { im.src = URL.createObjectURL(neuFile); im.hidden = false; $('neu-pick').querySelector('strong').textContent = 'Anderes Foto wählen'; }
+  });
+  $('f-neu').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var m = $('neu-msg'); meldung(m, '');
+    if (!neuFile || !$('neu-titel').value.trim()) { meldung(m, 'Bitte ein Foto wählen und einen Titel eingeben.'); return; }
+    var btn = $('neu-save'); btn.disabled = true; btn.textContent = 'Wird hochgeladen …';
+    alleHochladen([neuFile], $('neu-alt').value.trim() || $('neu-titel').value.trim(), $('neu-bar'))
+      .then(function (f) { return speichern({ aktion: 'neu-anlegen', titel: $('neu-titel').value, text: $('neu-text').value, foto: f[0] }, '„' + $('neu-titel').value.trim() + '“ ist online.'); })
+      .then(function () { $('f-neu').reset(); neuFile = null; $('neu-prev-img').hidden = true; neuVorschau(); })
+      .catch(function (err) { meldung(m, err.message); })
+      .finally(function () { btn.disabled = false; btn.textContent = 'Auf die Website stellen'; $('neu-bar').hidden = true; });
+  });
+
+  // Neues Event
+  var evFiles = [];
+  $('ev-files').addEventListener('change', function (e) { evFiles = evFiles.concat(Array.from(e.target.files)); e.target.value = ''; zeigeEv(); });
+  function zeigeEv() { vorschau($('ev-thumbs'), evFiles, function (i) { evFiles.splice(i, 1); zeigeEv(); }); }
+  $('f-event').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var m = $('ev-msg'); meldung(m, '');
+    if (!$('ev-titel').value.trim() || !$('ev-datum').value) { meldung(m, 'Bitte Titel und Datum eingeben.'); return; }
+    var btn = $('ev-save'); btn.disabled = true; btn.textContent = evFiles.length ? 'Fotos werden hochgeladen …' : 'Wird gespeichert …';
+    alleHochladen(evFiles, $('ev-titel').value.trim(), $('ev-bar'))
+      .then(function (f) { return speichern({ aktion: 'event-anlegen', titel: $('ev-titel').value, datum: $('ev-datum').value, text: $('ev-text').value, fotos: f }, 'Das Event ist online.'); })
+      .then(function () { $('f-event').reset(); evFiles = []; zeigeEv(); })
+      .catch(function (err) { meldung(m, err.message); })
+      .finally(function () { btn.disabled = false; btn.textContent = 'Event auf die Website stellen'; $('ev-bar').hidden = true; });
+  });
+
+  // Fotos ergänzen
+  var foFiles = [];
+  function fuelleEvents() {
+    var sel = $('fo-event'), alt = sel.value; sel.replaceChildren();
+    (inhalt && inhalt.events || []).forEach(function (x) { sel.appendChild(new Option(x.titel + ' (' + datumText(x.datum) + ')', x.id)); });
+    STATISCH.forEach(function (x) { sel.appendChild(new Option(x.titel, x.id)); });
+    if (alt) sel.value = alt;
+    zeigeVorhandene();
+  }
+  function fotosVon(id) {
+    var e = (inhalt.events || []).find(function (x) { return x.id === id; });
+    return e ? e.fotos : (inhalt.eventFotos || {})[id] || [];
+  }
+  function zeigeVorhandene() {
+    var ul = $('fo-vorhanden'), id = $('fo-event').value; ul.replaceChildren();
+    fotosVon(id).forEach(function (f, i) {
+      ul.appendChild(eintrag('Foto ' + (i + 1), f.alt || '', function () { speichern({ aktion: 'foto-loeschen', event: id, url: f.url }, 'Foto gelöscht.'); }));
+    });
+  }
+  $('fo-event').addEventListener('change', zeigeVorhandene);
+  $('fo-files').addEventListener('change', function (e) { foFiles = foFiles.concat(Array.from(e.target.files)); e.target.value = ''; zeigeFo(); });
+  function zeigeFo() { vorschau($('fo-thumbs'), foFiles, function (i) { foFiles.splice(i, 1); zeigeFo(); }); }
+  $('f-fotos').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var m = $('fo-msg'); meldung(m, '');
+    if (!foFiles.length) { meldung(m, 'Bitte mindestens ein Foto wählen.'); return; }
+    var sel = $('fo-event'), name = sel.options[sel.selectedIndex].text.replace(/ \(.*\)$/, '');
+    var btn = $('fo-save'); btn.disabled = true; btn.textContent = 'Fotos werden hochgeladen …';
+    alleHochladen(foFiles, 'Foto vom Event ' + name, $('fo-bar'))
+      .then(function (f) { return speichern({ aktion: 'fotos-ergaenzen', event: sel.value, fotos: f }, f.length + ' Fotos bei „' + name + '“ ergänzt.'); })
+      .then(function () { foFiles = []; zeigeFo(); })
+      .catch(function (err) { meldung(m, err.message); })
+      .finally(function () { btn.disabled = false; btn.textContent = 'Fotos hinzufügen'; $('fo-bar').hidden = true; });
+  });
+
+  function start() { meldung($('home-msg'), ''); zeige('s-home'); laden().catch(function () { $('online').replaceChildren(eintrag('Inhalte konnten nicht geladen werden.', 'Bitte später nochmal öffnen.', null)); }); neuVorschau(); }
+  if (token) start(); else zeige('s-login');
+})();
+</script>
+</body>
+</html>
