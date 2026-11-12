@@ -129,6 +129,24 @@
   .rail { display: grid; grid-auto-flow: column; grid-auto-columns: min(72vw, 21rem); gap: clamp(.75rem, 1.5vw, 1.25rem); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 1rem; scrollbar-width: thin; }
   .rail figure { scroll-snap-align: start; margin: 0; }
   .rail img { aspect-ratio: 2 / 3; object-fit: cover; width: 100%; }
+  .mosaic { display: grid; gap: clamp(.5rem, 1.2vw, 1rem); grid-template-columns: 1fr 1fr; }
+  .mosaic figure { margin: 0; overflow: hidden; background: var(--beige); }
+  .mosaic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .mosaic .m-a { grid-column: 1 / -1; aspect-ratio: 4 / 5; }
+  .mosaic .m-b { grid-column: 1 / -1; aspect-ratio: 3 / 2; }
+  .mosaic .m-b img { object-position: 50% 45%; }
+  .mosaic .m-c, .mosaic .m-d { aspect-ratio: 4 / 5; }
+  @media (min-width: 768px) {
+    .mosaic { grid-template-columns: 5fr 3fr 3fr; grid-template-rows: 1fr 1fr; aspect-ratio: 17 / 10; }
+    .mosaic .m-a { grid-column: 1; grid-row: 1 / 3; aspect-ratio: auto; }
+    .mosaic .m-b { grid-column: 2 / 4; grid-row: 1; aspect-ratio: auto; }
+    .mosaic .m-c { grid-column: 2; grid-row: 2; aspect-ratio: auto; }
+    .mosaic .m-d { grid-column: 3; grid-row: 2; aspect-ratio: auto; }
+  }
+  .alle-fotos summary { cursor: pointer; display: inline-flex; min-height: 44px; align-items: center; font-size: .9375rem; list-style: none; }
+  .alle-fotos summary::-webkit-details-marker { display: none; }
+  .alle-fotos summary::after { content: " →"; white-space: pre; }
+  .alle-fotos[open] summary::after { content: " ↑"; }
   .rail-btn { width: 50px; height: 50px; border: 1px solid var(--ink); display: inline-flex; align-items: center; justify-content: center; font-size: 1.1rem; }
   .rail-btn:hover { background: var(--ink); color: var(--paper); }
 
@@ -323,11 +341,19 @@
             <h3 class="serif text-[1.75rem] md:text-[2.1rem] leading-tight mb-4">Style &amp; Wine mit Somni</h3>
             <p class="text-muted">Ein Abend für alle, die Mode und guten Wein lieben: Am 6. November haben wir gemeinsam mit <a class="lnk" href="https://www.instagram.com/somni.at/" target="_blank" rel="noopener">Somni</a> zur Shopping Night eingeladen. Mit Rot- und Weißwein, alkoholfreien Alternativen und unseren neuesten Lieblingsstücken.</p>
           </div>
-          <div class="flex gap-2">
+        </div>
+        <div class="mosaic">
+          <figure class="m-a"><img src="img/wine-1-900.webp" srcset="img/wine-1-900.webp 900w, img/wine-1-1300.webp 1300w" sizes="(min-width: 768px) 44vw, 100vw" width="1300" height="1733" alt="Stehtisch am Fenster mit aLea-Servietten, Knabbereien und Tischlampe" loading="lazy"></figure>
+          <figure class="m-b"><img src="img/wine-3-900.webp" srcset="img/wine-3-500.webp 500w, img/wine-3-900.webp 900w" sizes="(min-width: 768px) 52vw, 100vw" width="900" height="1200" alt="Gäste stöbern am Abend in der Boutique unter dem weißen Gewölbe" loading="lazy"></figure>
+          <figure class="m-c"><img src="img/wine-6-900.webp" srcset="img/wine-6-500.webp 500w, img/wine-6-900.webp 900w" sizes="(min-width: 768px) 26vw, 50vw" width="900" height="1200" alt="Zwei Frauen und ein Mann stoßen am Stehtisch an, dahinter Weinflaschen" loading="lazy"></figure>
+          <figure class="m-d"><img src="img/wine-5-900.webp" srcset="img/wine-5-500.webp 500w, img/wine-5-900.webp 900w" sizes="(min-width: 768px) 26vw, 50vw" width="900" height="1200" alt="Drei Frauen vor dem Vorhang der Umkleide" loading="lazy"></figure>
+        </div>
+        <details class="alle-fotos mt-8">
+          <summary class="lnk">Alle Fotos vom Abend ansehen</summary>
+          <div class="flex gap-2 justify-end mt-6 mb-4">
             <button type="button" class="rail-btn" data-rail="-1" data-target="rail-wine" aria-label="Vorherige Fotos">&#8592;</button>
             <button type="button" class="rail-btn" data-rail="1" data-target="rail-wine" aria-label="Nächste Fotos">&#8594;</button>
           </div>
-        </div>
         <div class="rail" id="rail-wine" tabindex="0" aria-label="Fotos von Style und Wine, seitlich scrollen">
         <figure><img src="img/wine-1-500.webp" srcset="img/wine-1-500.webp 500w, img/wine-1-900.webp 900w" sizes="21rem" width="900" height="1200" alt="Stehtisch am Fenster mit aLea-Servietten, Knabbereien und Tischlampe"></figure>
         <figure><img src="img/wine-2-500.webp" srcset="img/wine-2-500.webp 500w, img/wine-2-900.webp 900w" sizes="21rem" width="900" height="1200" alt="Blick durch die Eingangstür mit dem aLea-Logo in die gut besuchte Boutique" loading="lazy"></figure>
@@ -337,6 +363,7 @@
         <figure><img src="img/wine-6-500.webp" srcset="img/wine-6-500.webp 500w, img/wine-6-900.webp 900w" sizes="21rem" width="900" height="1200" alt="Zwei Frauen und ein Mann stoßen am Stehtisch an, dahinter Weinflaschen" loading="lazy"></figure>
         <figure><img src="img/wine-7-500.webp" srcset="img/wine-7-500.webp 500w, img/wine-7-900.webp 700w" sizes="21rem" width="700" height="880" alt="Vier Männer mit Rot- und Weißwein am Stehtisch" loading="lazy"></figure>
         </div>
+        </details>
       </div>
 
       <div class="ev-panel" role="tabpanel" id="panel-lang" aria-labelledby="tab-lang" hidden>
