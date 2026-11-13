@@ -97,19 +97,22 @@
   /* Hero: links Text auf Beige, rechts Steffi und Kathi in Farbe im Laden. Am Handy Fotos oben */
   .hero { overflow: hidden; }
   .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
-  .hero-img { order: -1; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; overflow: hidden; }
+  .hero-img { order: -1; display: grid; grid-template-columns: 1fr 1.6fr 1fr; gap: 4px; overflow: hidden; background: var(--paper); }
   .hero-img img { width: 100%; height: clamp(17rem, 52vh, 26rem); object-fit: cover; object-position: 50% 18%; }
+  .hero-img .h-steffi { object-position: 38% 30% !important; }
+  .hero-img .h-kathi { object-position: 55% 30% !important; }
   .hero-text { padding: 2.5rem clamp(1rem, 5vw, 3rem) 3.5rem; min-width: 0; }
   .hero-text .h-sec { font-size: clamp(2.4rem, 4.8vw, 4.6rem); }
   @media (min-width: 768px) {
     .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: min(calc(100vh - 5.5rem), 50rem); }
     .hero-img { order: 0; }
-    .hero-img img { height: 100%; min-height: 30rem; object-position: 50% 22%; }
+    .hero-img img { height: 100%; min-height: 30rem; object-position: 50% 30%; }
     .hero-text { display: flex; flex-direction: column; justify-content: center; padding: 3rem clamp(2rem, 5vw, 5rem); max-width: 40rem; margin-left: auto; }
   }
   @media (prefers-reduced-motion: no-preference) {
     .hero-img img { animation: settle 1.8s cubic-bezier(.2,.7,.2,1) both; }
     .hero-img img + img { animation-delay: .15s; }
+    .hero-img img + img + img { animation-delay: .3s; }
     @keyframes settle { from { opacity: .4; transform: scale(1.03); } to { opacity: 1; transform: none; } }
   }
 
@@ -296,8 +299,9 @@
         <p class="label" style="color: var(--ink)"><span class="nb">aLea. Wear your story.</span></p>
       </div>
       <div class="hero-img">
-        <img src="img/steffi-1100.webp" srcset="img/steffi-600.webp 600w, img/steffi-1100.webp 1100w" sizes="(min-width: 768px) 25vw, 50vw" width="1100" height="1650" alt="Steffi lächelt in der Boutique, hinter ihr Regale mit Strick und Blusen" fetchpriority="high">
-        <img src="img/kathi-1100.webp" srcset="img/kathi-600.webp 600w, img/kathi-1100.webp 1100w" sizes="(min-width: 768px) 25vw, 50vw" width="1100" height="1731" alt="Kathi unter dem weißen Gewölbe der Boutique, sie zeigt eine rosa Satinjacke" fetchpriority="high">
+        <img class="h-steffi" src="img/team-steffi-1066.webp" srcset="img/team-steffi-600.webp 600w, img/team-steffi-1066.webp 1066w" sizes="(min-width: 768px) 15vw, 28vw" width="1066" height="1600" alt="Steffi sitzt lächelnd auf einem Barhocker, in dunkler Bluse und schwarzen Stiefeln" fetchpriority="high">
+        <img class="h-beide" src="img/team-beide-1066.webp" srcset="img/team-beide-600.webp 600w, img/team-beide-1066.webp 1066w" sizes="(min-width: 768px) 22vw, 44vw" width="1066" height="1600" alt="Kathi legt Steffi die Hand auf die Schulter, beide lachen sich an" fetchpriority="high">
+        <img class="h-kathi" src="img/team-kathi-1066.webp" srcset="img/team-kathi-600.webp 600w, img/team-kathi-1066.webp 1066w" sizes="(min-width: 768px) 15vw, 28vw" width="1066" height="1600" alt="Kathi sitzt lächelnd auf einem Barhocker, in transparenter Bluse mit Pailletten" fetchpriority="high">
       </div>
     </div>
   </section>

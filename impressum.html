@@ -60,19 +60,22 @@
   /* Hero: links Text auf Beige, rechts Steffi und Kathi in Farbe im Laden. Am Handy Fotos oben */
   .hero { overflow: hidden; }
   .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
-  .hero-img { order: -1; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; overflow: hidden; }
+  .hero-img { order: -1; display: grid; grid-template-columns: 1fr 1.6fr 1fr; gap: 4px; overflow: hidden; background: var(--paper); }
   .hero-img img { width: 100%; height: clamp(17rem, 52vh, 26rem); object-fit: cover; object-position: 50% 18%; }
+  .hero-img .h-steffi { object-position: 38% 30% !important; }
+  .hero-img .h-kathi { object-position: 55% 30% !important; }
   .hero-text { padding: 2.5rem clamp(1rem, 5vw, 3rem) 3.5rem; min-width: 0; }
   .hero-text .h-sec { font-size: clamp(2.4rem, 4.8vw, 4.6rem); }
   @media (min-width: 768px) {
     .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: min(calc(100vh - 5.5rem), 50rem); }
     .hero-img { order: 0; }
-    .hero-img img { height: 100%; min-height: 30rem; object-position: 50% 22%; }
+    .hero-img img { height: 100%; min-height: 30rem; object-position: 50% 30%; }
     .hero-text { display: flex; flex-direction: column; justify-content: center; padding: 3rem clamp(2rem, 5vw, 5rem); max-width: 40rem; margin-left: auto; }
   }
   @media (prefers-reduced-motion: no-preference) {
     .hero-img img { animation: settle 1.8s cubic-bezier(.2,.7,.2,1) both; }
     .hero-img img + img { animation-delay: .15s; }
+    .hero-img img + img + img { animation-delay: .3s; }
     @keyframes settle { from { opacity: .4; transform: scale(1.03); } to { opacity: 1; transform: none; } }
   }
 
