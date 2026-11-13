@@ -265,6 +265,69 @@
   dialog.gift-card::backdrop { background: rgba(20, 18, 16, .6); }
   .gift-card .inner { padding: 2rem 1.75rem; display: grid; gap: 1rem; }
   .code { font-family: var(--f-serif); font-size: clamp(1.8rem, 7vw, 2.4rem); letter-spacing: .06em; border-block: 1px solid var(--ink); padding-block: .7rem; text-align: center; }
+
+  /* ===== Handy-Aufbau (nur unter 768 px, Desktop unverändert) ===== */
+  html { scroll-padding-top: 5.5rem; }
+  .leiste { display: none; }
+  .nur-klein { display: none; }
+  @media (max-width: 767px) {
+    main > section { padding-top: 3.5rem !important; padding-bottom: 3.5rem !important; }
+    .hero { padding: 0 !important; }
+    .site-header .logo { width: 2.75rem !important; height: 2.75rem !important; }
+    .site-header .wrap { padding-top: .25rem; padding-bottom: .25rem; }
+    .hero-img img { height: clamp(11rem, 30vh, 16rem) !important; }
+    .hero-text { padding-top: 1.5rem !important; padding-bottom: 2rem !important; }
+    .hero-text h1 .label { margin-bottom: .9rem; }
+    .hero-text > p.max-w-\[30rem\] { margin-bottom: 1.25rem; font-size: 1.0625rem; }
+    .hero-claim { display: none; }
+    .hero-text > p.max-w-\[30rem\] { display: none; }
+    .hero-text h1 .h-sec { font-size: 2.3rem !important; }
+    .hero-text h1 { margin-bottom: 1rem !important; }
+    #stimmen .grid { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: calc(-1 * clamp(1rem, 5vw, 3rem)); padding-inline: clamp(1rem, 5vw, 3rem); scroll-padding-inline: clamp(1rem, 5vw, 3rem); scrollbar-width: none; }
+    #stimmen .grid::-webkit-scrollbar { display: none; }
+    #stimmen .grid > figure { flex: 0 0 86%; scroll-snap-align: start; }
+    #stimmen .grid + p { margin-top: 2rem; }
+    #marken .md\:col-span-6 > p.text-muted { display: none; }
+    #private-shopping img { max-height: 24rem; object-fit: cover; }
+    .hero-was { font-size: 1.0625rem; margin-bottom: .35rem; }
+    .hero-status { display: flex; align-items: center; gap: .5rem; font-size: .9375rem; color: var(--muted); margin-bottom: 1.1rem; }
+    .hero-knoepfe { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+    .hero-knoepfe .btn { padding-inline: .5rem; min-height: 50px; }
+    .ev-bereich { display: none; }
+    .ev-bereich.offen { display: block; }
+    .ev-mehr, .advent-mehr { display: inline-flex; align-items: center; gap: .4rem; min-height: 48px; font-size: .9375rem; text-decoration: underline; text-underline-offset: 4px; }
+    .ev-mehr { margin-bottom: 1rem; }
+    .new-in { margin-bottom: 2.5rem !important; }
+    .advent { margin-top: 2.5rem !important; }
+    .advent-details { display: none; }
+    .advent-details.offen { display: block; margin-top: 1rem; }
+    .advent p.max-w-\[38rem\] { margin-bottom: .5rem !important; }
+    .nur-gross { display: none !important; }
+    .nur-klein { display: block; }
+    .brands p { display: none; }
+    .brands { grid-template-columns: 1fr 1fr !important; gap: .25rem 1rem !important; }
+    .brands li { padding-block: .7rem !important; }
+    .brands h3 { font-size: 1.15rem !important; }
+    .besuch-bild { order: 2; }
+    .besuch-bild img { max-height: 22rem; width: 100%; object-fit: cover; }
+    .visit a.lnk, #ps-details ~ p a.lnk { display: inline-flex; align-items: center; min-height: 44px; }
+    footer.site-footer li a { display: inline-flex; align-items: center; min-height: 44px; }
+    footer.site-footer .text-sm, .brands p, .occasions p, .advent-steps p { font-size: 1rem; }
+    main p { font-size: max(1rem, 1em); }
+    .text-sm, .text-\[\.9375rem\] { font-size: .9375rem !important; }
+    body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+    .leiste { display: grid; grid-template-columns: repeat(3, 1fr); position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+      background: var(--paper); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom);
+      transform: translateY(110%); transition: transform .25s ease; }
+    .leiste.zeigen { transform: none; }
+    .leiste a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .2rem; min-height: 60px; font-size: .75rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); }
+    .leiste a + a { border-left: 1px solid var(--line); }
+    .leiste svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; }
+  }
+  @media (max-width: 767px) and (max-height: 620px) { .hero-img img { height: 8.5rem !important; } .hero-text { padding-top: 1rem !important; } .hero-text h1 .label { margin-bottom: .5rem; } .hero-text h1 .h-sec { font-size: 2rem !important; } .hero-text h1 { margin-bottom: .6rem !important; } .hero-status { margin-bottom: .7rem; } }
+  @media (max-width: 379px) { .site-header nav ul { gap: .9rem !important; } .site-header nav a { font-size: .75rem !important; letter-spacing: .08em !important; } .ev-tabs { gap: .8rem !important; } }
+  ::placeholder { color: var(--muted); opacity: 1; }
+  input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
@@ -303,7 +366,15 @@
       <div class="hero-text">
         <h1 id="h1" class="mb-6"><span class="label block mb-6">Boutique am Marktplatz in Haag am Hausruck</span><span class="h-sec block">Mehr als eine Boutique.</span></h1>
         <p class="max-w-[30rem] text-[1.125rem] mb-10">Ausgewählte Damenmode, Schuhe und Schmuck für jeden Tag und besondere Anlässe. Komm vorbei, stöbere in Ruhe und lass dich persönlich beraten.</p>
-        <p class="label" style="color: var(--ink)"><span class="nb">aLea. Wear your story.</span></p>
+        <p class="label hero-claim" style="color: var(--ink)"><span class="nb">aLea. Wear your story.</span></p>
+        <div class="hero-mobil md:hidden">
+          <p class="hero-was">Damenmode, Schuhe und Schmuck · Marktplatz 18</p>
+          <p class="hero-status"><span class="open-dot" data-status-dot aria-hidden="true"></span><span data-status-text></span></p>
+          <div class="hero-knoepfe">
+            <a class="btn btn-fill" href="https://www.google.com/maps/search/?api=1&query=aLea+Boutique+Marktplatz+18+4680+Haag+am+Hausruck" target="_blank" rel="noopener">Route planen</a>
+            <a class="btn btn-line" href="#private-shopping">Private Shopping</a>
+          </div>
+        </div>
       </div>
       <div class="hero-img">
         <img src="img/steffi-1100.webp" srcset="img/steffi-600.webp 600w, img/steffi-1100.webp 1100w" sizes="(min-width: 768px) 25vw, 50vw" width="1100" height="1650" alt="Steffi lächelt in der Boutique, hinter ihr Regale mit Strick und Blusen" fetchpriority="high">
@@ -336,6 +407,8 @@
         </div>
       </article>
 
+      <button type="button" class="ev-mehr md:hidden" id="ev-mehr" aria-expanded="false" aria-controls="ev-bereich">Unsere Events ansehen <span aria-hidden="true">↓</span></button>
+      <div class="ev-bereich" id="ev-bereich">
       <h3 class="label mb-4">Unsere Events</h3>
       <div class="ev-tabs" role="tablist" aria-label="Unsere Events">
         <button type="button" role="tab" id="tab-wine" aria-controls="panel-wine" aria-selected="true"><span class="label">November 2026</span><span class="ev-tab-title">Style &amp; Wine</span></button>
@@ -406,19 +479,23 @@
         </div>
         <p class="text-sm text-muted mt-3">Fotos: Timeless Lens Studio</p>
       </div>
+      </div>
 
       <!-- ADVENT: Weihnachtsaktion 28.11. bis 24.12. (Werte sind Beispiele) -->
       <article id="advent" class="advent mt-16 md:mt-20" aria-labelledby="advent-h" data-advent hidden>
         <p class="label mb-4">Advent bei <span class="nb">aLea</span> · 28. November bis 24. Dezember</p>
         <h3 id="advent-h" class="serif text-[2rem] md:text-[2.75rem] leading-[1.1] mb-5">Finde das versteckte Geschenk</h3>
         <p class="max-w-[38rem] mb-10" style="color: color-mix(in srgb, var(--on-ink) 88%, transparent)">Jede Adventwoche verstecken wir ein kleines Geschenk auf unserer Website. Wer es findet, bekommt bei uns im Laden eine Überraschung.</p>
+        <button type="button" class="advent-mehr md:hidden" id="advent-mehr" aria-expanded="false" aria-controls="advent-details">So geht’s <span aria-hidden="true">↓</span></button>
+        <div class="advent-details" id="advent-details">
         <ol class="advent-steps mb-10" role="list">
-          <li><h4>01 Suchen</h4><p>Halte Ausschau nach diesem Symbol <span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3.5" y="9" width="17" height="11.5"/><path d="M2.5 9h19M12 9v11.5M12 9c-1.5-3.5-5.5-4.5-6-2s4 2 6 2zm0 0c1.5-3.5 5.5-4.5 6-2s-4 2-6 2z"/></svg></span>. Es versteckt sich jede Woche an einer anderen Stelle.</p></li>
+          <li><h4>01 Suchen</h4><p>Halte Ausschau nach diesem Symbol <span style="white-space:nowrap"><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3.5" y="9" width="17" height="11.5"/><path d="M2.5 9h19M12 9v11.5M12 9c-1.5-3.5-5.5-4.5-6-2s4 2 6 2zm0 0c1.5-3.5 5.5-4.5 6-2s-4 2-6 2z"/></svg></span>.</span> Es versteckt sich jede Woche an einer anderen Stelle.</p></li>
           <li><h4>02 Finden</h4><p>Tipp es an, und du bekommst das Codewort der Woche.</p></li>
           <li><h4>03 Einlösen</h4><p>Zeig das Codewort bei uns im Laden. Du bekommst einen hausgemachten aLea-Keks und einen 10-€-Gutschein für deinen Einkauf im Jänner (ab 100&nbsp;€ Einkaufswert).</p></li>
         </ol>
         <p class="serif text-[1.25rem] mb-6"><span class="label" style="margin-right:.6rem">Tipp der Woche</span><span data-advent-hint></span></p>
         <p class="text-sm" style="color: color-mix(in srgb, var(--on-ink) 70%, transparent)">Gültig bis 24. Dezember 2026, einmal pro Person und solange der Vorrat reicht. Keine Barablöse.</p>
+        </div>
       </article>
 
       <div class="mt-14 pt-10 border-t grid gap-6 md:grid-cols-12 items-center" style="border-color: var(--line)">
@@ -428,8 +505,9 @@
         </div>
         <div class="md:col-span-6 flex flex-wrap gap-3 md:justify-end">
           <a class="btn btn-fill" href="/kreis"><span>In den <span class="nb">aLea</span>-Kreis</span></a>
-          <a class="btn btn-line" href="https://whatsapp.com/channel/0029VbEVxlg4yltQ7n8coh0t" target="_blank" rel="noopener">WhatsApp-Kanal</a>
-          <a class="btn btn-line" href="https://www.instagram.com/alea_boutique_/" target="_blank" rel="noopener">Instagram</a>
+          <a class="btn btn-line nur-gross" href="https://whatsapp.com/channel/0029VbEVxlg4yltQ7n8coh0t" target="_blank" rel="noopener">WhatsApp-Kanal</a>
+          <a class="btn btn-line nur-gross" href="https://www.instagram.com/alea_boutique_/" target="_blank" rel="noopener">Instagram</a>
+          <p class="nur-klein text-[.9375rem] text-muted w-full">Oder folge uns im <a class="lnk" style="color: var(--ink)" href="https://whatsapp.com/channel/0029VbEVxlg4yltQ7n8coh0t" target="_blank" rel="noopener">WhatsApp-Kanal</a> und auf <a class="lnk" style="color: var(--ink)" href="https://www.instagram.com/alea_boutique_/" target="_blank" rel="noopener">Instagram</a>.</p>
         </div>
       </div>
     </div>
@@ -608,7 +686,7 @@
   <!-- BESUCH -->
   <section id="besuch" aria-labelledby="besuch-h">
     <div class="wrap py-20 md:py-28 grid gap-12 md:grid-cols-12 items-center">
-      <div class="md:col-span-5 min-w-0">
+      <div class="md:col-span-5 min-w-0 besuch-bild">
         <img src="img/besuch-tuer-896.webp" srcset="img/besuch-tuer-600.webp 600w, img/besuch-tuer-896.webp 896w" sizes="(min-width: 768px) 40vw, 100vw" width="896" height="1195" alt="Glastür der Boutique mit dem aLea-Logo und den Öffnungszeiten, dahinter Kleiderstangen und Regale" loading="lazy" class="w-full aspect-[4/5] object-cover">
       </div>
       <div class="md:col-span-6 md:col-start-7 min-w-0">
@@ -617,7 +695,7 @@
         <dl class="visit">
           <div>
             <dt class="label">Adresse</dt>
-            <dd>Marktplatz 18, 4680 Haag am Hausruck<br><a class="lnk" href="https://www.google.com/maps/search/?api=1&query=aLea+Boutique+Marktplatz+18+4680+Haag+am+Hausruck" target="_blank" rel="noopener">Route planen</a><br><span class="text-muted text-[.9375rem]">Parkplätze direkt am Marktplatz</span></dd>
+            <dd>Marktplatz 18, 4680 Haag am Hausruck<br><a class="lnk" href="https://www.google.com/maps/search/?api=1&query=aLea+Boutique+Marktplatz+18+4680+Haag+am+Hausruck" target="_blank" rel="noopener" class="lnk tipp">Route planen</a><br><span class="text-muted text-[.9375rem]">Parkplätze direkt am Marktplatz</span></dd>
           </div>
           <div>
             <dt class="label">Geöffnet</dt>
@@ -645,6 +723,12 @@
   </section>
 
 </main>
+
+<nav class="leiste md:hidden" id="leiste" aria-label="Schnellzugriff">
+  <a href="https://www.google.com/maps/search/?api=1&query=aLea+Boutique+Marktplatz+18+4680+Haag+am+Hausruck" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>Route</a>
+  <a href="tel:+436605527737"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h3l1.5 4-2 1.3a11 11 0 0 0 6.1 6.1l1.3-2 4 1.5v3a2 2 0 0 1-2.1 2A16.5 16.5 0 0 1 4.6 5.6a2 2 0 0 1 2-2.1z"/></svg>Anrufen</a>
+  <a href="https://wa.me/436605527737" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.2-3.6A8 8 0 1 1 8 19.1z"/></svg>WhatsApp</a>
+</nav>
 
 <dialog class="gift-card" id="gift-card" aria-labelledby="gift-h">
   <div class="inner">
@@ -736,9 +820,9 @@
   if (tabList) {
     tabList.addEventListener('click', function (e) { var t = e.target.closest('[role="tab"]'); if (t) waehle(t); });
     tabList.addEventListener('keydown', function (e) {
-      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      if (['ArrowRight', 'ArrowLeft', 'Home', 'End'].indexOf(e.key) < 0) return;
       var tabs = evTabs(), i = tabs.indexOf(document.activeElement); if (i < 0) return;
-      var n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      var n = e.key === 'Home' ? tabs[0] : e.key === 'End' ? tabs[tabs.length - 1] : tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
       waehle(n); n.focus(); e.preventDefault();
     });
   }
@@ -907,6 +991,30 @@
   window.addEventListener('resize', bald);
   var erst = document.querySelector('.ev-panel');
   if (erst && window.MutationObserver) new MutationObserver(bald).observe(erst.parentNode, { childList: true, subtree: true });
+})();
+</script>
+<script>
+// Handy: Leiste unten, Events und Advent aufklappen
+(function () {
+  function auf(knopf, ziel) {
+    if (!knopf || !ziel) return;
+    knopf.addEventListener('click', function () {
+      var offen = ziel.classList.toggle('offen');
+      knopf.setAttribute('aria-expanded', offen ? 'true' : 'false');
+      knopf.querySelector('span').textContent = offen ? '↑' : '↓';
+      window.dispatchEvent(new Event('resize'));
+    });
+  }
+  auf(document.getElementById('ev-mehr'), document.getElementById('ev-bereich'));
+  auf(document.getElementById('advent-mehr'), document.getElementById('advent-details'));
+  var leiste = document.getElementById('leiste'), hero = document.getElementById('top'), fuss = document.querySelector('.site-footer');
+  if (!leiste || !('IntersectionObserver' in window)) { if (leiste) leiste.classList.add('zeigen'); return; }
+  var heroSicht = true, fussSicht = false, tippt = false;
+  function setz() { leiste.classList.toggle('zeigen', !heroSicht && !fussSicht && !tippt); }
+  new IntersectionObserver(function (e) { heroSicht = e[0].isIntersecting; setz(); }, { threshold: 0.15 }).observe(hero);
+  if (fuss) new IntersectionObserver(function (e) { fussSicht = e[0].isIntersecting; setz(); }).observe(fuss);
+  document.addEventListener('focusin', function (e) { tippt = /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName); setz(); });
+  document.addEventListener('focusout', function () { tippt = false; setz(); });
 })();
 </script>
 </body>
