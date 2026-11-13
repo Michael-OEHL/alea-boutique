@@ -350,10 +350,14 @@
   .kreis .k-status { font-size: 1.125rem; line-height: 1.6; background: var(--beige); padding: 1.5rem; border-left: 3px solid var(--ink); }
 </style>
 <div class="kreis">
-  <p class="label mb-4"><span class="nb">aLea</span>&#8209;Kreis</p>
+  <p class="label mb-4" style="text-transform:none;letter-spacing:.06em">aLea&#8209;Kreis</p>
   <h1 class="serif text-[2.3rem] md:text-[3.4rem] leading-[1.05] mb-4">Wir melden uns bei dir</h1>
   <p class="text-[1.125rem] mb-8 max-w-[36rem]">Steffi &amp; Kathi schreiben dir, wenn Neues da ist, und laden dich zu unseren Abenden ein. Nur ab und zu, kostenlos und jederzeit abbestellbar.</p>
 
+  <div id="k-aktion" class="k-status mb-10" hidden>
+    <p id="k-aktion-text" class="mb-5"></p>
+    <button type="button" class="btn btn-fill" id="k-aktion-knopf" style="text-transform:none;letter-spacing:.02em;font-size:1rem"></button>
+  </div>
   <div id="k-status" class="k-status mb-10" role="status" tabindex="-1" hidden></div>
 
   <form id="k-form" class="grid gap-7 max-w-[34rem]" novalidate>
@@ -390,12 +394,8 @@
     </div>
   </form>
 
-  <p class="mt-14 pt-8 border-t text-[.9375rem] text-muted" style="border-color: var(--line)">Lieber nur mitlesen, ohne Anmeldung? Folge uns im <a class="lnk" style="color: var(--ink)" href="https://whatsapp.com/channel/0029VbEVxlg4yltQ7n8coh0t" target="_blank" rel="noopener">WhatsApp-Kanal</a> oder auf <a class="lnk" style="color: var(--ink)" href="https://www.instagram.com/alea_boutique_/" target="_blank" rel="noopener">Instagram</a>.</p>
+  <p id="k-mitlesen" class="mt-14 pt-8 border-t text-[.9375rem] text-muted" style="border-color: var(--line)">Lieber nur mitlesen, ohne Anmeldung? Folge uns im <a class="lnk" style="color: var(--ink)" href="https://whatsapp.com/channel/0029VbEVxlg4yltQ7n8coh0t" target="_blank" rel="noopener">WhatsApp-Kanal</a> oder auf <a class="lnk" style="color: var(--ink)" href="https://www.instagram.com/alea_boutique_/" target="_blank" rel="noopener">Instagram</a>.</p>
 
-  <div id="k-aktion" hidden>
-    <p id="k-aktion-text" class="text-[1.125rem] mb-6"></p>
-    <button type="button" class="btn btn-fill" id="k-aktion-knopf"></button>
-  </div>
 </div>
 <script>
 (function () {
@@ -419,7 +419,7 @@
   // Links aus E-Mails: bestätigen oder abmelden, jeweils mit einem Klick auf den Knopf
   var modus = q.get('bestaetigen') ? 'bestaetigen' : q.get('abmelden') ? 'abmelden' : '';
   if (modus) {
-    form.hidden = true;
+    form.hidden = true; $('k-mitlesen').hidden = true;
     var id = q.get(modus), s = q.get('s') || '';
     $('k-aktion').hidden = false;
     $('k-aktion-text').textContent = modus === 'bestaetigen' ? 'Fast geschafft: Bitte bestätige deine E-Mail-Adresse für den aLea-Kreis.' : 'Möchtest du dich vom aLea-Kreis abmelden? Wir löschen dann deine Daten.';
@@ -429,7 +429,7 @@
       post({ aktion: modus, id: id, s: s }).then(function (j) {
         $('k-aktion').hidden = true;
         if (j.ok) zeige(modus === 'bestaetigen' ? 'Danke' + (j.name ? ', ' + j.name : '') + '! Du bist jetzt im aLea-Kreis. Wir freuen uns auf dich. Steffi & Kathi' : 'Du bist abgemeldet und deine Daten sind gelöscht. Schön, dass du da warst. Du bist jederzeit wieder willkommen.');
-        else zeige('Dieser Link funktioniert leider nicht mehr. Schreib uns einfach an kontakt@alea-boutique.com.');
+        else { zeige(j.fehler === 'weg' ? 'Diese Anmeldung gibt es nicht mehr, vielleicht hast du dich inzwischen abgemeldet. Melde dich einfach unten neu an.' : 'Dieser Link ist leider ungültig. Melde dich einfach unten neu an oder ruf uns an: +43\u00a0660\u00a0552\u00a077\u00a037.'); form.hidden = false; $('k-mitlesen').hidden = false; history.replaceState(null, '', location.pathname); }
       }).catch(function () { zeige('Keine Verbindung. Bitte versuch es gleich noch einmal.'); $('k-aktion').hidden = false; $('k-aktion-knopf').disabled = false; });
     });
     return;
