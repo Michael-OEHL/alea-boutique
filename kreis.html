@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
 <link rel="icon" href="/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -26,16 +27,7 @@
     --f-sans: 'Jost', 'Futura', 'Century Gothic', system-ui, sans-serif;
     --f-serif: 'Bodoni Moda', Didot, 'Bodoni 72', Georgia, serif;
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --paper: #151311; --beige: #221E1A; --ink: #EEE8E0; --muted: #B8AEA2; --on-ink: #151311;
-      --line: rgba(238, 232, 224, .18); --logo-filter: invert(1); color-scheme: dark;
-    }
-  }
-  :root[data-theme="dark"] {
-    --paper: #151311; --beige: #221E1A; --ink: #EEE8E0; --muted: #B8AEA2; --on-ink: #151311;
-    --line: rgba(238, 232, 224, .18); --logo-filter: invert(1); color-scheme: dark;
-  }
+  :root { color-scheme: light; }
 
   html { scroll-behavior: smooth; }
   body { background: var(--paper); color: var(--ink); font-family: var(--f-sans); font-weight: 300; font-size: 1.0625rem; line-height: 1.75; -webkit-font-smoothing: antialiased; }
@@ -198,8 +190,6 @@
 
   footer.site-footer { background: var(--ink); color: var(--on-ink); }
   footer.site-footer .logo { filter: invert(1); }
-  :root[data-theme="dark"] footer.site-footer .logo { filter: none; }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) footer.site-footer .logo { filter: none; } }
 
   section, #advent { scroll-margin-top: 5.5rem; }
 
@@ -277,7 +267,6 @@
     footer.site-footer .text-sm, .brands p, .occasions p, .advent-steps p { font-size: 1rem; }
     main p { font-size: max(1rem, 1em); }
     .text-sm, .text-\[\.9375rem\] { font-size: .9375rem !important; }
-    body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
     .leiste { display: grid; grid-template-columns: repeat(3, 1fr); position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
       background: var(--paper); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom);
       transform: translateY(110%); transition: transform .25s ease; }
@@ -290,6 +279,32 @@
   @media (max-width: 379px) { .site-header nav ul { gap: .9rem !important; } .site-header nav a { font-size: .75rem !important; letter-spacing: .08em !important; } .ev-tabs { gap: .8rem !important; } }
   ::placeholder { color: var(--muted); opacity: 1; }
   input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .nowrap { white-space: nowrap; }
+  .btn { white-space: nowrap; }
+  details summary, .faq summary { text-wrap: balance; }
+  .feld-fehler { font-size: 1rem; color: #9A3B2E; margin-top: .4rem; }
+  .feld-fehler::before { content: "⚠ "; }
+  .wisch-hinweis { display: none; }
+  .direkt { display: none; }
+  @media (max-width: 767px) {
+    .advent-band, .advent, footer.site-footer { --on-ink: var(--ink); background: var(--beige) !important; color: var(--ink) !important; }
+    .advent { border-top: 2px solid var(--ink); }
+    footer.site-footer .logo { filter: var(--logo-filter) !important; }
+    footer.site-footer { border-top: 1px solid var(--line); }
+    .btn { text-transform: none !important; letter-spacing: .02em !important; font-size: 1rem !important; }
+    .hero-knoepfe .btn { font-size: .9375rem !important; }
+    .nur-gross-b { display: none; }
+    .direkt { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-top: 1.5rem; }
+    .direkt-titel { grid-column: 1 / -1; font-size: 1rem; color: var(--muted); margin: 0; }
+    .direkt .btn { min-height: 52px; padding-inline: .5rem; }
+    .wisch-hinweis { display: block; font-size: .9375rem; color: var(--muted); margin: -1.5rem 0 1rem; }
+    #stimmen p.text-right { text-align: left; }
+    body { padding-bottom: 0 !important; }
+    body.mit-leiste { padding-bottom: calc(60px + env(safe-area-inset-bottom)) !important; }
+    #ps-details summary.btn { width: 100%; }
+    .tipp-label { display: block; margin-bottom: .3rem; }
+  }
+  @media (max-width: 359px) { .hero-knoepfe, .direkt { grid-template-columns: 1fr !important; } .hero-knoepfe .btn { min-height: 48px; } }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
@@ -302,68 +317,72 @@
 </header>
 <main id="inhalt" class="py-16 md:py-24"><div class="wrap legal max-w-[46rem]">
 <style>
-  .kreis .wahl { display: flex; gap: .9rem; align-items: flex-start; padding: 1rem 0; border-bottom: 1px solid var(--line); cursor: pointer; }
-  .kreis .wahl input { flex: none; width: 1.35rem; height: 1.35rem; margin-top: .2rem; accent-color: var(--ink); }
-  .kreis .wahl strong { display: block; font-weight: 500; }
-  .kreis .wahl span span { display: block; font-size: .875rem; color: var(--muted); }
-  .kreis select { width: 100%; min-height: 50px; padding: .75rem 0; background: transparent; color: var(--ink); border: 0; border-bottom: 1px solid var(--muted); border-radius: 0; font: inherit; }
-  .kreis select:focus { outline: none; border-bottom: 2px solid var(--ink); }
-  .kreis .vorteile { display: grid; gap: 1.25rem; }
-  @media (min-width: 640px) { .kreis .vorteile { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .kreis .vorteile li { border-top: 1px solid var(--ink); padding-top: .9rem; }
-  .kreis .vorteile h2 { font-family: var(--f-serif); font-size: 1.3rem; margin-bottom: .3rem; }
+  .kreis .k-feld label, .kreis .k-legend { display: block; font-size: 1.0625rem; font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--ink); margin-bottom: .45rem; }
+  .kreis .k-feld input, .kreis .k-feld select { width: 100%; min-height: 56px; padding: .75rem 1rem; font: inherit; font-size: 1.125rem; font-weight: 400; color: var(--ink);
+    background: #fff; border: 1.5px solid #8A8178; border-radius: 6px; }
+  .kreis .k-feld input:focus, .kreis .k-feld select:focus { outline: 3px solid rgba(20,18,16,.22); outline-offset: 1px; border-color: var(--ink); }
+  .kreis .k-feld input[aria-invalid="true"], .kreis .wahlgruppe[data-fehler] .wahl { border-color: #9A3B2E; }
+  .kreis .hinweis { font-size: .9375rem; color: var(--muted); margin-top: .35rem; }
+  .kreis .fehler { font-size: 1rem; color: #9A3B2E; margin-top: .4rem; font-weight: 400; }
+  .kreis .fehler::before { content: "⚠ "; }
+  .kreis .wahl { display: flex; gap: .9rem; align-items: center; min-height: 64px; padding: .9rem 1rem; border: 1.5px solid #8A8178; border-radius: 6px; background: #fff; cursor: pointer; font-size: 1.125rem; font-weight: 400; }
+  .kreis .wahl:has(input:checked) { border: 2px solid var(--ink); background: var(--beige); }
+  .kreis .wahl input { flex: none; width: 1.75rem; height: 1.75rem; accent-color: var(--ink); }
+  .kreis .wahl + .k-feld { margin-top: .75rem; }
+  .kreis .wahlgruppe > * + .wahl { margin-top: .75rem; }
+  .kreis .geb { display: grid; grid-template-columns: 1fr 1.4fr 1.2fr; gap: .6rem; max-width: 26rem; }
+  .kreis .geb label { font-size: .9375rem; font-weight: 400; color: var(--muted); }
+  .kreis #k-senden { width: 100%; min-height: 58px; font-size: 1.0625rem; text-transform: none; letter-spacing: .02em; }
+  @media (min-width: 640px) { .kreis #k-senden { width: auto; padding-inline: 3rem; } }
   .kreis .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
   .kreis [hidden] { display: none !important; }
+  .kreis .k-status { font-size: 1.125rem; line-height: 1.6; background: var(--beige); padding: 1.5rem; border-left: 3px solid var(--ink); }
 </style>
 <div class="kreis">
-  <p class="label mb-4"><span class="nb">aLea</span>-Kreis</p>
-  <h1 class="serif text-[2.4rem] md:text-[3.4rem] leading-[1.05] mb-6">Sei als Erste dabei</h1>
-  <p class="text-[1.0625rem] mb-10 max-w-[36rem]">Im aLea-Kreis erfährst du zuerst, was neu bei uns ist, und bekommst Einladungen zu unseren Events, direkt von Steffi und Kathi. Kostenlos und jederzeit abbestellbar.</p>
+  <p class="label mb-4"><span class="nb">aLea</span>&#8209;Kreis</p>
+  <h1 class="serif text-[2.3rem] md:text-[3.4rem] leading-[1.05] mb-4">Wir melden uns bei dir</h1>
+  <p class="text-[1.125rem] mb-8 max-w-[36rem]">Steffi &amp; Kathi schreiben dir, wenn Neues da ist, und laden dich zu unseren Abenden ein. Nur ab und zu, kostenlos und jederzeit abbestellbar.</p>
 
-  <ul class="vorteile mb-14" role="list">
-    <li><h2>Neu eingetroffen</h2><p class="text-[.9375rem] text-muted">Neue Lieblingsstücke erfährst du als Erste.</p></li>
-    <li><h2>Einladungen</h2><p class="text-[.9375rem] text-muted">Modenschauen, Shopping-Abende und Saisonstarts: Du bist eingeladen.</p></li>
-    <li><h2>Persönlich</h2><p class="text-[.9375rem] text-muted">Angebote und Ideen, die zu dir passen. Nur ab und zu, versprochen.</p></li>
-  </ul>
+  <div id="k-status" class="k-status mb-10" role="status" tabindex="-1" hidden></div>
 
-  <div id="k-status" class="form-note mb-10" role="status" hidden></div>
+  <form id="k-form" class="grid gap-7 max-w-[34rem]" novalidate>
+    <div class="k-feld"><label for="k-vorname">Vorname</label><input id="k-vorname" name="vorname" type="text" autocomplete="given-name" aria-describedby="k-vorname-f" required><p class="fehler" id="k-vorname-f" hidden></p></div>
+    <div class="k-feld"><label for="k-nachname">Nachname</label><input id="k-nachname" name="nachname" type="text" autocomplete="family-name" aria-describedby="k-nachname-f" required><p class="fehler" id="k-nachname-f" hidden></p></div>
+    <div class="k-feld" style="max-width: 12rem"><label for="k-plz">Postleitzahl</label><input id="k-plz" name="plz" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="5" aria-describedby="k-plz-f" required><p class="fehler" id="k-plz-f" hidden></p></div>
 
-  <form id="k-form" class="grid gap-6" novalidate>
-    <div class="grid gap-6 sm:grid-cols-2">
-      <div class="field"><label for="k-vorname">Vorname</label><input id="k-vorname" name="vorname" type="text" autocomplete="given-name" required></div>
-      <div class="field"><label for="k-nachname">Nachname</label><input id="k-nachname" name="nachname" type="text" autocomplete="family-name" required></div>
-    </div>
-    <div class="field max-w-[12rem]"><label for="k-plz">Postleitzahl</label><input id="k-plz" name="plz" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="5" required></div>
-
-    <fieldset>
-      <legend class="label mb-1">Wie dürfen wir dich erreichen?</legend>
-      <p class="text-[.875rem] text-muted mb-2">Wähle einen oder beide Wege.</p>
-      <label class="wahl" for="k-wa"><input id="k-wa" name="wa" type="checkbox"><span><strong>Per WhatsApp</strong><span>Ja, schickt mir Neuheiten, Einladungen und persönliche Angebote per WhatsApp an diese Nummer. Abmelden geht jederzeit.</span></span></label>
-      <div class="field mt-4" id="k-tel-feld" hidden><label for="k-tel">Deine Handynummer</label><input id="k-tel" name="tel" type="tel" autocomplete="tel" placeholder="0660 1234567"></div>
-      <label class="wahl" for="k-mail"><input id="k-mail" name="mail" type="checkbox"><span><strong>Per E-Mail</strong><span>Ja, schickt mir Neuheiten, Einladungen und persönliche Angebote per E-Mail. Abmelden geht jederzeit.</span></span></label>
-      <div class="field mt-4" id="k-email-feld" hidden><label for="k-email">Deine E-Mail-Adresse</label><input id="k-email" name="email" type="email" autocomplete="email"></div>
+    <fieldset class="wahlgruppe" id="k-wege" aria-describedby="k-wege-f">
+      <legend class="k-legend">Wie sollen wir dir schreiben?</legend>
+      <p class="hinweis" style="margin: -.2rem 0 .8rem">Wähle eins oder beides.</p>
+      <label class="wahl" for="k-wa"><input id="k-wa" name="wa" type="checkbox" aria-controls="k-tel-feld" aria-expanded="false">Per WhatsApp</label>
+      <div class="k-feld" id="k-tel-feld" hidden><label for="k-tel">Deine Handynummer</label><input id="k-tel" name="tel" type="tel" autocomplete="tel" aria-describedby="k-tel-h k-tel-f"><p class="hinweis" id="k-tel-h">zum Beispiel 0660 1234567</p><p class="fehler" id="k-tel-f" hidden></p></div>
+      <label class="wahl" for="k-mail"><input id="k-mail" name="mail" type="checkbox" aria-controls="k-email-feld" aria-expanded="false">Per E-Mail</label>
+      <div class="k-feld" id="k-email-feld" hidden><label for="k-email">Deine E-Mail-Adresse</label><input id="k-email" name="email" type="email" autocomplete="email" aria-describedby="k-email-f"><p class="fehler" id="k-email-f" hidden></p></div>
+      <p class="fehler" id="k-wege-f" hidden></p>
     </fieldset>
 
-    <fieldset>
-      <legend class="label mb-1">Dein Geburtstag <span style="text-transform:none;letter-spacing:0">(freiwillig)</span></legend>
-      <p class="text-[.875rem] text-muted mb-2">Damit wir an deinem Geburtstag an dich denken können.</p>
-      <div class="grid grid-cols-3 gap-4 sm:gap-6 max-w-[30rem]">
-        <div class="field"><label for="k-tag">Tag</label><select id="k-tag" name="gebTag"><option value="">–</option></select></div>
-        <div class="field"><label for="k-monat">Monat</label><select id="k-monat" name="gebMonat"><option value="">–</option></select></div>
-        <div class="field"><label for="k-jahr">Jahr</label><select id="k-jahr" name="gebJahr"><option value="">–</option></select></div>
+    <fieldset class="k-feld">
+      <legend class="k-legend">Dein Geburtstag <span style="font-weight:300;color:var(--muted)">(freiwillig)</span></legend>
+      <p class="hinweis" style="margin: -.2rem 0 .8rem">Damit wir an deinem Geburtstag an dich denken.</p>
+      <div class="geb">
+        <div><label for="k-tag">Tag</label><select id="k-tag" name="gebTag"><option value="">–</option></select></div>
+        <div><label for="k-monat">Monat</label><select id="k-monat" name="gebMonat"><option value="">–</option></select></div>
+        <div><label for="k-jahr">Jahr</label><input id="k-jahr" name="gebJahr" type="text" inputmode="numeric" maxlength="4" autocomplete="bday-year" placeholder="" aria-describedby="k-jahr-f"></div>
       </div>
+      <p class="fehler" id="k-jahr-f" hidden></p>
     </fieldset>
 
     <div class="hp" aria-hidden="true"><label for="k-website">Bitte leer lassen</label><input id="k-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
-    <p class="text-[.875rem] text-muted">Wir verwenden deine Angaben nur für den aLea-Kreis und geben sie nicht weiter. Mehr dazu im <a class="lnk" style="color: var(--ink)" href="/datenschutz">Datenschutz</a>.</p>
-    <div><button type="submit" class="btn btn-fill" id="k-senden">Dabei sein</button></div>
-    <p id="k-msg" class="form-note" role="status" hidden></p>
+    <div>
+      <button type="submit" class="btn btn-fill" id="k-senden">Jetzt anmelden</button>
+      <p class="hinweis mt-4">Mit der Anmeldung sagst du Ja zu Nachrichten auf dem gewählten Weg. Abmelden geht jederzeit. Wir geben deine Angaben nicht weiter, mehr im <a class="lnk" style="color: var(--ink)" href="/datenschutz">Datenschutz</a>.</p>
+      <p id="k-msg" class="fehler" role="alert" hidden></p>
+    </div>
   </form>
 
   <p class="mt-14 pt-8 border-t text-[.9375rem] text-muted" style="border-color: var(--line)">Lieber nur mitlesen, ohne Anmeldung? Folge uns im <a class="lnk" style="color: var(--ink)" href="https://whatsapp.com/channel/0029VbEVxlg4yltQ7n8coh0t" target="_blank" rel="noopener">WhatsApp-Kanal</a> oder auf <a class="lnk" style="color: var(--ink)" href="https://www.instagram.com/alea_boutique_/" target="_blank" rel="noopener">Instagram</a>.</p>
 
   <div id="k-aktion" hidden>
-    <p id="k-aktion-text" class="text-[1.0625rem] mb-6"></p>
+    <p id="k-aktion-text" class="text-[1.125rem] mb-6"></p>
     <button type="button" class="btn btn-fill" id="k-aktion-knopf"></button>
   </div>
 </div>
@@ -375,9 +394,7 @@
   var MON = ['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
   for (var d = 1; d <= 31; d++) $('k-tag').add(new Option(d + '.', d));
   MON.forEach(function (m, i) { $('k-monat').add(new Option(m, i + 1)); });
-  var J = new Date().getFullYear();
-  for (var y = J - 14; y >= J - 100; y--) $('k-jahr').add(new Option(y, y));
-  function umschalten() { $('k-tel-feld').hidden = !$('k-wa').checked; $('k-email-feld').hidden = !$('k-mail').checked; }
+  function umschalten() { $('k-tel-feld').hidden = !$('k-wa').checked; $('k-email-feld').hidden = !$('k-mail').checked; $('k-wa').setAttribute('aria-expanded', $('k-wa').checked); $('k-mail').setAttribute('aria-expanded', $('k-mail').checked); }
   $('k-wa').addEventListener('change', umschalten); $('k-mail').addEventListener('change', umschalten);
   var q = new URLSearchParams(location.search);
   if (q.get('quelle')) form.dataset.quelle = q.get('quelle').slice(0, 30);
@@ -386,7 +403,7 @@
     return fetch('/api/kreis', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(daten) })
       .then(function (r) { return r.json().catch(function () { return { ok: false }; }); });
   }
-  function zeige(text) { status.hidden = false; status.textContent = text; }
+  function zeige(text) { status.hidden = false; status.textContent = text; status.focus(); status.scrollIntoView({ block: 'center' }); }
 
   // Links aus E-Mails: bestätigen oder abmelden, jeweils mit einem Klick auf den Knopf
   var modus = q.get('bestaetigen') ? 'bestaetigen' : q.get('abmelden') ? 'abmelden' : '';
@@ -411,30 +428,42 @@
     vorname: ['k-vorname', 'Bitte gib deinen Vornamen an.'],
     nachname: ['k-nachname', 'Bitte gib deinen Nachnamen an.'],
     name: ['k-vorname', 'Bitte gib deinen Namen an.'],
-    plz: ['k-plz', 'Bitte gib deine Postleitzahl an (4 Ziffern).'],
-    weg: ['k-wa', 'Bitte wähle WhatsApp, E-Mail oder beides.'],
+    plz: ['k-plz', 'Bitte gib deine Postleitzahl an, zum Beispiel 4680.'],
+    weg: ['k-wege', 'Bitte wähle WhatsApp, E-Mail oder beides.', 'k-wa'],
     tel: ['k-tel', 'Bitte prüf deine Handynummer.'],
-    email: ['k-email', 'Bitte prüf deine E-Mail-Adresse.']
+    email: ['k-email', 'Bitte prüf deine E-Mail-Adresse.'],
+    jahr: ['k-jahr', 'Bitte gib das Jahr vierstellig an, zum Beispiel 1975, oder lass es leer.']
   };
+  function aufraeumen() {
+    form.querySelectorAll('.fehler').forEach(function (el) { el.hidden = true; el.textContent = ''; });
+    form.querySelectorAll('[aria-invalid]').forEach(function (el) { el.removeAttribute('aria-invalid'); });
+    $('k-wege').removeAttribute('data-fehler'); msg.hidden = true;
+  }
   function fehler(code) {
-    var f = FEHLER[code]; msg.hidden = false;
-    if (!f) { msg.textContent = 'Das hat leider nicht geklappt. Bitte versuch es später noch einmal oder schreib uns an kontakt@alea-boutique.com.'; return; }
-    msg.textContent = f[1]; var el = $(f[0]); el.setAttribute('aria-invalid', 'true'); el.focus();
+    var f = FEHLER[code];
+    if (!f) { msg.hidden = false; msg.textContent = 'Das hat leider nicht geklappt. Bitte versuch es später noch einmal oder ruf uns an: +43 660 552 77 37.'; return; }
+    var el = $(f[0]), hin = $(f[0] + '-f');
+    if (hin) { hin.textContent = f[1]; hin.hidden = false; }
+    if (code === 'weg') el.setAttribute('data-fehler', ''); else el.setAttribute('aria-invalid', 'true');
+    var fokus = $(f[2] || f[0]);
+    (code === 'weg' ? el : fokus).scrollIntoView({ block: 'center' });
+    fokus.focus({ preventScroll: true });
   }
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    form.querySelectorAll('[aria-invalid]').forEach(function (el) { el.removeAttribute('aria-invalid'); });
-    var wa = $('k-wa').checked, ml = $('k-mail').checked;
+    aufraeumen();
+    var wa = $('k-wa').checked, ml = $('k-mail').checked, jahr = $('k-jahr').value.trim(), J = new Date().getFullYear();
     if (!$('k-vorname').value.trim()) return fehler('vorname');
     if (!$('k-nachname').value.trim()) return fehler('nachname');
     if (!/^\d{4,5}$/.test($('k-plz').value.trim())) return fehler('plz');
     if (!wa && !ml) return fehler('weg');
     if (wa && $('k-tel').value.replace(/\D/g, '').length < 8) return fehler('tel');
     if (ml && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test($('k-email').value.trim())) return fehler('email');
+    if (jahr && (!/^\d{4}$/.test(jahr) || +jahr > J - 14 || +jahr < J - 100)) return fehler('jahr');
     var daten = { t: geoeffnet, vorname: $('k-vorname').value, nachname: $('k-nachname').value, plz: $('k-plz').value.trim(), wa: wa, mail: ml, tel: wa ? $('k-tel').value : '', email: ml ? $('k-email').value : '', gebTag: $('k-tag').value, gebMonat: $('k-monat').value, gebJahr: $('k-jahr').value, website: $('k-website').value, quelle: form.dataset.quelle || '' };
     knopf.disabled = true; knopf.textContent = 'Einen Moment …'; msg.hidden = true;
     post(daten).then(function (j) {
-      knopf.disabled = false; knopf.textContent = 'Dabei sein';
+      knopf.disabled = false; knopf.textContent = 'Jetzt anmelden';
       if (!j.ok) return fehler(j.fehler);
       form.hidden = true;
       var vn = daten.vorname.trim();
@@ -442,8 +471,7 @@
       if (j.mail) t += j.mailGesendet ? ' Wir haben dir eine E-Mail geschickt. Bitte bestätige darin noch kurz deine Adresse.' : ' Die Bestätigungs-E-Mail konnten wir gerade nicht senden. Wir melden uns bei dir.';
       if (j.wa) t += ' Speicher dir unsere Nummer +43 660 552 77 37 im Handy, damit unsere WhatsApp-Nachrichten bei dir ankommen.';
       zeige(t + ' Steffi & Kathi');
-      status.scrollIntoView({ block: 'center' });
-    }).catch(function () { knopf.disabled = false; knopf.textContent = 'Dabei sein'; fehler('netz'); });
+    }).catch(function () { knopf.disabled = false; knopf.textContent = 'Jetzt anmelden'; fehler('netz'); });
   });
 })();
 </script>
@@ -454,7 +482,7 @@
     <img src="/img/logo-180.webp" width="180" height="179" alt="aLea Boutique" class="logo h-20 w-20 mx-auto md:mx-0" loading="lazy">
     <div class="md:text-center">
       <p class="label mb-3" style="color: var(--on-ink)"><span class="nb">aLea. Wear your story.</span></p>
-      <p class="text-sm opacity-80">Marktplatz 18, 4680 Haag am Hausruck<br>Mo, Di, Do, Fr 9–12 und 15–18 Uhr · Sa 9–12 Uhr</p>
+      <p class="text-sm opacity-80">Marktplatz 18, 4680 Haag am Hausruck<br><span class="nowrap">Mo, Di, Do, Fr 9–12 und 15–18 Uhr</span> · <span class="nowrap">Sa 9–12 Uhr</span> · <span class="nowrap">Mi geschlossen</span></p>
     </div>
     <ul class="flex flex-wrap justify-center md:justify-end gap-6 text-sm" role="list">
       <li><a class="lnk" href="/kreis">aLea-Kreis</a></li>

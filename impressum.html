@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
 <link rel="icon" href="/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -26,16 +27,7 @@
     --f-sans: 'Jost', 'Futura', 'Century Gothic', system-ui, sans-serif;
     --f-serif: 'Bodoni Moda', Didot, 'Bodoni 72', Georgia, serif;
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --paper: #151311; --beige: #221E1A; --ink: #EEE8E0; --muted: #B8AEA2; --on-ink: #151311;
-      --line: rgba(238, 232, 224, .18); --logo-filter: invert(1); color-scheme: dark;
-    }
-  }
-  :root[data-theme="dark"] {
-    --paper: #151311; --beige: #221E1A; --ink: #EEE8E0; --muted: #B8AEA2; --on-ink: #151311;
-    --line: rgba(238, 232, 224, .18); --logo-filter: invert(1); color-scheme: dark;
-  }
+  :root { color-scheme: light; }
 
   html { scroll-behavior: smooth; }
   body { background: var(--paper); color: var(--ink); font-family: var(--f-sans); font-weight: 300; font-size: 1.0625rem; line-height: 1.75; -webkit-font-smoothing: antialiased; }
@@ -198,8 +190,6 @@
 
   footer.site-footer { background: var(--ink); color: var(--on-ink); }
   footer.site-footer .logo { filter: invert(1); }
-  :root[data-theme="dark"] footer.site-footer .logo { filter: none; }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) footer.site-footer .logo { filter: none; } }
 
   section, #advent { scroll-margin-top: 5.5rem; }
 
@@ -277,7 +267,6 @@
     footer.site-footer .text-sm, .brands p, .occasions p, .advent-steps p { font-size: 1rem; }
     main p { font-size: max(1rem, 1em); }
     .text-sm, .text-\[\.9375rem\] { font-size: .9375rem !important; }
-    body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
     .leiste { display: grid; grid-template-columns: repeat(3, 1fr); position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
       background: var(--paper); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom);
       transform: translateY(110%); transition: transform .25s ease; }
@@ -290,6 +279,32 @@
   @media (max-width: 379px) { .site-header nav ul { gap: .9rem !important; } .site-header nav a { font-size: .75rem !important; letter-spacing: .08em !important; } .ev-tabs { gap: .8rem !important; } }
   ::placeholder { color: var(--muted); opacity: 1; }
   input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .nowrap { white-space: nowrap; }
+  .btn { white-space: nowrap; }
+  details summary, .faq summary { text-wrap: balance; }
+  .feld-fehler { font-size: 1rem; color: #9A3B2E; margin-top: .4rem; }
+  .feld-fehler::before { content: "⚠ "; }
+  .wisch-hinweis { display: none; }
+  .direkt { display: none; }
+  @media (max-width: 767px) {
+    .advent-band, .advent, footer.site-footer { --on-ink: var(--ink); background: var(--beige) !important; color: var(--ink) !important; }
+    .advent { border-top: 2px solid var(--ink); }
+    footer.site-footer .logo { filter: var(--logo-filter) !important; }
+    footer.site-footer { border-top: 1px solid var(--line); }
+    .btn { text-transform: none !important; letter-spacing: .02em !important; font-size: 1rem !important; }
+    .hero-knoepfe .btn { font-size: .9375rem !important; }
+    .nur-gross-b { display: none; }
+    .direkt { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-top: 1.5rem; }
+    .direkt-titel { grid-column: 1 / -1; font-size: 1rem; color: var(--muted); margin: 0; }
+    .direkt .btn { min-height: 52px; padding-inline: .5rem; }
+    .wisch-hinweis { display: block; font-size: .9375rem; color: var(--muted); margin: -1.5rem 0 1rem; }
+    #stimmen p.text-right { text-align: left; }
+    body { padding-bottom: 0 !important; }
+    body.mit-leiste { padding-bottom: calc(60px + env(safe-area-inset-bottom)) !important; }
+    #ps-details summary.btn { width: 100%; }
+    .tipp-label { display: block; margin-bottom: .3rem; }
+  }
+  @media (max-width: 359px) { .hero-knoepfe, .direkt { grid-template-columns: 1fr !important; } .hero-knoepfe .btn { min-height: 48px; } }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
@@ -321,7 +336,7 @@
     <img src="/img/logo-180.webp" width="180" height="179" alt="aLea Boutique" class="logo h-20 w-20 mx-auto md:mx-0" loading="lazy">
     <div class="md:text-center">
       <p class="label mb-3" style="color: var(--on-ink)"><span class="nb">aLea. Wear your story.</span></p>
-      <p class="text-sm opacity-80">Marktplatz 18, 4680 Haag am Hausruck<br>Mo, Di, Do, Fr 9–12 und 15–18 Uhr · Sa 9–12 Uhr</p>
+      <p class="text-sm opacity-80">Marktplatz 18, 4680 Haag am Hausruck<br><span class="nowrap">Mo, Di, Do, Fr 9–12 und 15–18 Uhr</span> · <span class="nowrap">Sa 9–12 Uhr</span> · <span class="nowrap">Mi geschlossen</span></p>
     </div>
     <ul class="flex flex-wrap justify-center md:justify-end gap-6 text-sm" role="list">
       <li><a class="lnk" href="/kreis">aLea-Kreis</a></li>
