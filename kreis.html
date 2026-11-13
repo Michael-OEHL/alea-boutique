@@ -221,7 +221,6 @@
   /* ===== Handy-Aufbau (nur unter 768 px, Desktop unverändert) ===== */
   html { scroll-padding-top: 5.5rem; }
   .leiste { display: none; }
-  .nur-klein { display: none; }
   @media (max-width: 767px) {
     main > section { padding-top: 3.5rem !important; padding-bottom: 3.5rem !important; }
     .hero { padding: 0 !important; }
@@ -254,8 +253,6 @@
     .advent-details { display: none; }
     .advent-details.offen { display: block; margin-top: 1rem; }
     .advent p.max-w-\[38rem\] { margin-bottom: .5rem !important; }
-    .nur-gross { display: none !important; }
-    .nur-klein { display: block; }
     .brands p { display: none; }
     .brands { grid-template-columns: 1fr 1fr !important; gap: .25rem 1rem !important; }
     .brands li { padding-block: .7rem !important; }
@@ -279,6 +276,13 @@
   @media (max-width: 379px) { .site-header nav ul { gap: .9rem !important; } .site-header nav a { font-size: .75rem !important; letter-spacing: .08em !important; } .ev-tabs { gap: .8rem !important; } }
   ::placeholder { color: var(--muted); opacity: 1; }
   input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .nur-gross { display: none !important; }
+  .btn { text-transform: none; letter-spacing: .03em; font-size: 1rem; }
+  @media (min-width: 768px) {
+    .hero-claim { margin-bottom: 1.75rem; }
+    .hero-status { display: flex; align-items: center; gap: .5rem; font-size: .9375rem; color: var(--muted); margin-bottom: 1rem; }
+    .hero-knoepfe { display: flex; flex-wrap: wrap; gap: .75rem; }
+  }
   .nowrap { white-space: nowrap; }
   .btn { white-space: nowrap; }
   details summary, .faq summary { text-wrap: balance; }

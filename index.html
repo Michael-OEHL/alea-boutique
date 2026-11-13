@@ -259,7 +259,6 @@
   /* ===== Handy-Aufbau (nur unter 768 px, Desktop unverändert) ===== */
   html { scroll-padding-top: 5.5rem; }
   .leiste { display: none; }
-  .nur-klein { display: none; }
   @media (max-width: 767px) {
     main > section { padding-top: 3.5rem !important; padding-bottom: 3.5rem !important; }
     .hero { padding: 0 !important; }
@@ -292,8 +291,6 @@
     .advent-details { display: none; }
     .advent-details.offen { display: block; margin-top: 1rem; }
     .advent p.max-w-\[38rem\] { margin-bottom: .5rem !important; }
-    .nur-gross { display: none !important; }
-    .nur-klein { display: block; }
     .brands p { display: none; }
     .brands { grid-template-columns: 1fr 1fr !important; gap: .25rem 1rem !important; }
     .brands li { padding-block: .7rem !important; }
@@ -317,6 +314,13 @@
   @media (max-width: 379px) { .site-header nav ul { gap: .9rem !important; } .site-header nav a { font-size: .75rem !important; letter-spacing: .08em !important; } .ev-tabs { gap: .8rem !important; } }
   ::placeholder { color: var(--muted); opacity: 1; }
   input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .nur-gross { display: none !important; }
+  .btn { text-transform: none; letter-spacing: .03em; font-size: 1rem; }
+  @media (min-width: 768px) {
+    .hero-claim { margin-bottom: 1.75rem; }
+    .hero-status { display: flex; align-items: center; gap: .5rem; font-size: .9375rem; color: var(--muted); margin-bottom: 1rem; }
+    .hero-knoepfe { display: flex; flex-wrap: wrap; gap: .75rem; }
+  }
   .nowrap { white-space: nowrap; }
   .btn { white-space: nowrap; }
   details summary, .faq summary { text-wrap: balance; }
@@ -382,8 +386,8 @@
         <h1 id="h1" class="mb-6"><span class="label block mb-6">Boutique am Marktplatz in Haag am Hausruck</span><span class="h-sec block">Mehr als eine Boutique.</span></h1>
         <p class="max-w-[30rem] text-[1.125rem] mb-10">Ausgewählte Damenmode, Schuhe und Schmuck für jeden Tag und besondere Anlässe. Komm vorbei, stöbere in Ruhe und lass dich persönlich beraten.</p>
         <p class="label hero-claim" style="color: var(--ink)"><span class="nb">aLea. Wear your story.</span></p>
-        <div class="hero-mobil md:hidden">
-          <p class="hero-was">Damenmode, Schuhe und Schmuck · Marktplatz 18</p>
+        <div class="hero-mobil">
+          <p class="hero-was md:hidden">Damenmode, Schuhe und Schmuck · Marktplatz 18</p>
           <p class="hero-status"><span class="open-dot" data-status-dot aria-hidden="true"></span><span data-status-text></span></p>
           <div class="hero-knoepfe">
             <a class="btn btn-fill" href="https://www.google.com/maps/search/?api=1&query=aLea+Boutique+Marktplatz+18+4680+Haag+am+Hausruck" target="_blank" rel="noopener">Route planen</a>
@@ -523,7 +527,7 @@
           <a class="btn btn-fill" href="/kreis"><span>In den <span class="nb">aLea</span>-Kreis</span></a>
           <a class="btn btn-line nur-gross" href="https://whatsapp.com/channel/0029VbEVxlg4yltQ7n8coh0t" target="_blank" rel="noopener">WhatsApp-Kanal</a>
           <a class="btn btn-line nur-gross" href="https://www.instagram.com/alea_boutique_/" target="_blank" rel="noopener">Instagram</a>
-          <p class="nur-klein text-[.9375rem] text-muted w-full">Oder folge uns im <a class="lnk" style="color: var(--ink)" href="https://whatsapp.com/channel/0029VbEVxlg4yltQ7n8coh0t" target="_blank" rel="noopener">WhatsApp-Kanal</a> und auf <a class="lnk" style="color: var(--ink)" href="https://www.instagram.com/alea_boutique_/" target="_blank" rel="noopener">Instagram</a>.</p>
+          <p class="text-[.9375rem] text-muted w-full md:text-right">Oder folge uns im <a class="lnk" style="color: var(--ink)" href="https://whatsapp.com/channel/0029VbEVxlg4yltQ7n8coh0t" target="_blank" rel="noopener">WhatsApp-Kanal</a> und auf <a class="lnk" style="color: var(--ink)" href="https://www.instagram.com/alea_boutique_/" target="_blank" rel="noopener">Instagram</a>.</p>
         </div>
       </div>
     </div>
@@ -539,7 +543,7 @@
         <div class="md:col-span-5 md:col-start-8 min-w-0">
           <p class="label mb-4">Private Shopping</p>
           <h2 id="ps-h" class="h-sec mb-6">Eure Boutique für einen Abend</h2>
-          <p class="md:hidden text-[1.125rem] mb-5" style="font-weight:400">Die Boutique einen Abend nur für dich und deine Freundinnen, kostenlos.</p>
+          <p class="text-[1.125rem] mb-5" style="font-weight:400">Die Boutique einen Abend nur für dich und deine Freundinnen, kostenlos.</p>
           <p class="mb-8">Wir öffnen die Boutique außerhalb der Öffnungszeiten nur für dich und deine Lieblingsmenschen. In Ruhe probieren, einander beraten, anstoßen. Ohne Trubel, mit unserer ganzen Aufmerksamkeit.</p>
           <ul class="included grid gap-3" role="list">
             <li>Für Gruppen ab etwa fünf Personen</li>
