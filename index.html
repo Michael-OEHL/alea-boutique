@@ -9,8 +9,8 @@
 <link rel="preload" href="/fonts/bodoni-moda-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/site.css">
 <script defer src="/_vercel/insights/script.js"></script>
-<title>aLea Boutique</title>
-<meta name="description" content="aLea in Haag am Hausruck: mehr als eine Boutique. Damenmode und Accessoires aus Italien, den Niederlanden, Dänemark und Deutschland, persönliche Beratung und Private Shopping am Marktplatz 18.">
+<title>aLea Boutique · Damenmode in Haag am Hausruck</title>
+<meta name="description" content="Damenmode, Schuhe und Accessoires am Marktplatz 18 in Haag am Hausruck. Persönliche Beratung und Private Shopping für dich und deine Freundinnen.">
 <meta property="og:title" content="aLea, mehr als eine Boutique">
 <meta property="og:description" content="Mode mit Persönlichkeit am Marktplatz in Haag am Hausruck. aLea. Wear your story.">
 <meta property="og:image" content="https://alea-boutique.com/img/og.jpg">
@@ -84,6 +84,7 @@
 
   .serif { font-family: var(--f-serif); font-weight: 400; }
   .label { font-size: .8125rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  .nb { text-transform: none; }
   .h-sec { font-family: var(--f-serif); font-weight: 400; font-size: clamp(2.1rem, 4.6vw, 3.5rem); line-height: 1.08; letter-spacing: -.01em; }
 
   a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
@@ -290,10 +291,9 @@
   <section class="hero bg-beige" id="top" aria-labelledby="h1">
     <div class="hero-grid">
       <div class="hero-text">
-        <p class="label mb-6">Boutique am Marktplatz in Haag am Hausruck</p>
-        <h1 id="h1" class="h-sec mb-6">Mehr als eine Boutique.</h1>
+        <h1 id="h1" class="mb-6"><span class="label block mb-6">Boutique am Marktplatz in Haag am Hausruck</span><span class="h-sec block">Mehr als eine Boutique.</span></h1>
         <p class="max-w-[30rem] text-[1.125rem] mb-10">Ausgewählte Damenmode, Schuhe und Schmuck für jeden Tag und besondere Anlässe. Komm vorbei, stöbere in Ruhe und lass dich persönlich beraten.</p>
-        <p class="label" style="color: var(--ink)">aLea. Wear your story.</p>
+        <p class="label" style="color: var(--ink)"><span class="nb">aLea. Wear your story.</span></p>
       </div>
       <div class="hero-img">
         <img src="img/steffi-1100.webp" srcset="img/steffi-600.webp 600w, img/steffi-1100.webp 1100w" sizes="(min-width: 768px) 25vw, 50vw" width="1100" height="1650" alt="Steffi lächelt in der Boutique, hinter ihr Regale mit Strick und Blusen" fetchpriority="high">
@@ -399,7 +399,7 @@
 
       <!-- ADVENT: Weihnachtsaktion 28.11. bis 24.12. (Werte sind Beispiele) -->
       <article id="advent" class="advent mt-16 md:mt-20" aria-labelledby="advent-h" data-advent hidden>
-        <p class="label mb-4">Advent bei aLea · 28. November bis 24. Dezember</p>
+        <p class="label mb-4">Advent bei <span class="nb">aLea</span> · 28. November bis 24. Dezember</p>
         <h3 id="advent-h" class="serif text-[2rem] md:text-[2.75rem] leading-[1.1] mb-5">Finde das versteckte Geschenk</h3>
         <p class="max-w-[38rem] mb-10" style="color: color-mix(in srgb, var(--on-ink) 88%, transparent)">Jede Adventwoche verstecken wir ein kleines Geschenk auf unserer Website. Wer es findet, bekommt bei uns im Laden eine Überraschung.</p>
         <ol class="advent-steps mb-10" role="list">
@@ -417,7 +417,7 @@
           <p class="serif text-[1.4rem] md:text-[1.6rem] leading-snug">Komm in den aLea-Kreis: Neue Lieblingsstücke und Einladungen zu unseren Events erfährst du zuerst.</p>
         </div>
         <div class="md:col-span-6 flex flex-wrap gap-3 md:justify-end">
-          <a class="btn btn-fill" href="/kreis">In den aLea-Kreis</a>
+          <a class="btn btn-fill" href="/kreis"><span>In den <span class="nb">aLea</span>-Kreis</span></a>
           <a class="btn btn-line" href="https://whatsapp.com/channel/0029VbEVxlg4yltQ7n8coh0t" target="_blank" rel="noopener">WhatsApp-Kanal</a>
           <a class="btn btn-line" href="https://www.instagram.com/alea_boutique_/" target="_blank" rel="noopener">Instagram</a>
         </div>
@@ -622,7 +622,7 @@
 
 <dialog class="gift-card" id="gift-card" aria-labelledby="gift-h">
   <div class="inner">
-    <p class="label">Advent bei aLea</p>
+    <p class="label">Advent bei <span class="nb">aLea</span></p>
     <h2 id="gift-h" class="serif text-[2rem] leading-tight">Gefunden!</h2>
     <p>Dein Codewort für diese Woche:</p>
     <p class="code" data-advent-code></p>
@@ -639,7 +639,7 @@
   <div class="wrap py-14 grid gap-8 md:grid-cols-3 items-center text-center md:text-left">
     <img src="img/logo-180.webp" width="180" height="179" alt="aLea Boutique" class="logo h-20 w-20 mx-auto md:mx-0" loading="lazy">
     <div class="md:text-center">
-      <p class="label mb-3" style="color: var(--on-ink)">aLea. Wear your story.</p>
+      <p class="label mb-3" style="color: var(--on-ink)"><span class="nb">aLea. Wear your story.</span></p>
       <p class="text-sm opacity-80">Marktplatz 18, 4680 Haag am Hausruck<br>Mo, Di, Do, Fr 9–12 und 15–18 Uhr · Sa 9–12 Uhr</p>
     </div>
     <ul class="flex flex-wrap justify-center md:justify-end gap-6 text-sm" role="list">
