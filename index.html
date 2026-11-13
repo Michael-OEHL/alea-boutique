@@ -36,6 +36,7 @@
     {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "12:00"}
   ],
   "brand": ["YAYA","Rino & Pelle","Rinascimento","Imperial","monari","Même Road","JcSophie","CATNOIR","Americandreams","Philly Firenze","Sandro Ferrone","Bianco","IBU JEWELS","JOYEM"],
+  "specialOpeningHoursSpecification": [{"@type": "OpeningHoursSpecification", "validFrom": "2026-12-07", "validThrough": "2026-12-07", "opens": "00:00", "closes": "00:00"}, {"@type": "OpeningHoursSpecification", "validFrom": "2026-12-08", "validThrough": "2026-12-08", "opens": "00:00", "closes": "00:00"}, {"@type": "OpeningHoursSpecification", "validFrom": "2026-12-12", "validThrough": "2026-12-12", "opens": "09:00", "closes": "15:00"}, {"@type": "OpeningHoursSpecification", "validFrom": "2026-12-19", "validThrough": "2026-12-19", "opens": "09:00", "closes": "15:00"}, {"@type": "OpeningHoursSpecification", "validFrom": "2026-12-23", "validThrough": "2026-12-23", "opens": "09:00", "closes": "14:00"}, {"@type": "OpeningHoursSpecification", "validFrom": "2026-12-25", "validThrough": "2026-12-25", "opens": "00:00", "closes": "00:00"}, {"@type": "OpeningHoursSpecification", "validFrom": "2026-12-26", "validThrough": "2026-12-26", "opens": "00:00", "closes": "00:00"}, {"@type": "OpeningHoursSpecification", "validFrom": "2026-12-31", "validThrough": "2026-12-31", "opens": "09:00", "closes": "14:00"}, {"@type": "OpeningHoursSpecification", "validFrom": "2027-01-01", "validThrough": "2027-01-01", "opens": "00:00", "closes": "00:00"}, {"@type": "OpeningHoursSpecification", "validFrom": "2026-12-09", "validThrough": "2026-12-09", "opens": "09:00", "closes": "12:00"}, {"@type": "OpeningHoursSpecification", "validFrom": "2026-12-09", "validThrough": "2026-12-09", "opens": "15:00", "closes": "18:00"}, {"@type": "OpeningHoursSpecification", "validFrom": "2026-12-16", "validThrough": "2026-12-16", "opens": "09:00", "closes": "12:00"}, {"@type": "OpeningHoursSpecification", "validFrom": "2026-12-16", "validThrough": "2026-12-16", "opens": "15:00", "closes": "18:00"}],
   "sameAs": ["https://www.instagram.com/alea_boutique_/"]
 }
 </script>
@@ -97,16 +98,14 @@
   /* Hero: links Text auf Beige, rechts Steffi und Kathi in Farbe im Laden. Am Handy Fotos oben */
   .hero { overflow: hidden; }
   .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
-  .hero-img { order: -1; display: grid; grid-template-columns: 1fr 1.6fr 1fr; gap: 4px; overflow: hidden; background: var(--paper); }
+  .hero-img { order: -1; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; overflow: hidden; }
   .hero-img img { width: 100%; height: clamp(17rem, 52vh, 26rem); object-fit: cover; object-position: 50% 18%; }
-  .hero-img .h-steffi { object-position: 38% 30% !important; }
-  .hero-img .h-kathi { object-position: 55% 30% !important; }
   .hero-text { padding: 2.5rem clamp(1rem, 5vw, 3rem) 3.5rem; min-width: 0; }
   .hero-text .h-sec { font-size: clamp(2.4rem, 4.8vw, 4.6rem); }
   @media (min-width: 768px) {
     .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: min(calc(100vh - 5.5rem), 50rem); }
     .hero-img { order: 0; }
-    .hero-img img { height: 100%; min-height: 30rem; object-position: 50% 30%; }
+    .hero-img img { height: 100%; min-height: 30rem; object-position: 50% 22%; }
     .hero-text { display: flex; flex-direction: column; justify-content: center; padding: 3rem clamp(2rem, 5vw, 5rem); max-width: 40rem; margin-left: auto; }
   }
   @media (prefers-reduced-motion: no-preference) {
@@ -149,6 +148,12 @@
     .mosaic .m-c { grid-column: 2; grid-row: 2; }
     .mosaic .m-d { grid-column: 3; grid-row: 2; }
   }
+  .team3 { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 4px; align-items: start; }
+  .team3 figure { margin: 0; }
+  .team3 img { width: 100%; height: clamp(20rem, 100vw, 34rem); object-fit: cover; object-position: 50% 40%; display: block; }
+  .team3 .t-steffi { object-position: 38% 40%; }
+  .team3 .t-kathi { object-position: 55% 40%; }
+  .team3 figcaption { font-size: .75rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; margin-top: .6rem; color: var(--muted); }
   .rail-btn { width: 50px; height: 50px; border: 1px solid var(--ink); display: inline-flex; align-items: center; justify-content: center; font-size: 1.1rem; }
   .rail-btn:hover { background: var(--ink); color: var(--paper); }
 
@@ -215,6 +220,8 @@
   .visit > div { display: grid; gap: .35rem 2rem; padding-block: 1.25rem; border-top: 1px solid var(--line); }
   .visit > div:last-child { border-bottom: 1px solid var(--line); }
   @media (min-width: 640px) { .visit > div { grid-template-columns: 8rem minmax(0, 1fr); } .visit dt { padding-top: .25rem; } }
+  .advent-zeiten { list-style: none; margin: 0 0 .4rem; padding: 0; }
+  .advent-zeiten li { display: flex; justify-content: space-between; gap: 1rem; max-width: 22rem; }
   .visit dd { line-height: 1.7; }
   .hours { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
   .hours th, .hours td { text-align: left; padding: .55rem 0; border-bottom: 1px solid var(--line); font-weight: 300; vertical-align: top; }
@@ -299,9 +306,8 @@
         <p class="label" style="color: var(--ink)"><span class="nb">aLea. Wear your story.</span></p>
       </div>
       <div class="hero-img">
-        <img class="h-steffi" src="img/team-steffi-1066.webp" srcset="img/team-steffi-600.webp 600w, img/team-steffi-1066.webp 1066w" sizes="(min-width: 768px) 15vw, 28vw" width="1066" height="1600" alt="Steffi sitzt lächelnd auf einem Barhocker, in dunkler Bluse und schwarzen Stiefeln" fetchpriority="high">
-        <img class="h-beide" src="img/team-beide-1066.webp" srcset="img/team-beide-600.webp 600w, img/team-beide-1066.webp 1066w" sizes="(min-width: 768px) 22vw, 44vw" width="1066" height="1600" alt="Kathi legt Steffi die Hand auf die Schulter, beide lachen sich an" fetchpriority="high">
-        <img class="h-kathi" src="img/team-kathi-1066.webp" srcset="img/team-kathi-600.webp 600w, img/team-kathi-1066.webp 1066w" sizes="(min-width: 768px) 15vw, 28vw" width="1066" height="1600" alt="Kathi sitzt lächelnd auf einem Barhocker, in transparenter Bluse mit Pailletten" fetchpriority="high">
+        <img src="img/steffi-1100.webp" srcset="img/steffi-600.webp 600w, img/steffi-1100.webp 1100w" sizes="(min-width: 768px) 25vw, 50vw" width="1100" height="1650" alt="Steffi lächelt in der Boutique, hinter ihr Regale mit Strick und Blusen" fetchpriority="high">
+        <img src="img/kathi-1100.webp" srcset="img/kathi-600.webp 600w, img/kathi-1100.webp 1100w" sizes="(min-width: 768px) 25vw, 50vw" width="1100" height="1731" alt="Kathi unter dem weißen Gewölbe der Boutique, sie zeigt eine rosa Satinjacke" fetchpriority="high">
       </div>
     </div>
   </section>
@@ -314,18 +320,18 @@
           <p class="label mb-4">Neu &amp; Events</p>
           <h2 id="events-h" class="h-sec">Bereit für den Winter</h2>
         </div>
-        <p class="md:col-span-5 md:col-start-8 min-w-0 self-end">Kuschelige Jacken, weicher Strick und Satin für die Feiertage: Jede Woche kommen neue Lieblingsstücke dazu. Im Advent haben wir für dich länger offen, am 12. und 19. Dezember bis 15 Uhr.</p>
+        <p class="md:col-span-5 md:col-start-8 min-w-0 self-end">Kuschelige Jacken, weicher Strick und Satin für die Feiertage: Jede Woche kommen neue Lieblingsstücke dazu. Im Advent haben wir für dich länger offen, am 12. und 19. Dezember bis 15 Uhr. <a class="lnk" href="#besuch">Alle Öffnungszeiten im Dezember</a></p>
       </div>
 
       <!-- Neu eingetroffen: monatlich austauschen (1 Bild, Titel, 1 bis 2 Sätze) -->
       <article class="new-in mb-20 md:mb-24" aria-labelledby="neu-h">
         <div class="new-in-img">
-          <img src="img/look-50-900.webp" srcset="img/look-50-500.webp 500w, img/look-50-900.webp 900w" sizes="(min-width: 768px) 34vw, 100vw" width="900" height="1350" alt="Lachende Frau im Strickpulli in Fell-Optik in Oliv und Braun" loading="lazy">
+          <img src="img/neu-strick-1000.webp" srcset="img/neu-strick-600.webp 600w, img/neu-strick-1000.webp 1000w" sizes="(min-width: 768px) 34vw, 100vw" width="1000" height="1250" alt="Steffi in einer rosa und Kathi in einer blauen Strickjacke in der Boutique" loading="lazy">
         </div>
         <div class="new-in-text">
           <p class="label mb-4">Jetzt bei uns · November</p>
-          <h3 id="neu-h" class="serif text-[2rem] md:text-[2.75rem] leading-[1.1] mb-5">Warm eingepackt</h3>
-          <p class="mb-8 max-w-[28rem]">Strick in Fell-Optik, kuschelige Jacken und warme Brauntöne: So machen kalte Tage Freude. Komm vorbei und probier an, wir beraten dich gern.</p>
+          <h3 id="neu-h" class="serif text-[2rem] md:text-[2.75rem] leading-[1.1] mb-5">Weicher Strick für kalte Tage</h3>
+          <p class="mb-8 max-w-[28rem]">Warm, kuschelig und in schönen Farben. Komm vorbei und probier ihn an.</p>
           <p class="text-[.9375rem] text-muted">Mehr Neuheiten jede Woche auf <a class="lnk" style="color: var(--ink)" href="https://www.instagram.com/alea_boutique_/" target="_blank" rel="noopener">Instagram</a></p>
         </div>
       </article>
@@ -484,7 +490,11 @@
   <section id="wir" class="py-20 md:py-32" aria-labelledby="wir-h">
     <div class="wrap grid gap-14 md:grid-cols-12 md:gap-12 items-center">
       <div class="md:col-span-6 min-w-0">
-        <img src="img/gruenderinnen-fenster-1400.webp" srcset="img/gruenderinnen-fenster-800.webp 800w, img/gruenderinnen-fenster-1400.webp 1400w" sizes="(min-width: 768px) 50vw, 100vw" width="1400" height="933" alt="Steffi und Kathi sitzen in Schwarz gekleidet auf dem Fenstersims ihrer Boutique am Marktplatz" loading="lazy" class="w-full">
+        <div class="team3">
+          <figure><img class="t-steffi" src="img/team-steffi-600.webp" srcset="img/team-steffi-600.webp 600w, img/team-steffi-1066.webp 1066w" sizes="(min-width: 768px) 14vw, 28vw" width="1066" height="1600" alt="Steffi sitzt lächelnd auf einem Barhocker" loading="lazy"><figcaption>Steffi</figcaption></figure>
+          <figure class="t-mitte"><img src="img/team-stuhl-1066.webp" srcset="img/team-stuhl-600.webp 600w, img/team-stuhl-1066.webp 1066w" sizes="(min-width: 768px) 22vw, 44vw" width="1066" height="1600" alt="Steffi und Kathi sitzen Rücken an Rücken auf einem Barhocker und lachen" loading="lazy"></figure>
+          <figure><img class="t-kathi" src="img/team-kathi-600.webp" srcset="img/team-kathi-600.webp 600w, img/team-kathi-1066.webp 1066w" sizes="(min-width: 768px) 14vw, 28vw" width="1066" height="1600" alt="Kathi sitzt lächelnd auf einem Barhocker" loading="lazy"><figcaption>Kathi</figcaption></figure>
+        </div>
       </div>
       <div class="md:col-span-5 md:col-start-8 min-w-0">
         <p class="label mb-4">Über uns</p>
@@ -613,6 +623,18 @@
             <dt class="label">Geöffnet</dt>
             <dd>Mo, Di, Do, Fr 9–12 und 15–18 Uhr<br>Sa 9–12 Uhr, Mi geschlossen<br><span class="text-muted text-[.9375rem]"><span class="open-dot" data-status-dot aria-hidden="true"></span><span data-status-text aria-live="polite"></span></span></dd>
           </div>
+          <div data-bis="2026-12-31">
+            <dt class="label">Im Dezember</dt>
+            <dd><ul class="advent-zeiten">
+              <li><span>Mo 7. und Di 8.</span><span>geschlossen</span></li>
+              <li><span>Mi 9.</span><span>9–12 und 15–18 Uhr</span></li>
+              <li><span>Sa 12.</span><span>9–15 Uhr</span></li>
+              <li><span>Mi 16.</span><span>9–12 und 15–18 Uhr</span></li>
+              <li><span>Sa 19.</span><span>9–15 Uhr</span></li>
+              <li><span>Mi 23.</span><span>9–14 Uhr</span></li>
+              <li><span>Do 31.</span><span>9–14 Uhr</span></li>
+            </ul><span class="text-muted text-[.9375rem]">An allen anderen Tagen sind wir wie gewohnt für dich da, an Feiertagen geschlossen.</span></dd>
+          </div>
           <div>
             <dt class="label">Kontakt</dt>
             <dd><a class="lnk" href="tel:+436605527737">+43 660 552 77 37</a><br>kontakt@alea-boutique.com</dd>
@@ -662,17 +684,23 @@
   var plan = { 0: [], 1: [[540, 720], [900, 1080]], 2: [[540, 720], [900, 1080]], 3: [], 4: [[540, 720], [900, 1080]], 5: [[540, 720], [900, 1080]], 6: [[540, 720]] };
   var tage = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
   var map = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+  var VM = [[540, 720], [900, 1080]];
+  var sonder = { '2026-12-07': [], '2026-12-08': [], '2026-12-09': VM, '2026-12-12': [[540, 900]], '2026-12-16': VM, '2026-12-19': [[540, 900]], '2026-12-23': [[540, 840]], '2026-12-25': [], '2026-12-26': [], '2026-12-31': [[540, 840]], '2027-01-01': [], '2027-01-06': [] };
+  function zeiten(n, d) {
+    var dt = new Date(Date.UTC(n.y, n.m - 1, n.d + d)), iso = dt.toISOString().slice(0, 10);
+    return sonder[iso] || plan[(n.tag + d) % 7];
+  }
   function jetzt() {
     var o = {};
-    new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Vienna', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date()).forEach(function (p) { o[p.type] = p.value; });
-    return { tag: map[o.weekday], min: parseInt(o.hour, 10) * 60 + parseInt(o.minute, 10) };
+    new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Vienna', year: 'numeric', month: 'numeric', day: 'numeric', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date()).forEach(function (p) { o[p.type] = p.value; });
+    return { tag: map[o.weekday], min: parseInt(o.hour, 10) * 60 + parseInt(o.minute, 10), y: +o.year, m: +o.month, d: +o.day };
   }
   function uhr(m) { var mm = m % 60; return Math.floor(m / 60) + (mm ? ':' + String(mm).padStart(2, '0') : '') + ' Uhr'; }
   function status(n) {
-    var heute = plan[n.tag];
+    var heute = zeiten(n, 0);
     for (var i = 0; i < heute.length; i++) if (n.min >= heute[i][0] && n.min < heute[i][1]) return { offen: true, text: 'Jetzt geöffnet, bis ' + uhr(heute[i][1]) };
     for (var d = 0; d < 7; d++) {
-      var tag = (n.tag + d) % 7, s = plan[tag];
+      var tag = (n.tag + d) % 7, s = zeiten(n, d);
       for (var j = 0; j < s.length; j++) if (d > 0 || s[j][0] > n.min) return { offen: false, text: 'Gerade geschlossen. Wir öffnen ' + (d === 0 ? 'heute' : d === 1 ? 'morgen' : 'am ' + tage[tag]) + ' um ' + uhr(s[j][0]) + '.' };
     }
     return { offen: false, text: 'Unsere Öffnungszeiten' };
@@ -683,6 +711,7 @@
     document.querySelectorAll('[data-status-dot]').forEach(function (el) { el.classList.toggle('is-open', s.offen); });
     document.querySelectorAll('#hours tr').forEach(function (tr) { tr.classList.toggle('is-today', tr.dataset.days.split(',').map(Number).indexOf(n.tag) > -1); });
   }
+  (function () { var n = jetzt(), iso = n.y + '-' + String(n.m).padStart(2, '0') + '-' + String(n.d).padStart(2, '0'); document.querySelectorAll('[data-bis]').forEach(function (el) { if (iso > el.dataset.bis) el.remove(); }); })();
   update(); setInterval(update, 60000);
 
   document.addEventListener('click', function (e) {
