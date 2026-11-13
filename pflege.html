@@ -271,7 +271,7 @@
   }
   // Import-Datei für etron onRetail: Spalte "id" sorgt dafür, dass ein erneuter Import bestehende Kundinnen aktualisiert statt doppelt anlegt.
   $('kr-etron').addEventListener('click', function () {
-    var q = function (v) { return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; };
+    var q = function (v) { var t = String(v == null ? '' : v); if (/^[=+\-@\t\r]/.test(t)) t = "'" + t; return '"' + t.replace(/"/g, '""') + '"'; };
     var zwei = function (n) { return String(n).padStart(2, '0'); };
     var rows = [['id', 'Vorname', 'Nachname', 'Mobil', 'E-Mail', 'PLZ', 'Geburtsdatum', 'Interne Notizen']].concat(kreis.map(function (m) {
       var g = m.geburtstag, n = teile(m);
@@ -283,7 +283,7 @@
     $('kr-kopiert').textContent = 'Datei für etron gespeichert. In etron: Kontakte → Kunden → Favoriten → Datensätze importieren.';
   });
   $('kr-csv').addEventListener('click', function () {
-    var q = function (v) { return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; };
+    var q = function (v) { var t = String(v == null ? '' : v); if (/^[=+\-@\t\r]/.test(t)) t = "'" + t; return '"' + t.replace(/"/g, '""') + '"'; };
     var rows = [['Name', 'PLZ', 'WhatsApp', 'E-Mail', 'E-Mail bestätigt', 'Geburtstag', 'Altersgruppe', 'Angemeldet', 'Quelle', 'Abmeldelink']].concat(kreis.map(function (m) {
       return [m.name, m.plz, m.tel, m.email, m.email ? (m.mailBestaetigt ? 'ja' : 'nein') : '', m.geburtstag && m.geburtstag.tag ? m.geburtstag.tag + '.' + m.geburtstag.monat + '.' + (m.geburtstag.jahr || '') : '', alter(m) == null ? '' : gruppe(alter(m)), new Date(m.angemeldet).toLocaleDateString('de-AT'), m.quelle, m.abmelden];
     }));

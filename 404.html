@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/bodoni-moda-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/site.css">
+<script defer src="/_vercel/insights/script.js"></script>
+<title>Seite nicht gefunden · aLea Boutique</title>
+<meta name="description" content="Diese Seite gibt es nicht.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://alea-boutique.com/404">
+<meta property="og:title" content="Seite nicht gefunden · aLea Boutique">
+<meta property="og:description" content="Diese Seite gibt es nicht.">
+<meta property="og:image" content="https://alea-boutique.com/img/og.jpg">
+<meta property="og:url" content="https://alea-boutique.com/404">
+<meta property="og:locale" content="de_AT">
+<style>
+  /* Layout: ruhig und klar wie eine gute Modestrecke. Großes Foto mit gerader Kante, darunter das Logo groß auf Beige, Bodoni nur für Überschriften, sonst Jost. Beige und Schwarz, keine Ornamente. */
+  :root {
+    --paper: #F7F3EE;   /* helles Beige, Grundfläche */
+    --beige: #E4DACD;   /* aLea-Beige, Flächen */
+    --ink: #141210;     /* Schwarz */
+    --muted: #5A534B;   /* Nebentext */
+    --on-ink: #F7F3EE;  /* Text auf Schwarz */
+    --line: rgba(20, 18, 16, .18);
+    --logo-filter: none;
+    --f-sans: 'Jost', 'Futura', 'Century Gothic', system-ui, sans-serif;
+    --f-serif: 'Bodoni Moda', Didot, 'Bodoni 72', Georgia, serif;
+  }
+  :root { color-scheme: light; }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--f-sans); font-weight: 300; font-size: 1.0625rem; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  img { max-width: 100%; height: auto; display: block; }
+  .logo { filter: var(--logo-filter); }
+  .wrap { width: 100%; max-width: 76rem; margin-inline: auto; padding-inline: clamp(1rem, 5vw, 3rem); }
+
+  .serif { font-family: var(--f-serif); font-weight: 400; }
+  .label { font-size: .8125rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  .nb { text-transform: none; }
+  .h-sec { font-family: var(--f-serif); font-weight: 400; font-size: clamp(2.1rem, 4.6vw, 3.5rem); line-height: 1.08; letter-spacing: -.01em; }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+  /* Kopf */
+  .site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: color-mix(in srgb, var(--paper) 94%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .site-header nav a { min-height: 44px; display: inline-flex; align-items: center; font-size: .8125rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; border-bottom: 1px solid transparent; }
+  .site-header nav a:hover { border-bottom-color: var(--ink); }
+
+  /* Hero: links Text auf Beige, rechts Steffi und Kathi in Farbe im Laden. Am Handy Fotos oben */
+  .hero { overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .hero-img { order: -1; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; overflow: hidden; }
+  .hero-img img { width: 100%; height: clamp(17rem, 52vh, 26rem); object-fit: cover; object-position: 50% 18%; }
+  .hero-text { padding: 2.5rem clamp(1rem, 5vw, 3rem) 3.5rem; min-width: 0; }
+  .hero-text .h-sec { font-size: clamp(2.4rem, 4.8vw, 4.6rem); }
+  @media (min-width: 768px) {
+    .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: min(calc(100vh - 5.5rem), 50rem); }
+    .hero-img { order: 0; }
+    .hero-img img { height: 100%; min-height: 30rem; object-position: 50% 22%; }
+    .hero-text { display: flex; flex-direction: column; justify-content: center; padding: 3rem clamp(2rem, 5vw, 5rem); max-width: 40rem; margin-left: auto; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-img img { animation: settle 1.8s cubic-bezier(.2,.7,.2,1) both; }
+    .hero-img img + img { animation-delay: .15s; }
+    .hero-img img + img + img { animation-delay: .3s; }
+    @keyframes settle { from { opacity: .4; transform: scale(1.03); } to { opacity: 1; transform: none; } }
+  }
+
+  /* Knöpfe */
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: .8rem 1.9rem; font-size: .8125rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; transition: background-color .25s, color .25s; cursor: pointer; }
+  .btn-fill { background: var(--ink); color: var(--paper); border: 1px solid var(--ink); }
+  .btn-fill:hover { background: transparent; color: var(--ink); }
+  .btn-line { border: 1px solid var(--ink); color: var(--ink); background: transparent; }
+  .btn-line:hover { background: var(--ink); color: var(--paper); }
+
+  /* Gründerinnen */
+  .portraits { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(.75rem, 2vw, 1.5rem); }
+  .portraits figure:nth-child(2) { margin-top: clamp(2.5rem, 8vw, 6rem); }
+  .portraits img { aspect-ratio: 2 / 3; object-fit: cover; width: 100%; }
+  .portraits figcaption { font-size: .8125rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; margin-top: .75rem; }
+
+  /* Looks */
+  .rail { display: grid; grid-auto-flow: column; grid-auto-columns: min(72vw, 21rem); gap: clamp(.75rem, 1.5vw, 1.25rem); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 1rem; scrollbar-width: thin; }
+  .rail figure { scroll-snap-align: start; margin: 0; }
+  .rail img { aspect-ratio: 2 / 3; object-fit: cover; width: 100%; }
+  .mosaic { display: grid; gap: clamp(.5rem, 1.2vw, 1rem); grid-template-columns: 1fr 1fr; }
+  .mosaic figure { margin: 0; overflow: hidden; background: var(--beige); min-height: 0; }
+  .mosaic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .mosaic .m-a { grid-column: 1 / -1; aspect-ratio: 4 / 5; }
+  .mosaic .m-c, .mosaic .m-d { aspect-ratio: 4 / 5; }
+  .mosaic .m-b { display: none; }
+  .mosaic .m-b img { object-position: 40% 55%; }
+  .mosaic .m-d img { object-position: 50% 30%; }
+  @media (min-width: 768px) {
+    .mosaic { grid-template-columns: 5fr 3fr 3fr; grid-template-rows: 1fr 1fr; height: calc(21rem * 1.5); }
+    .mosaic figure { aspect-ratio: auto !important; }
+    .mosaic .m-a { grid-column: 1; grid-row: 1 / 3; }
+    .mosaic .m-b { display: block; grid-column: 2 / 4; grid-row: 1; }
+    .mosaic .m-c { grid-column: 2; grid-row: 2; }
+    .mosaic .m-d { grid-column: 3; grid-row: 2; }
+  }
+  .team3 { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 4px; align-items: start; }
+  .team3 figure { margin: 0; }
+  .team3 img { width: 100%; height: clamp(20rem, 100vw, 34rem); object-fit: cover; object-position: 50% 40%; display: block; }
+  .team3 .t-steffi { object-position: 38% 40%; }
+  .team3 .t-kathi { object-position: 55% 40%; }
+  .team3 figcaption { font-size: .75rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; margin-top: .6rem; color: var(--muted); }
+  .rail-btn { width: 50px; height: 50px; border: 1px solid var(--ink); display: inline-flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+  .rail-btn:hover { background: var(--ink); color: var(--paper); }
+
+  /* Neu eingetroffen */
+  .new-in { display: grid; gap: 2rem; grid-template-columns: minmax(0, 1fr); align-items: center; }
+  .new-in-img img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; }
+  @media (min-width: 768px) {
+    .new-in { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2.5rem, 6vw, 6rem); }
+  }
+
+  /* Events: Umschalter */
+  .ev-tabs { display: flex; gap: clamp(1.5rem, 4vw, 3rem); border-bottom: 1px solid var(--line); margin-bottom: 2.5rem; }
+  .ev-tabs button { display: grid; gap: .1rem; text-align: left; padding: .5rem 0 .9rem; min-height: 44px; border-bottom: 2px solid transparent; margin-bottom: -1px; color: var(--muted); }
+  .ev-tabs button .ev-tab-title { font-family: var(--f-serif); font-size: 1.4rem; line-height: 1.2; }
+  .ev-tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+  .ev-tabs { overflow-x: auto; scrollbar-width: none; }
+  .ev-tabs button { flex: none; }
+  @media (max-width: 479px) { .ev-tabs { gap: 1.1rem; } .ev-tabs button .ev-tab-title { font-size: 1.12rem; } .ev-tabs .label { font-size: .6875rem; letter-spacing: .12em; } }
+  .ev-tabs button[aria-selected="true"] .label { color: var(--ink); }
+  .ev-tabs button:hover { color: var(--ink); }
+
+  /* Private Shopping: Anlässe */
+  .occasions { display: grid; gap: 0 clamp(1.5rem, 3vw, 2.5rem); grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 640px) { .occasions { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .occasions { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .occasions li { border-top: 1px solid var(--ink); padding-block: 1.1rem 1.4rem; }
+  .occasions h4 { font-family: var(--f-serif); font-size: 1.35rem; line-height: 1.25; margin-bottom: .4rem; }
+  .occasions p { font-size: .9375rem; color: var(--muted); line-height: 1.6; }
+
+  /* Marken */
+  .brands { display: grid; gap: 0 clamp(1rem, 4vw, 3.5rem); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (max-width: 639px) { .brands h3 { font-size: 1.25rem !important; } .brands p { font-size: .8125rem !important; } .brands li { padding-block: .85rem !important; } }
+  @media (min-width: 1024px) { .brands { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .brands li { padding-block: 1.1rem; border-top: 1px solid var(--line); }
+  .brands h3 { font-family: var(--f-serif); font-size: 1.6rem; line-height: 1.2; font-weight: 400; }
+  .brands p { font-size: .9375rem; color: var(--muted); margin-top: .2rem; line-height: 1.55; }
+
+  /* Stimmen */
+  .quote { font-family: var(--f-serif); font-size: clamp(1.25rem, 2.4vw, 1.6rem); line-height: 1.45; }
+  .stars { letter-spacing: .2em; font-size: .9rem; }
+
+  /* Private Shopping */
+  .included li { display: flex; gap: .9rem; align-items: baseline; }
+  .included li::before { content: ""; flex: none; width: 1.25rem; height: 1px; background: var(--ink); transform: translateY(-.3em); }
+  details.ps summary { list-style: none; }
+  details.ps summary::-webkit-details-marker { display: none; }
+  .field label { display: block; font-size: .8125rem; font-weight: 500; letter-spacing: .08em; margin-bottom: .3rem; }
+  .field input, .field textarea { width: 100%; min-height: 50px; padding: .75rem 0; background: transparent; color: var(--ink); border: 0; border-bottom: 1px solid var(--muted); border-radius: 0; font: inherit; }
+  .field input:focus, .field textarea:focus { outline: none; border-bottom: 2px solid var(--ink); }
+  .field input[aria-invalid="true"] { border-bottom: 2px solid #9A3B2E; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .form-note { border-left: 2px solid var(--ink); padding-left: 1rem; }
+
+  /* Gut zu wissen */
+  .faq details { border-top: 1px solid var(--line); }
+  .faq details:last-child { border-bottom: 1px solid var(--line); }
+  .faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 56px; padding-block: .9rem; font-family: var(--f-serif); font-size: 1.3rem; line-height: 1.3; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; font-family: var(--f-sans); font-weight: 300; font-size: 1.5rem; flex: none; }
+  .faq details[open] summary::after { content: "–"; }
+  .faq details p { padding-bottom: 1.25rem; max-width: 36rem; color: var(--muted); }
+
+  /* Besuch */
+  .visit > div { display: grid; gap: .35rem 2rem; padding-block: 1.25rem; border-top: 1px solid var(--line); }
+  .visit > div:last-child { border-bottom: 1px solid var(--line); }
+  @media (min-width: 640px) { .visit > div { grid-template-columns: 8rem minmax(0, 1fr); } .visit dt { padding-top: .25rem; } }
+  .advent-zeiten { list-style: none; margin: 0 0 .4rem; padding: 0; }
+  .advent-zeiten li { display: flex; justify-content: space-between; gap: 1rem; max-width: 22rem; }
+  .visit dd { line-height: 1.7; }
+  .hours { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .hours th, .hours td { text-align: left; padding: .55rem 0; border-bottom: 1px solid var(--line); font-weight: 300; vertical-align: top; }
+  .hours th { font-weight: 400; padding-right: 1.5rem; white-space: nowrap; }
+  .hours tr.is-today th, .hours tr.is-today td { font-weight: 500; }
+  .lnk { text-decoration: underline; text-underline-offset: .22em; text-decoration-thickness: 1px; }
+  .lnk:hover { text-decoration-thickness: 2px; }
+  .copy-btn { font-size: .75rem; letter-spacing: .08em; border: 1px solid var(--line); padding: .25rem .7rem; min-height: 32px; margin-left: .6rem; }
+  .copy-btn:hover { border-color: var(--ink); }
+  .open-dot { display: inline-block; width: .5rem; height: .5rem; border-radius: 50%; background: var(--muted); margin-right: .6rem; transform: translateY(-.1em); }
+  .open-dot.is-open { background: #3F7A50; }
+
+  footer.site-footer { background: var(--ink); color: var(--on-ink); }
+  footer.site-footer .logo { filter: invert(1); }
+
+  section, #advent { scroll-margin-top: 5.5rem; }
+
+  /* Platzhalter-Fotos */
+  .rail figure.ph { position: relative; }
+  .ph-tag { position: absolute; left: .6rem; top: .6rem; background: var(--paper); color: var(--ink); font-size: .6875rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; padding: .2rem .55rem; }
+
+  /* Advent: Band oben, Block in Neu & Events, verstecktes Geschenk, Karte */
+  .advent-band { background: var(--ink); color: var(--on-ink); font-size: .875rem; }
+  .advent-band a { color: var(--on-ink); min-height: 44px; display: inline-flex; align-items: center; }
+  .advent { background: var(--ink); color: var(--on-ink); padding: clamp(2rem, 5vw, 4rem); }
+  .advent .label { color: color-mix(in srgb, var(--on-ink) 72%, transparent); }
+  .advent-steps { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 768px) { .advent-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem; } }
+  .advent-steps li { border-top: 1px solid color-mix(in srgb, var(--on-ink) 40%, transparent); padding-top: 1.1rem; }
+  .advent-steps h4 { font-family: var(--f-serif); font-size: 1.4rem; margin-bottom: .35rem; }
+  .advent-steps p { font-size: .9375rem; line-height: 1.65; color: color-mix(in srgb, var(--on-ink) 82%, transparent); }
+  .advent .icon-inline { display: inline-block; width: 1.15em; height: 1.15em; vertical-align: -.2em; }
+  .gift { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; color: var(--muted); flex: none; }
+  .gift svg { width: 22px; height: 22px; }
+  .gift:hover { color: var(--ink); }
+  .gift-spot { position: relative; }
+  .gift-spot > .gift { position: absolute; right: -.5rem; top: .35rem; }
+  dialog.gift-card { width: min(28rem, calc(100vw - 2rem)); padding: 0; border: 0; background: var(--paper); color: var(--ink); }
+  dialog.gift-card::backdrop { background: rgba(20, 18, 16, .6); }
+  .gift-card .inner { padding: 2rem 1.75rem; display: grid; gap: 1rem; }
+  .code { font-family: var(--f-serif); font-size: clamp(1.8rem, 7vw, 2.4rem); letter-spacing: .06em; border-block: 1px solid var(--ink); padding-block: .7rem; text-align: center; }
+
+  /* ===== Handy-Aufbau (nur unter 768 px, Desktop unverändert) ===== */
+  html { scroll-padding-top: 5.5rem; }
+  .leiste { display: none; }
+  @media (max-width: 767px) {
+    main > section { padding-top: 3.5rem !important; padding-bottom: 3.5rem !important; }
+    .hero { padding: 0 !important; }
+    .site-header .logo { width: 2.75rem !important; height: 2.75rem !important; }
+    .site-header .wrap { padding-top: .25rem; padding-bottom: .25rem; }
+    .hero-img img { height: clamp(11rem, 30vh, 16rem) !important; }
+    .hero-text { padding-top: 1.5rem !important; padding-bottom: 2rem !important; }
+    .hero-text h1 .label { margin-bottom: .9rem; }
+    .hero-text > p.max-w-\[30rem\] { margin-bottom: 1.25rem; font-size: 1.0625rem; }
+    .hero-claim { display: none; }
+    .hero-text > p.max-w-\[30rem\] { display: none; }
+    .hero-text h1 .h-sec { font-size: 2.3rem !important; }
+    .hero-text h1 { margin-bottom: 1rem !important; }
+    #stimmen .grid { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: calc(-1 * clamp(1rem, 5vw, 3rem)); padding-inline: clamp(1rem, 5vw, 3rem); scroll-padding-inline: clamp(1rem, 5vw, 3rem); scrollbar-width: none; }
+    #stimmen .grid::-webkit-scrollbar { display: none; }
+    #stimmen .grid > figure { flex: 0 0 86%; scroll-snap-align: start; }
+    #stimmen .grid + p { margin-top: 2rem; }
+    #marken .md\:col-span-6 > p.text-muted { display: none; }
+    #private-shopping img { max-height: 24rem; object-fit: cover; }
+    .hero-was { font-size: 1.0625rem; margin-bottom: .35rem; }
+    .hero-status { display: flex; align-items: center; gap: .5rem; font-size: .9375rem; color: var(--muted); margin-bottom: 1.1rem; }
+    .hero-knoepfe { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+    .hero-knoepfe .btn { padding-inline: .5rem; min-height: 50px; }
+    .ev-bereich { display: none; }
+    .ev-bereich.offen { display: block; }
+    .ev-mehr, .advent-mehr { display: inline-flex; align-items: center; gap: .4rem; min-height: 48px; font-size: .9375rem; text-decoration: underline; text-underline-offset: 4px; }
+    .ev-mehr { margin-bottom: 1rem; }
+    .new-in { margin-bottom: 2.5rem !important; }
+    .advent { margin-top: 2.5rem !important; }
+    .advent-details { display: none; }
+    .advent-details.offen { display: block; margin-top: 1rem; }
+    .advent p.max-w-\[38rem\] { margin-bottom: .5rem !important; }
+    .brands p { display: none; }
+    .brands { grid-template-columns: 1fr 1fr !important; gap: .25rem 1rem !important; }
+    .brands li { padding-block: .7rem !important; }
+    .brands h3 { font-size: 1.15rem !important; }
+    .besuch-bild { order: 2; }
+    .besuch-bild img { max-height: 22rem; width: 100%; object-fit: cover; }
+    .visit a.lnk, #ps-details ~ p a.lnk { display: inline-flex; align-items: center; min-height: 44px; }
+    footer.site-footer li a { display: inline-flex; align-items: center; min-height: 44px; }
+    footer.site-footer .text-sm, .brands p, .occasions p, .advent-steps p { font-size: 1rem; }
+    main p { font-size: max(1rem, 1em); }
+    .text-sm, .text-\[\.9375rem\] { font-size: .9375rem !important; }
+    .leiste { display: grid; grid-template-columns: repeat(3, 1fr); position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+      background: var(--paper); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom);
+      transform: translateY(110%); transition: transform .25s ease; }
+    .leiste.zeigen { transform: none; }
+    .leiste a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .2rem; min-height: 60px; font-size: .75rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); }
+    .leiste a + a { border-left: 1px solid var(--line); }
+    .leiste svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; }
+  }
+  @media (max-width: 767px) and (max-height: 620px) { .hero-img img { height: 8.5rem !important; } .hero-text { padding-top: 1rem !important; } .hero-text h1 .label { margin-bottom: .5rem; } .hero-text h1 .h-sec { font-size: 2rem !important; } .hero-text h1 { margin-bottom: .6rem !important; } .hero-status { margin-bottom: .7rem; } }
+  @media (max-width: 379px) { .site-header nav ul { gap: .9rem !important; } .site-header nav a { font-size: .75rem !important; letter-spacing: .08em !important; } .ev-tabs { gap: .8rem !important; } }
+  ::placeholder { color: var(--muted); opacity: 1; }
+  input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .nur-gross { display: none !important; }
+  .btn { text-transform: none; letter-spacing: .03em; font-size: 1rem; }
+  @media (min-width: 768px) {
+    .hero-claim { margin-bottom: 1.75rem; }
+    .hero-status { display: flex; align-items: center; gap: .5rem; font-size: .9375rem; color: var(--muted); margin-bottom: 1rem; }
+    .hero-knoepfe { display: flex; flex-wrap: wrap; gap: .75rem; }
+  }
+  .nowrap { white-space: nowrap; }
+  .legal h1 { hyphens: auto; overflow-wrap: anywhere; }
+  @media (max-width: 399px) { .legal h1 { font-size: 2rem !important; } }
+  .btn { white-space: nowrap; }
+  details summary, .faq summary { text-wrap: balance; }
+  .feld-fehler { font-size: 1rem; color: #9A3B2E; margin-top: .4rem; }
+  .feld-fehler::before { content: "⚠ "; }
+  .wisch-hinweis { display: none; }
+  .direkt { display: none; }
+  @media (max-width: 767px) {
+    .advent-band, .advent, footer.site-footer { --on-ink: var(--ink); background: var(--beige) !important; color: var(--ink) !important; }
+    .advent { border-top: 2px solid var(--ink); }
+    footer.site-footer .logo { filter: var(--logo-filter) !important; }
+    footer.site-footer { border-top: 1px solid var(--line); }
+    .btn { text-transform: none !important; letter-spacing: .02em !important; font-size: 1rem !important; }
+    .hero-knoepfe .btn { font-size: .9375rem !important; }
+    .nur-gross-b { display: none; }
+    .direkt { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-top: 1.5rem; }
+    .direkt-titel { grid-column: 1 / -1; font-size: 1rem; color: var(--muted); margin: 0; }
+    .direkt .btn { min-height: 52px; padding-inline: .5rem; }
+    .wisch-hinweis { display: block; font-size: .9375rem; color: var(--muted); margin: -1.5rem 0 1rem; }
+    #stimmen p.text-right { text-align: left; }
+    body { padding-bottom: 0 !important; }
+    body.mit-leiste { padding-bottom: calc(60px + env(safe-area-inset-bottom)) !important; }
+    #ps-details summary.btn { width: 100%; }
+    .tipp-label { display: block; margin-bottom: .3rem; }
+  }
+  @media (max-width: 359px) { .hero-knoepfe, .direkt { grid-template-columns: 1fr !important; } .hero-knoepfe .btn { min-height: 48px; } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap flex items-center justify-between gap-4 py-2">
+    <a href="/" aria-label="aLea Boutique, zur Startseite" class="flex items-center"><img src="/img/logo-180.webp" width="180" height="179" alt="" class="logo h-14 w-14 md:h-[4.5rem] md:w-[4.5rem]"></a>
+    <a href="/" class="lnk">Zur Startseite</a>
+  </div>
+</header>
+<main id="inhalt" class="py-16 md:py-24"><div class="wrap legal max-w-[46rem]">
+<p class="label mb-4">Fehler 404</p><h1 class="serif text-[2.3rem] md:text-[3.2rem] leading-[1.05] mb-6">Diese Seite gibt es leider nicht</h1><p class="mb-8 text-[1.125rem]">Vielleicht hat sich die Adresse geändert. Auf unserer Startseite findest du alles: Öffnungszeiten, Private Shopping und den Weg zu uns.</p><p><a class="btn btn-fill" href="/">Zur Startseite</a></p><p class="mt-8 text-muted">aLea Boutique · Marktplatz 18 · 4680 Haag am Hausruck · <a class="lnk" href="tel:+436605527737">+43&nbsp;660&nbsp;552&nbsp;77&nbsp;37</a></p>
+</div></main>
+<footer class="site-footer">
+  <div class="wrap py-14 grid gap-8 md:grid-cols-3 items-center text-center md:text-left">
+    <img src="/img/logo-180.webp" width="180" height="179" alt="aLea Boutique" class="logo h-20 w-20 mx-auto md:mx-0" loading="lazy">
+    <div class="md:text-center">
+      <p class="label mb-3" style="color: var(--on-ink)"><span class="nb">aLea. Wear your story.</span></p>
+      <p class="text-sm opacity-80">Marktplatz 18, 4680 Haag am Hausruck<br><span class="nowrap">Mo, Di, Do, Fr 9–12 und 15–18 Uhr</span> · <span class="nowrap">Sa 9–12 Uhr</span> · <span class="nowrap">Mi geschlossen</span></p>
+    </div>
+    <ul class="flex flex-wrap justify-center md:justify-end gap-6 text-sm" role="list">
+      <li><a class="lnk" href="/kreis">aLea-Kreis</a></li>
+      <li><a class="lnk" href="https://www.instagram.com/alea_boutique_/" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a class="lnk" href="https://whatsapp.com/channel/0029VbEVxlg4yltQ7n8coh0t" target="_blank" rel="noopener">WhatsApp</a></li>
+      <li><a class="lnk" href="/impressum">Impressum</a></li>
+      <li><a class="lnk" href="/datenschutz">Datenschutz</a></li>
+      
+    </ul>
+  </div>
+</footer>
+</body>
+</html>

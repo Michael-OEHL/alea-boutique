@@ -1,5 +1,7 @@
 // aLea-Kreis: Anmelden, E-Mail bestätigen, Abmelden.
 import { json } from './_lib.js';
+import { timingSafeEqual } from 'node:crypto';
+const gleich = (a, b) => { const x = Buffer.from(String(a)), y = Buffer.from(String(b)); return x.length === y.length && timingSafeEqual(x, y); };
 import { laden, speichern, loeschen, idFuer, signatur, telefonNorm, mailOk, basisUrl, mail } from './_kreis.js';
 
 export const EINWILLIGUNG = {
@@ -39,7 +41,8 @@ async function anmelden(b, request) {
   const jahrJetzt = new Date().getFullYear();
   const jahrRoh = parseInt(b.gebJahr, 10);
   const jahr = jahrRoh >= jahrJetzt - 100 && jahrRoh <= jahrJetzt - 14 ? jahrRoh : null;
-  const geburtstag = tag >= 1 && tag <= 31 && monat >= 1 && monat <= 12 ? { tag, monat, jahr } : jahr ? { tag: null, monat: null, jahr } : null;
+  const tagOk = monat >= 1 && monat <= 12 && tag >= 1 && tag <= [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][monat - 1];
+  const geburtstag = tagOk ? { tag, monat, jahr } : jahr ? { tag: null, monat: null, jahr } : null;
 
   if (!vorn) return json({ ok: false, fehler: 'vorname' }, 400);
   if (!nachn) return json({ ok: false, fehler: 'nachname' }, 400);
@@ -64,12 +67,15 @@ async function anmelden(b, request) {
   };
   if (wa) m.einwilligung.wa = { am: jetzt, text: EINWILLIGUNG.wa };
   const mailNeu = perMail && !(alt.einwilligung && alt.einwilligung.mail && alt.einwilligung.mail.bestaetigt && alt.email === email);
+  const kuerzlich = alt.mailGesendetAm && alt.email === email && Date.now() - Date.parse(alt.mailGesendetAm) < 864e5;
+  const mailSenden = mailNeu && !kuerzlich;
+  if (mailSenden) m.mailGesendetAm = jetzt;
   if (perMail && mailNeu) m.einwilligung.mail = { am: jetzt, text: EINWILLIGUNG.mail, bestaetigt: null };
   await speichern(m);
 
   const basis = basisUrl(request);
   let mailGesendet = false;
-  if (mailNeu) {
+  if (mailSenden) {
     const link = basis + '/kreis?bestaetigen=' + id + '&s=' + signatur(id, 'ok');
     const ab = basis + '/kreis?abmelden=' + id + '&s=' + signatur(id, 'ab');
     try {
@@ -100,12 +106,12 @@ async function anmelden(b, request) {
     });
   } catch (e) { console.error('Info-Mail:', e && e.message); }
 
-  return json({ ok: true, mail: mailNeu, mailGesendet, wa: !!m.einwilligung.wa });
+  return json({ ok: true, mail: mailNeu, mailGesendet: mailGesendet || (mailNeu && kuerzlich), wa: !!m.einwilligung.wa });
 }
 
 async function bestaetigen(b) {
   const id = sauber(b.id, 40);
-  if (!id || sauber(b.s, 60) !== signatur(id, 'ok')) return json({ ok: false, fehler: 'link' }, 400);
+  if (!id || !gleich(sauber(b.s, 60), signatur(id, 'ok'))) return json({ ok: false, fehler: 'link' }, 400);
   const m = await laden(id);
   if (!m || !m.einwilligung || !m.einwilligung.mail) return json({ ok: false, fehler: 'weg' }, 404);
   if (!m.einwilligung.mail.bestaetigt) {
@@ -117,7 +123,7 @@ async function bestaetigen(b) {
 
 async function abmelden(b) {
   const id = sauber(b.id, 40);
-  if (!id || sauber(b.s, 60) !== signatur(id, 'ab')) return json({ ok: false, fehler: 'link' }, 400);
+  if (!id || !gleich(sauber(b.s, 60), signatur(id, 'ab'))) return json({ ok: false, fehler: 'link' }, 400);
   const m = await laden(id);
   if (m) {
     await loeschen(id);

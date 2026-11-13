@@ -14,6 +14,11 @@
 <meta name="description" content="Neuheiten und Einladungen der aLea Boutique in Haag am Hausruck zuerst erfahren: per WhatsApp oder E-Mail, kostenlos und jederzeit abbestellbar.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://alea-boutique.com/kreis">
+<meta property="og:title" content="aLea-Kreis · aLea Boutique">
+<meta property="og:description" content="Neuheiten und Einladungen der aLea Boutique in Haag am Hausruck zuerst erfahren: per WhatsApp oder E-Mail, kostenlos und jederzeit abbestellbar.">
+<meta property="og:image" content="https://alea-boutique.com/img/og.jpg">
+<meta property="og:url" content="https://alea-boutique.com/kreis">
+<meta property="og:locale" content="de_AT">
 <style>
   /* Layout: ruhig und klar wie eine gute Modestrecke. Großes Foto mit gerader Kante, darunter das Logo groß auf Beige, Bodoni nur für Überschriften, sonst Jost. Beige und Schwarz, keine Ornamente. */
   :root {
@@ -284,6 +289,8 @@
     .hero-knoepfe { display: flex; flex-wrap: wrap; gap: .75rem; }
   }
   .nowrap { white-space: nowrap; }
+  .legal h1 { hyphens: auto; overflow-wrap: anywhere; }
+  @media (max-width: 399px) { .legal h1 { font-size: 2rem !important; } }
   .btn { white-space: nowrap; }
   details summary, .faq summary { text-wrap: balance; }
   .feld-fehler { font-size: 1rem; color: #9A3B2E; margin-top: .4rem; }
@@ -463,6 +470,8 @@
     if (!wa && !ml) return fehler('weg');
     if (wa && $('k-tel').value.replace(/\D/g, '').length < 8) return fehler('tel');
     if (ml && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test($('k-email').value.trim())) return fehler('email');
+    var gt = +$('k-tag').value, gm = +$('k-monat').value;
+    if (gt && gm && gt > [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][gm - 1]) { var tf = $('k-jahr-f'); tf.textContent = 'Diesen Tag gibt es im gewählten Monat nicht.'; tf.hidden = false; $('k-tag').focus(); return; }
     if (jahr && (!/^\d{4}$/.test(jahr) || +jahr > J - 14 || +jahr < J - 100)) return fehler('jahr');
     var daten = { t: geoeffnet, vorname: $('k-vorname').value, nachname: $('k-nachname').value, plz: $('k-plz').value.trim(), wa: wa, mail: ml, tel: wa ? $('k-tel').value : '', email: ml ? $('k-email').value : '', gebTag: $('k-tag').value, gebMonat: $('k-monat').value, gebJahr: $('k-jahr').value, website: $('k-website').value, quelle: form.dataset.quelle || '' };
     knopf.disabled = true; knopf.textContent = 'Einen Moment …'; msg.hidden = true;
@@ -473,7 +482,7 @@
       var vn = daten.vorname.trim();
       var t = 'Schön, dass du dabei bist, ' + vn + '!';
       if (j.mail) t += j.mailGesendet ? ' Wir haben dir eine E-Mail geschickt. Bitte bestätige darin noch kurz deine Adresse.' : ' Die Bestätigungs-E-Mail konnten wir gerade nicht senden. Wir melden uns bei dir.';
-      if (j.wa) t += ' Speicher dir unsere Nummer +43 660 552 77 37 im Handy, damit unsere WhatsApp-Nachrichten bei dir ankommen.';
+      if (j.wa) t += ' Wir schicken dir in den nächsten Tagen eine kurze WhatsApp. Bitte antworte darauf mit „Ja“, dann bist du dabei. Speicher dir unsere Nummer +43\u00a0660\u00a0552\u00a077\u00a037 im Handy, damit unsere Nachrichten ankommen.';
       zeige(t + ' Steffi & Kathi');
     }).catch(function () { knopf.disabled = false; knopf.textContent = 'Jetzt anmelden'; fehler('netz'); });
   });

@@ -27,10 +27,13 @@ export async function POST(request) {
   const offen = Number(b.t);
   if (!offen || Date.now() - offen < 3000) return json({ ok: true });
 
-  const name = sauber(b.name, MAX.name);
-  const kontakt = sauber(b.kontakt, MAX.kontakt);
+  const einzeilig = (v, n) => sauber(v, n).replace(/[\r\n]+/g, ' ');
+  const name = einzeilig(b.name, MAX.name);
+  const kontakt = einzeilig(b.kontakt, MAX.kontakt);
   const nachricht = sauber(b.nachricht, MAX.nachricht);
-  const datum = datumText(sauber(b.datum, 10));
+  const heute = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Vienna' }).format(new Date());
+  const datumRoh = sauber(b.datum, 10);
+  const datum = datumRoh >= heute ? datumText(datumRoh) : '';
   const personen = Math.min(Math.max(parseInt(b.personen, 10) || 0, 0), 99);
 
   if (!name || !kontakt) return json({ ok: false, fehler: 'pflicht' }, 400);
